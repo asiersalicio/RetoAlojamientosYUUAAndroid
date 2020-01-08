@@ -1,8 +1,6 @@
 package com.yuua.alojamientosyuua;
 
 import android.content.Context;
-import android.os.Looper;
-import android.widget.Toast;
 
 import com.yuua.reto.net.Request;
 
