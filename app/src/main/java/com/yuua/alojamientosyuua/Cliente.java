@@ -27,15 +27,21 @@ public class Cliente implements Runnable{
     @Override
     public void run() {
         try {
-            Looper.prepare();
-            Toast.makeText(this.context,"hilo empezado",Toast.LENGTH_LONG);
             cliente = new Socket(IP, PUERTO);
+            System.out.println("Conexión realizada con servidor");
             salida = new ObjectOutputStream(cliente.getOutputStream());
             entrada = new ObjectInputStream(cliente.getInputStream());
-            mandarRequest(new Request(0,"holi"));
-            cliente.close();
-            entrada.close();
-            salida.close();
+            mandarRequest(new Request(1,"holi"));
+            while (true) {
+                Request peticion = (Request) entrada.readObject();
+                switch (peticion.getCodigoPeticion()) {
+                    case 0:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -58,7 +64,17 @@ public class Cliente implements Runnable{
         try {
             salida.writeObject(peticion);
         } catch (IOException e) {
+        }
+    }
 
+    public void finalizar() {
+        mandarRequest(new Request(0,null));
+        try {
+            cliente.close();
+            entrada.close();
+            salida.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
