@@ -1,6 +1,7 @@
 package com.yuua.alojamientosyuua;
 
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -26,10 +27,10 @@ public class FragmentInicio extends Fragment{
     public View view;
     public ArrayList<Alojamiento> alojamientos;
     public RecyclerView rv;
+    private Context contextoBase;
 
-    public FragmentInicio() {
-        // Required empty public constructor
-
+    public FragmentInicio(Context contextoBase) {
+        this.contextoBase=contextoBase;
     }
 
 
@@ -54,7 +55,7 @@ public class FragmentInicio extends Fragment{
 
         rv.setLayoutManager(Base.llm);
 
-        RVAdapter adapter = new RVAdapter(alojamientos);
+        RVAdapter adapter = new RVAdapter(contextoBase, alojamientos);
         rv.setAdapter(adapter);
     }
 

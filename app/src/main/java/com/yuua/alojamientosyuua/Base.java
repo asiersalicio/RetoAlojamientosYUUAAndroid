@@ -3,20 +3,14 @@ package com.yuua.alojamientosyuua;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.yuua.alojamientosyuua.adaptadores.RVAdapter;
-import com.yuua.alojamientosyuua.entidades.Alojamiento;
-
-import java.util.ArrayList;
 
 public class Base extends AppCompatActivity {
 
@@ -25,8 +19,10 @@ public class Base extends AppCompatActivity {
     private FragmentInicio fragmentInicio;
     private fragment_Reservas fragment_reservas;
     private fragment_Usuario fragment_usuario;
+    private Context contexto;
 
     public static LinearLayoutManager llm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +36,11 @@ public class Base extends AppCompatActivity {
 
     public void Inicializar()
     {
-
+        contexto=this;
         bottomNavigationView=findViewById(R.id.bottomnavigationview);
 
-        llm = new LinearLayoutManager(this);
-
-
-        fragmentInicio = new FragmentInicio();
+        llm = new LinearLayoutManager(contexto);
+        fragmentInicio = new FragmentInicio(contexto);
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutbase,fragmentInicio).commit();
         AnadirListeners();
     }
@@ -58,10 +52,11 @@ public class Base extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Fragment selectedFragment = null;
+                llm = new LinearLayoutManager(contexto);
                 switch(menuItem.getItemId())
                 {
                     case R.id.bottomnavhome:
-                        fragmentInicio = new FragmentInicio();
+                        fragmentInicio = new FragmentInicio(contexto);
                         selectedFragment = fragmentInicio;
                     break;
                     case R.id.bottomnavbookings:

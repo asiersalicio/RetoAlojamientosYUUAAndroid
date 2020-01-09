@@ -9,7 +9,9 @@
         android:id="@+id/CardH"
         android:layout_width="match_parent"
         android:layout_height="340dp"
-        android:layout_margin="15dp">
+        android:layout_margin="15dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,6 +21,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="163dp"
+                android:contentDescription="@string/ErrHotelImage"
                 android:scaleType="centerCrop"
                 android:tint="#00C0C0C0"
                 android:tintMode="multiply"

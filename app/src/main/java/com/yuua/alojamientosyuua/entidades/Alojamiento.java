@@ -1,6 +1,8 @@
 package com.yuua.alojamientosyuua.entidades;
 
-public class Alojamiento {
+import java.io.Serializable;
+
+public class Alojamiento implements Serializable {
 
 	int id;
 	String tipo;

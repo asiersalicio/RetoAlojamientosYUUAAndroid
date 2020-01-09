@@ -5,4 +5,6 @@
     <string name="user">Usuario</string>
     <string name="bookings">Reservas</string>
     <string name="welcome">Bienvenido</string>
+    <string name="ErrHotelImage">Err: Imagen no disponible</string>
+    <string name="bookNow">¡Reserva ahora!</string>
 </resources>
