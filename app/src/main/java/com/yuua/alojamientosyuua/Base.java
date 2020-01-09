@@ -11,14 +11,17 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.yuua.alojamientosyuua.fragmentos.FragmentInicio;
+import com.yuua.alojamientosyuua.fragmentos.FragmentReservas;
+import com.yuua.alojamientosyuua.fragmentos.FragmentUsuario;
 
 public class Base extends AppCompatActivity {
 
     public BottomNavigationView bottomNavigationView;
 
     private FragmentInicio fragmentInicio;
-    private fragment_Reservas fragment_reservas;
-    private fragment_Usuario fragment_usuario;
+    private FragmentReservas fragment_reservas;
+    private FragmentUsuario fragment_usuario;
     private Context contexto;
 
     public static LinearLayoutManager llm;
@@ -60,11 +63,11 @@ public class Base extends AppCompatActivity {
                         selectedFragment = fragmentInicio;
                     break;
                     case R.id.bottomnavbookings:
-                        fragment_reservas = new fragment_Reservas();
+                        fragment_reservas = new FragmentReservas();
                         selectedFragment = fragment_reservas;
                         break;
                     case R.id.bottomnavuser:
-                        fragment_usuario = new fragment_Usuario();
+                        fragment_usuario = new FragmentUsuario();
                         selectedFragment = fragment_usuario;
                     break;
                 }

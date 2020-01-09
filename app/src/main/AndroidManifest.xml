@@ -27,4 +27,7 @@
             android:value="AIzaSyDx3MP7zWx8pelBfRynyrcX2YM5_b606oM" />
     </application>
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
 </manifest>

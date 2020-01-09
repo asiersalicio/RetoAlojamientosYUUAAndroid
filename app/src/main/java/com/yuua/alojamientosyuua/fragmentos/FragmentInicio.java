@@ -1,4 +1,4 @@
-package com.yuua.alojamientosyuua;
+package com.yuua.alojamientosyuua.fragmentos;
 
 
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yuua.alojamientosyuua.Base;
+import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.RVAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 

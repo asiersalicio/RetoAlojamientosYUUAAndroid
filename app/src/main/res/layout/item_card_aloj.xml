@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/CardH"
         android:layout_width="match_parent"
-        android:layout_height="340dp"
+        android:layout_height="200dp"
         android:layout_margin="15dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground">
@@ -21,7 +21,7 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
-                android:layout_height="163dp"
+                android:layout_height="100dp"
                 android:contentDescription="@string/ErrHotelImage"
                 android:scaleType="centerCrop"
                 android:tint="#00C0C0C0"
