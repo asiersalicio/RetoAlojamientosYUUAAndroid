@@ -36,7 +36,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="232dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/textView11"
@@ -52,7 +52,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewInicio"
             android:layout_width="match_parent"
-            android:layout_height="276dp" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 </ScrollView>

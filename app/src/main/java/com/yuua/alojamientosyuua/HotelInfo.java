@@ -7,8 +7,6 @@ import android.widget.TextView;
 
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 
-import org.w3c.dom.Text;
-
 public class HotelInfo extends AppCompatActivity {
 
     private Alojamiento alojamiento;
@@ -26,7 +24,7 @@ public class HotelInfo extends AppCompatActivity {
     {
         alojamiento=(Alojamiento) getIntent().getSerializableExtra("alojamiento");
 
-        nombreHotel=findViewById(R.id.cardNombreInfoH);
+        nombreHotel=findViewById(R.id.NombreInfoH);
         nombreHotel.setText(alojamiento.getNombre());
     }
 }

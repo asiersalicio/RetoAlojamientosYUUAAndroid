@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">retoalojamientosyuuaandroid</string>
+    <string name="app_name" translatable="false">YUUA.com</string>
     <string name="YUUA" translatable="false">YUUA</string>
     <string name="home">Home</string>
     <string name="user">User</string>
@@ -10,6 +10,7 @@
     <string name="welcome">Welcome</string>
     <string name="ErrHotelImage">Err: Image not available</string>
     <string name="bookNow">Book now!</string>
+    <string name="ver" translatable="false">v0.1 ALPHA</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
