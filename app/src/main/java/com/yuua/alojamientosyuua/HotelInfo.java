@@ -28,11 +28,11 @@ public class HotelInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_info);
-        Inizializar();
+        inizializar();
 
     }
 
-    public void Inizializar()
+    public void inizializar()
     {
         contexto=this;
         alojamiento=(Alojamiento) getIntent().getSerializableExtra("alojamiento");
@@ -42,13 +42,12 @@ public class HotelInfo extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
 
-        Localizacion loc = new Localizacion();
-        loc.setLatitud(4.5);
-        loc.setLongitud(1.3);
+        if(alojamiento.getLocalizacion()!=null)
+        {
+            ft.replace(R.id.map_info_frame_H, new FragmentMap(alojamiento.getLocalizacion(),alojamiento.getNombre(), R.drawable.hotel));
+            ft.commitAllowingStateLoss();
+        }
 
-        alojamiento.setLocalizacion(loc);
-        ft.replace(R.id.map_info_frame_H, new FragmentMap(alojamiento.getLocalizacion(),"Prueba", R.drawable.hotel));
-        ft.commitAllowingStateLoss();
         RellenarDatos();
     }
 

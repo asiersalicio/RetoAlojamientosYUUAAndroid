@@ -11,6 +11,8 @@
     <string name="ErrHotelImage">Err: Image not available</string>
     <string name="bookNow">Book now!</string>
     <string name="ver" translatable="false">v0.1 ALPHA</string>
+    <string name="clickToGMaps">Press to go to Google Maps</string>
+    <string name="logout">Log out</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
