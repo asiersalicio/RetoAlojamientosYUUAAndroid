@@ -48,12 +48,12 @@ public class FragmentInicio extends Fragment{
     }
 
     public void cargarDatosBD() {
-        Request peticion = new Request(60, new Object[]{"Alojamiento",new String[]{},new String[]{}});
+        /*Request peticion = new Request(60, new Object[]{"Alojamiento",new String[]{},new String[]{}});
         Cliente cliente = new Cliente(peticion);
         Thread hiloCliente=new Thread(cliente);
         hiloCliente.start();
         
-        cliente.leerJson();
+        cliente.leerJson();*/
 
         Localizacion loc = new Localizacion();
         loc.setLatitud(43.2673868);
