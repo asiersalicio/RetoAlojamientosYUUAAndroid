@@ -1,4 +1,4 @@
-package com.yuua.alojamientosyuua;
+package com.yuua.alojamientosyuua.net;
 
 import android.content.Context;
 
@@ -10,17 +10,18 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 
-public class Cliente implements Runnable{
+public class Cliente implements Runnable {
     private final int PUERTO = 55555;
     private final String IP = "192.168.101.233";
     private Context context;
     private Socket cliente = null;
     private ObjectOutputStream salida = null;
     private ObjectInputStream entrada = null;
-    public Object resultadoPeticion;
+    private Request peticion;
+    public String jsonResultado = "";
 
-    public Cliente(Context contexto) {
-        this.context=contexto;
+    public Cliente(Request peticion) {
+        this.peticion = peticion;
     }
 
     @Override
@@ -30,18 +31,17 @@ public class Cliente implements Runnable{
             System.out.println("Conexión realizada con servidor");
             salida = new ObjectOutputStream(cliente.getOutputStream());
             entrada = new ObjectInputStream(cliente.getInputStream());
-            while (true) {
-                Request peticion = (Request) entrada.readObject();
-                switch (peticion.getCodigoPeticion()) {
-                    case 0:
-                        break;
-                    case 61:
-                        resultadoPeticion=entrada.readObject();
-                    default:
-                        break;
-                }
+            salida.writeObject(peticion);
+            Request peticion = (Request) entrada.readObject();
+            switch (peticion.getCodigoPeticion()) {
+                case 0:
+                    break;
+                case 61:
+                    jsonResultado = (String) peticion.getObjetoEnviado();
+                    break;
+                default:
+                    break;
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -68,7 +68,7 @@ public class Cliente implements Runnable{
     }
 
     public void finalizar() {
-        mandarRequest(new Request(0,null));
+        mandarRequest(new Request(0, null));
         try {
             cliente.close();
             entrada.close();
@@ -76,5 +76,11 @@ public class Cliente implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public String leerJson(){
+        while (jsonResultado.equals(""));
+        return jsonResultado;
     }
 }

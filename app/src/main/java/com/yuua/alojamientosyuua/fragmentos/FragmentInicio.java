@@ -2,19 +2,21 @@ package com.yuua.alojamientosyuua.fragmentos;
 
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.api.Api;
 import com.yuua.alojamientosyuua.Base;
-import com.yuua.alojamientosyuua.Cliente;
+import com.yuua.alojamientosyuua.net.AsynCliente;
+import com.yuua.alojamientosyuua.net.Cliente;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.RVAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
@@ -23,16 +25,13 @@ import com.yuua.reto.net.Request;
 
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FragmentInicio extends Fragment{
 
     public View view;
     public ArrayList<Alojamiento> alojamientos;
     public RecyclerView rv;
     private Context contextoBase;
+    private AsyncTask clienteAsyncrono;
 
     public FragmentInicio(Context contextoBase) {
         this.contextoBase=contextoBase;
@@ -41,30 +40,20 @@ public class FragmentInicio extends Fragment{
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_inicio, container, false);
         rv=view.findViewById(R.id.recyclerViewInicio);
-        CargarDatosBD();
+        cargarDatosBD();
         return view;
     }
 
-
-    public void CargarDatosBD()
-    {
-        /*Cliente clientetest=new Cliente(null);
-        Thread hilotest=new Thread(clientetest);
-        hilotest.start();
-
+    public void cargarDatosBD() {
         Request peticion = new Request(60, new Object[]{"Alojamiento",new String[]{},new String[]{}});
-        clientetest.mandarRequest(peticion);
-        while (clientetest.resultadoPeticion==null){
-
-        }
-        Object resultado=clientetest.resultadoPeticion;*/
+        Cliente cliente = new Cliente(peticion);
+        Thread hiloCliente=new Thread(cliente);
+        hiloCliente.start();
+        
+        cliente.leerJson();
 
         Localizacion loc = new Localizacion();
         loc.setLatitud(43.2673868);
