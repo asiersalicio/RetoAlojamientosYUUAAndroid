@@ -7,10 +7,9 @@
     tools:context=".fragmentos.FragmentUsuario">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/botonPrueba"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="aaaa"
         android:text="Button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

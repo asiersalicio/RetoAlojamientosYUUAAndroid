@@ -28,9 +28,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder>{
     public PersonViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_card_aloj, viewGroup, false);
         PersonViewHolder pvh = new PersonViewHolder(v);
-
-
-
         return pvh;
     }
 
