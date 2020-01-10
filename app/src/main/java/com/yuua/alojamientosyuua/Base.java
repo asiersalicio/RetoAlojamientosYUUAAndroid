@@ -22,7 +22,7 @@ public class Base extends AppCompatActivity {
     private FragmentInicio fragmentInicio;
     private FragmentReservas fragment_reservas;
     private FragmentUsuario fragment_usuario;
-    private Context contexto;
+    public static Context contexto;
 
     public static LinearLayoutManager llm;
 

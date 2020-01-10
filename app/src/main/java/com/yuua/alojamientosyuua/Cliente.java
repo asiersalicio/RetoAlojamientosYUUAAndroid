@@ -17,6 +17,7 @@ public class Cliente implements Runnable{
     private Socket cliente = null;
     private ObjectOutputStream salida = null;
     private ObjectInputStream entrada = null;
+    public Object resultadoPeticion;
 
     public Cliente(Context contexto) {
         this.context=contexto;
@@ -29,12 +30,13 @@ public class Cliente implements Runnable{
             System.out.println("Conexión realizada con servidor");
             salida = new ObjectOutputStream(cliente.getOutputStream());
             entrada = new ObjectInputStream(cliente.getInputStream());
-            mandarRequest(new Request(1,"holi"));
             while (true) {
                 Request peticion = (Request) entrada.readObject();
                 switch (peticion.getCodigoPeticion()) {
                     case 0:
                         break;
+                    case 61:
+                        resultadoPeticion=entrada.readObject();
                     default:
                         break;
                 }

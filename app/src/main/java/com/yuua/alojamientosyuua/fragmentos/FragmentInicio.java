@@ -14,9 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yuua.alojamientosyuua.Base;
+import com.yuua.alojamientosyuua.Cliente;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.RVAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
+import com.yuua.reto.net.Request;
 
 import java.util.ArrayList;
 
@@ -52,6 +54,17 @@ public class FragmentInicio extends Fragment{
 
     public void CargarDatosBD()
     {
+        /*Cliente clientetest=new Cliente(null);
+        Thread hilotest=new Thread(clientetest);
+        hilotest.start();
+
+        Request peticion = new Request(60, new Object[]{"Alojamiento",new String[]{},new String[]{}});
+        clientetest.mandarRequest(peticion);
+        while (clientetest.resultadoPeticion==null){
+
+        }
+        Object resultado=clientetest.resultadoPeticion;*/
+
         alojamientos=new ArrayList<Alojamiento>();
         alojamientos.add(new Alojamiento("Hotel", "Hotel playa", "Un hotel en la playa", 600000000, "Sin web", "Sin email", 100, null));
         alojamientos.add(new Alojamiento("Hotel", "Hotel Prueba", "Un hotel de prueba", 600000000, "Sin web", "Sin email", 100, null));

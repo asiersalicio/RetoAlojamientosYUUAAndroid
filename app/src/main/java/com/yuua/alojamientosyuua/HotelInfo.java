@@ -5,10 +5,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
+import com.yuua.alojamientosyuua.entidades.Localizacion;
 import com.yuua.alojamientosyuua.fragmentos.FragmentMap;
 
 public class HotelInfo extends AppCompatActivity {
@@ -22,11 +28,11 @@ public class HotelInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_info);
-        Inizialiar();
+        Inizializar();
 
     }
 
-    public void Inizialiar()
+    public void Inizializar()
     {
         contexto=this;
         alojamiento=(Alojamiento) getIntent().getSerializableExtra("alojamiento");
@@ -36,7 +42,12 @@ public class HotelInfo extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
 
-        ft.replace(R.id.map_info_frame_H, new FragmentMap(), "map");
+        Localizacion loc = new Localizacion();
+        loc.setLatitud(4.5);
+        loc.setLongitud(1.3);
+
+        alojamiento.setLocalizacion(loc);
+        ft.replace(R.id.map_info_frame_H, new FragmentMap(alojamiento.getLocalizacion(),"Prueba", R.drawable.hotel));
         ft.commitAllowingStateLoss();
         RellenarDatos();
     }

@@ -17,9 +17,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         context=this;
         getSupportActionBar().hide();
-        Cliente clientetest=new Cliente(this);
-        Thread hilotest=new Thread(clientetest);
-        hilotest.start();
     }
 
     @Override
