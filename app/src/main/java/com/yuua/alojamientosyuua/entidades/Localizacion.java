@@ -1,6 +1,8 @@
 package com.yuua.alojamientosyuua.entidades;
 
-public class Localizacion {
+import java.io.Serializable;
+
+public class Localizacion implements Serializable {
 	
 	int id;
 	Pais tpais;

@@ -7,12 +7,14 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,6 +24,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Localizacion;
@@ -51,12 +54,26 @@ public class FragmentMap extends Fragment {
 
                 mMap.clear(); //clear old markers
 
-                CameraPosition googlePlex = CameraPosition.builder().target(new LatLng(localizacion.getLatitud(),localizacion.getLongitud())).zoom(10).bearing(0).tilt(45).build();
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.2726747,-2.5048312), 9));
+
+                CameraPosition googlePlex = CameraPosition.builder().target(new LatLng(localizacion.getLatitud(),localizacion.getLongitud())).zoom(12).bearing(0).tilt(45).build();
 
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 5000, null);
 
-                mMap.addMarker(new MarkerOptions().position(new LatLng(localizacion.getLatitud(),localizacion.getLongitud())).title(nombreMarcador).snippet(localizacion.getDireccion()).icon(BitmapDescriptorFactory.fromResource(icono)));
 
+
+                Marker marcador = mMap.addMarker(new MarkerOptions().position(new LatLng(localizacion.getLatitud(),localizacion.getLongitud())).title(nombreMarcador).snippet(localizacion.getDireccion()).icon(BitmapDescriptorFactory.fromResource(icono)));
+                marcador.showInfoWindow();
+
+            }
+        });
+
+        ConstraintLayout boton = rootView.findViewById(R.id.constraintMap);
+
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AbrirGMaps();
             }
         });
 
@@ -64,13 +81,11 @@ public class FragmentMap extends Fragment {
         return rootView;
     }
 
-    public void AbrirGMaps(View view)
+    public void AbrirGMaps()
     {
-        Log.println(Log.DEBUG,"A","ENTRA");
-        Uri gmmIntentUri = Uri.parse("geo:" + localizacion.getLatitud() + ", " + localizacion.getLongitud());
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-        mapIntent.setPackage("com.google.android.apps.maps");
-        startActivity(mapIntent);
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                Uri.parse("https://www.google.com/maps/search/?api=1&query=" + nombreMarcador + " " + localizacion.getDireccion() + ", " + localizacion.getCodigoPostal()));
+        startActivity(intent);
     }
 
 

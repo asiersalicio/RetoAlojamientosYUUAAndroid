@@ -28,9 +28,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder>{
     public PersonViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_card_aloj, viewGroup, false);
         PersonViewHolder pvh = new PersonViewHolder(v);
-
-
-
         return pvh;
     }
 
@@ -43,7 +40,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder>{
             public void onClick(View v) {
                 Log.println(Log.INFO,"A",alojamientos.get(personViewHolder.getAdapterPosition()).getNombre());
                 Intent intento = new Intent(contextoBase, HotelInfo.class);
-                intento.putExtra("alojamiento", alojamientos.get(personViewHolder.getAdapterPosition()));
+                Alojamiento aloj = alojamientos.get(personViewHolder.getAdapterPosition());
+                intento.putExtra("alojamiento", aloj);
                 contextoBase.startActivity(intento);
             }
         });

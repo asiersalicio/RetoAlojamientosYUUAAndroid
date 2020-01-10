@@ -20,6 +20,7 @@ import com.yuua.alojamientosyuua.net.Cliente;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.RVAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
+import com.yuua.alojamientosyuua.entidades.Localizacion;
 import com.yuua.reto.net.Request;
 
 import java.util.ArrayList;
@@ -54,8 +55,15 @@ public class FragmentInicio extends Fragment{
         
         cliente.leerJson();
 
+        Localizacion loc = new Localizacion();
+        loc.setLatitud(43.2673868);
+        loc.setLongitud(-2.941894);
+        loc.setCodigoPostal("48011");
+        loc.setDireccion("Leizaola Lehendakariaren Kalea, 29");
+
+
         alojamientos=new ArrayList<Alojamiento>();
-        alojamientos.add(new Alojamiento("Hotel", "Hotel playa", "Un hotel en la playa", 600000000, "Sin web", "Sin email", 100, null));
+        alojamientos.add(new Alojamiento("Hotel", "Hotel Melia", "Un hotel en bilbao", 600000000, "Sin web", "Sin email", 100, loc));
         alojamientos.add(new Alojamiento("Hotel", "Hotel Prueba", "Un hotel de prueba", 600000000, "Sin web", "Sin email", 100, null));
 
         rv.setLayoutManager(Base.llm);
