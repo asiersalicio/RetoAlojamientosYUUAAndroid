@@ -1,6 +1,5 @@
-package com.yuua.alojamientosyuua;
+package com.yuua.alojamientosyuua.activitys;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,6 +15,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.yuua.alojamientosyuua.DatosApp;
+import com.yuua.alojamientosyuua.R;
+import com.yuua.alojamientosyuua.entidades.Usuario;
 
 public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -27,10 +29,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().hide();
 
         inizializar();
 
-        getSupportActionBar().hide();
+
     }
 
     private void inizializar() {
@@ -72,10 +75,8 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
     private void gotoProfile(GoogleSignInResult result){
         GoogleSignInAccount account=result.getSignInAccount();
-
-
-        Toast.makeText(this, "INICIADO SESION CON EXITO", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, account.getEmail(), Toast.LENGTH_SHORT).show();
+        DatosApp.user = new Usuario(account.getFamilyName(),account.getGivenName(),account.getDisplayName(),"usuario",account.getDisplayName(),null,null,account.getEmail(),0,account.getPhotoUrl());
+        finish();
     }
 
 
@@ -86,6 +87,13 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Toast.makeText(this, "Error de conexion!", Toast.LENGTH_SHORT).show();
         Log.e("GoogleSignIn", "OnConnectionFailed: " + connectionResult);
+    }
+
+    public void btnRegisterWithEmail(View view)
+    {
+        Intent intentRegistro = new Intent(this, Register.class);
+        startActivity(intentRegistro);
+        finish();
     }
 
 

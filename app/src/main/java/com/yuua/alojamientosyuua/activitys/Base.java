@@ -1,4 +1,4 @@
-package com.yuua.alojamientosyuua;
+package com.yuua.alojamientosyuua.activitys;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,13 +6,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Context;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.yuua.alojamientosyuua.DatosApp;
+import com.yuua.alojamientosyuua.R;
+import com.yuua.alojamientosyuua.entidades.Usuario;
 import com.yuua.alojamientosyuua.fragmentos.FragmentInicio;
 import com.yuua.alojamientosyuua.fragmentos.FragmentReservas;
 import com.yuua.alojamientosyuua.fragmentos.FragmentUsuario;
@@ -36,6 +41,12 @@ public class Base extends AppCompatActivity {
         Inicializar();
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        establecerDatosUsuario();
     }
 
     @Override
@@ -87,10 +98,16 @@ public class Base extends AppCompatActivity {
         });
     }
 
-    public void cambiar(View view)
+    public void establecerDatosUsuario()
     {
-
+        if(DatosApp.user!=null)
+        {
+            Usuario user = DatosApp.user;
+            BottomNavigationView bottomNavigationView = findViewById(R.id.bottomnavigationview);
+            bottomNavigationView.getMenu().getItem(2).setTitle(user.getNombreUsuario());
+        }
     }
+
 
 
 }

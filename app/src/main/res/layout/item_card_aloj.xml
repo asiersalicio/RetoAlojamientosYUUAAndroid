@@ -19,17 +19,15 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
+                android:id="@+id/cardImagenH"
+                android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:contentDescription="@string/ErrHotelImage"
                 android:scaleType="centerCrop"
-                android:tint="#00C0C0C0"
-                android:tintMode="multiply"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/fondoinicio" />
+                app:srcCompat="@drawable/back1" />
 
             <TextView
                 android:id="@+id/cardNombreH"
@@ -40,7 +38,7 @@
                 android:textColor="@color/colorSecondary"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageView" />
+                app:layout_constraintTop_toTopOf="@+id/cardImagenH" />
 
             <TextView
                 android:id="@+id/cardDescH"
@@ -49,10 +47,21 @@
                 android:layout_margin="10dp"
                 android:text="Descripcion"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/cardPrecioH"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/cardImagenH"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/cardPrecioH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="0€"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,5 +1,7 @@
 package com.yuua.alojamientosyuua.entidades;
 
+import android.net.Uri;
+
 import java.util.Date;
 
 
@@ -14,12 +16,13 @@ public class Usuario {
 	private Date fechaNacimiento;
 	private String correo;
 	private long telefono;
+	private Uri imageUrl;
 
 	protected Usuario() {
 
 	}
 
-	public Usuario(String idDni, String nombre, String apellidos, String tipoUsuario, String nombreUsuario, String contrasena, Date fechaNacimiento, String correo, long telefono) {
+	public Usuario(String idDni, String nombre, String apellidos, String tipoUsuario, String nombreUsuario, String contrasena, Date fechaNacimiento, String correo, long telefono,Uri imageUrl) {
 		super();
 		this.idDni = idDni;
 		this.nombre = nombre;
@@ -30,6 +33,7 @@ public class Usuario {
 		this.fechaNacimiento = fechaNacimiento;
 		this.correo = correo;
 		this.telefono = telefono;
+		this.imageUrl=imageUrl;
 	}
 
 	public String getIdDni() {
@@ -102,6 +106,14 @@ public class Usuario {
 
 	public void setTelefono(long telefono) {
 		this.telefono = telefono;
+	}
+
+	public void setImageUrl(Uri imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public Uri getImageUrl() {
+		return imageUrl;
 	}
 
 }
