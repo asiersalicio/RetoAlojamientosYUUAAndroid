@@ -19,6 +19,7 @@ import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FragmentInicio extends Fragment{
 
@@ -47,6 +48,7 @@ public class FragmentInicio extends Fragment{
         Consultas consultar=new Consultas();
         Request consulta=consultar.prepararQueryHibernate(60,Alojamiento.class,new String[]{},new String[]{});
         Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
+        alojamientos= (ArrayList<Alojamiento>) resultado;
 
 
         rv.setLayoutManager(Base.llm);

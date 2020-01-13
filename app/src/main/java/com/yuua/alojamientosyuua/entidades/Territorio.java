@@ -1,8 +1,9 @@
 package com.yuua.alojamientosyuua.entidades;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public class Territorio {
+public class Territorio implements Serializable {
 	public char[] id;
 	public String nombre;
 	private transient Set<Localizacion> tlocalizacion;

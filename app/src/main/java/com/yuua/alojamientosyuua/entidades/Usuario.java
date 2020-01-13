@@ -2,10 +2,11 @@ package com.yuua.alojamientosyuua.entidades;
 
 import android.net.Uri;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class Usuario {
+public class Usuario implements Serializable {
 
 	private String idDni;
 	private String nombre;
