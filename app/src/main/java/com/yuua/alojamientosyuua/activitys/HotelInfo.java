@@ -24,6 +24,7 @@ public class HotelInfo extends AppCompatActivity {
     public TextView nombreHotel;
     public Context contexto;
     public FragmentMap fragmentMap;
+    public TextView descHotel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +40,10 @@ public class HotelInfo extends AppCompatActivity {
         alojamiento=(Alojamiento) getIntent().getSerializableExtra("alojamiento");
 
         nombreHotel=findViewById(R.id.NombreInfoH);
-
+        descHotel=findViewById(R.id.descInfoH);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
+
 
         if(alojamiento.getLocalizacion()!=null)
         {
@@ -57,5 +59,6 @@ public class HotelInfo extends AppCompatActivity {
     public void RellenarDatos()
     {
         nombreHotel.setText(alojamiento.getNombre());
+        descHotel.setText(alojamiento.getDescripcion());
     }
 }
