@@ -1,4 +1,4 @@
-package com.yuua.alojamientosyuua;
+package com.yuua.alojamientosyuua.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.yuua.alojamientosyuua.R;
 
 public class MainActivity extends AppCompatActivity {
 

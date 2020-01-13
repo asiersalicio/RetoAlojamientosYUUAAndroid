@@ -9,7 +9,17 @@
     <string name="clickToGMaps">Pulsa para abrir Google Maps</string>
     <string name="logout">Cerrar sesión</string>
     <string name="email">Correo electronico</string>
-    <string name="password">Password</string>
+    <string name="password">Contraseña</string>
     <string name="keepLogin">Mantener sesion iniciada</string>
     <string name="login">Iniciar sesión</string>
+    <string name="or">o</string>
+    <string name="registerWithEmail">Registrate con correo electronico</string>
+    <string name="identityDocument">DNI</string>
+    <string name="name">Nombre</string>
+    <string name="surname">Apellidos</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="phoneNumber">Número de telefono</string>
+    <string name="birthdate">Fecha de nacimiento</string>
+    <string name="registerNow">Registrese ahora</string>
+    <string name="dateFormat">dd/MM/yyyy</string>
 </resources>

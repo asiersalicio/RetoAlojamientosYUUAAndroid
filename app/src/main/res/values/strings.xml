@@ -17,6 +17,16 @@
     <string name="password">Password</string>
     <string name="keepLogin">Keep logged in</string>
     <string name="login">Login</string>
+    <string name="or">or</string>
+    <string name="registerWithEmail">Register with E-Mail</string>
+    <string name="identityDocument">ID number</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="username">Username</string>
+    <string name="phoneNumber">Phone number</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="registerNow">Register now</string>
+    <string name="dateFormat">MM/dd/yyyy</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

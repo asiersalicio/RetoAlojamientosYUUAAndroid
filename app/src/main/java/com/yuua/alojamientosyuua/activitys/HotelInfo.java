@@ -1,4 +1,4 @@
-package com.yuua.alojamientosyuua;
+package com.yuua.alojamientosyuua.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.entidades.Localizacion;
 import com.yuua.alojamientosyuua.fragmentos.FragmentMap;

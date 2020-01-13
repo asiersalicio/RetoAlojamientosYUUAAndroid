@@ -16,10 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login"></activity>
-        <activity android:name=".HotelInfo" />
-        <activity android:name=".Base" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activitys.Register"></activity>
+        <activity android:name=".activitys.Login" />
+        <activity android:name=".activitys.HotelInfo" />
+        <activity android:name=".activitys.Base" />
+        <activity android:name=".activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
