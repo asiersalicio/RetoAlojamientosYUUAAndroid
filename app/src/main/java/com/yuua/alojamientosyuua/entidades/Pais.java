@@ -3,15 +3,11 @@ package com.yuua.alojamientosyuua.entidades;
 import java.util.Set;
 
 public class Pais {
-
 	public char[] id;
 	public String nombre;
+	private transient Set<Localizacion> tlocalizacion;
 
-	private Set<Localizacion> tlocalizacion;
-
-	public Pais() {
-
-	}
+	public Pais() { }
 
 	public char[] getId() {
 		return id;

@@ -29,8 +29,6 @@ public class Alojamiento implements Serializable {
 		this.localizacion = localizacion;
 	}
 
-	
-
 	public int getCapacidad() {
 		return capacidad;
 	}

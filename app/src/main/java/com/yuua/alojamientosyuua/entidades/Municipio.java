@@ -2,17 +2,12 @@ package com.yuua.alojamientosyuua.entidades;
 
 import java.util.Set;
 
-
 public class Municipio {
-
 	public char[] id;
-
 	public String nombre;
+	private transient Set<Localizacion> tlocalizacion;
 
-	private Set<Localizacion> tlocalizacion;
-
-	public Municipio() {
-	}
+	public Municipio() { }
 
 	public Municipio(char[] id, String nombre) {
 		this.id = id;

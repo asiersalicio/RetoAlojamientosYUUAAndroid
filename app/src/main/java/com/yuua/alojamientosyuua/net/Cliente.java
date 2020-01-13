@@ -28,7 +28,6 @@ public class Cliente implements Runnable {
     public void run() {
         try {
             cliente = new Socket(IP, PUERTO);
-            System.out.println("Conexión realizada con servidor");
             salida = new ObjectOutputStream(cliente.getOutputStream());
             entrada = new ObjectInputStream(cliente.getInputStream());
             salida.writeObject(peticion);
@@ -66,19 +65,6 @@ public class Cliente implements Runnable {
         } catch (IOException e) {
         }
     }
-
-    public void finalizar() {
-        mandarRequest(new Request(0, null));
-        try {
-            cliente.close();
-            entrada.close();
-            salida.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public String leerJson(){
         while (jsonResultado.equals(""));
         return jsonResultado;
