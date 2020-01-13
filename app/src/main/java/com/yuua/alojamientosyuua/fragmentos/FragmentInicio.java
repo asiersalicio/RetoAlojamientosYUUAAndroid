@@ -4,19 +4,19 @@ package com.yuua.alojamientosyuua.fragmentos;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.yuua.alojamientosyuua.activitys.Base;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.yuua.alojamientosyuua.R;
+import com.yuua.alojamientosyuua.activitys.Base;
 import com.yuua.alojamientosyuua.adaptadores.RVAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
-import com.yuua.alojamientosyuua.entidades.Localizacion;
+import com.yuua.alojamientosyuua.net.Consultas;
+import com.yuua.reto.net.Request;
 
 import java.util.ArrayList;
 
@@ -43,26 +43,13 @@ public class FragmentInicio extends Fragment{
     }
 
     public void cargarDatosBD() {
-        /*Request peticion = new Request(60, new Object[]{"Alojamiento",new String[]{},new String[]{}});
-        Cliente cliente = new Cliente(peticion);
-        Thread hiloCliente=new Thread(cliente);
-        hiloCliente.start();
-        
-        cliente.leerJson();*/
 
-        Localizacion loc = new Localizacion();
-        loc.setLatitud(43.2673868);
-        loc.setLongitud(-2.941894);
-        loc.setCodigoPostal("48011");
-        loc.setDireccion("Leizaola Lehendakariaren Kalea, 29");
+        Consultas consultar=new Consultas();
+        Request consulta=consultar.prepararQueryHibernate(60,Alojamiento.class,new String[]{},new String[]{});
+        Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
 
-
-        alojamientos=new ArrayList<Alojamiento>();
-        alojamientos.add(new Alojamiento("Hotel", "Hotel Melia", "Un hotel en bilbao", 600000000, "Sin web", "Sin email", 100, loc));
-        alojamientos.add(new Alojamiento("Hotel", "Hotel Prueba", "Un hotel de prueba", 600000000, "Sin web", "Sin email", 100, null));
 
         rv.setLayoutManager(Base.llm);
-
         RVAdapter adapter = new RVAdapter(contextoBase, alojamientos);
         rv.setAdapter(adapter);
     }

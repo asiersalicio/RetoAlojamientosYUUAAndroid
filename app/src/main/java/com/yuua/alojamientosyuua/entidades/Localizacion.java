@@ -11,7 +11,6 @@ public class Localizacion implements Serializable {
 
 	String codigoPostal;
 	String direccion;
-	String marca;
 	Double latitud;
 	Double longitud;
 
@@ -19,13 +18,12 @@ public class Localizacion implements Serializable {
 
 	}
 
-	public Localizacion(Pais tpais, Municipio tmunicipio, Territorio tterritorio, String codigoPostal, String direccion, String marca, Double latitud, Double longitud) {
+	public Localizacion(Pais tpais, Municipio tmunicipio, Territorio tterritorio, String codigoPostal, String direccion, Double latitud, Double longitud) {
 		this.tpais = tpais;
 		this.tmunicipio = tmunicipio;
 		this.tterritorio = tterritorio;
 		this.codigoPostal = codigoPostal;
 		this.direccion = direccion;
-		this.marca = marca;
 		this.latitud = latitud;
 		this.longitud = longitud;
 	}
@@ -77,14 +75,6 @@ public class Localizacion implements Serializable {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
-	}
-
-	public String getMarca() {
-		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
 	}
 
 	public Double getLatitud() {

@@ -2,18 +2,11 @@ package com.yuua.alojamientosyuua.entidades;
 
 import java.util.Set;
 
-
-
 public class Territorio {
 	public char[] id;
-
 	public String nombre;
-
-	private Set<Localizacion> tlocalizacion;
-
-	public Territorio() {
-
-	}
+	private transient Set<Localizacion> tlocalizacion;
+	public Territorio() { }
 	
 
 	public Territorio(char[] id, String nombre) {
