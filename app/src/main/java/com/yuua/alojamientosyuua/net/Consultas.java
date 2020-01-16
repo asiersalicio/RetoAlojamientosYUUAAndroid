@@ -22,21 +22,22 @@ public class Consultas {
     public Object devolverResultadoPeticion(Request peticion,Class tipo) {
         Gson gson = new Gson();
         List<?> list=new ArrayList<>();
+        String jsonResultado=ejecutarPeticion(peticion);
         switch (tipo.getSimpleName()){
             case "Alojamiento":
-                list = gson.fromJson(ejecutarPeticion(peticion), new TypeToken<List<Alojamiento>>() {}.getType());
+                list = gson.fromJson(jsonResultado, new TypeToken<List<Alojamiento>>() {}.getType());
                 break;
             case "Pais":
-                list = gson.fromJson(ejecutarPeticion(peticion), new TypeToken<List<Pais>>() {}.getType());
+                list = gson.fromJson(jsonResultado, new TypeToken<List<Pais>>() {}.getType());
                 break;
             case "Territorio":
-                list = gson.fromJson(ejecutarPeticion(peticion), new TypeToken<List<Territorio>>() {}.getType());
+                list = gson.fromJson(jsonResultado, new TypeToken<List<Territorio>>() {}.getType());
                 break;
             case "Municipio":
-                list = gson.fromJson(ejecutarPeticion(peticion), new TypeToken<List<Municipio>>() {}.getType());
+                list = gson.fromJson(jsonResultado, new TypeToken<List<Municipio>>() {}.getType());
                 break;
             case "Localizacion":
-                list = gson.fromJson(ejecutarPeticion(peticion), new TypeToken<List<Localizacion>>() {}.getType());
+                list = gson.fromJson(jsonResultado, new TypeToken<List<Localizacion>>() {}.getType());
                 break;
         }
         return list;
@@ -46,7 +47,8 @@ public class Consultas {
         Cliente cliente = new Cliente(peticion);
         Thread hiloCliente = new Thread(cliente);
         hiloCliente.start();
-        return  cliente.leerJson();
+        String resultado =cliente.leerJson();
+        return  resultado;
     }
 
 
