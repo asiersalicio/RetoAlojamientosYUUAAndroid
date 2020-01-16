@@ -1,5 +1,6 @@
 package com.yuua.alojamientosyuua.adaptadores;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -10,34 +11,48 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.activitys.HotelInfo;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
+import com.yuua.alojamientosyuua.entidades.Municipio;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
+
 public class ItemSearchResultAdapter extends RecyclerView.Adapter<ItemSearchResultAdapter.SearchResult> {
 
-    private ArrayList<Alojamiento> alojamientos;
+    private ArrayList<Object> items;
     private Context contextoPadre;
+    private Intent intent;
 
 
-    public ItemSearchResultAdapter(Context contextoPadre, ArrayList<Alojamiento> alojamientos){
-        this.alojamientos = alojamientos;
+    public ItemSearchResultAdapter(Context contextoPadre, ArrayList<Object> items){
+        this.items = items;
         this.contextoPadre = contextoPadre;
+        this.intent=intent;
     }
+
+
+
 
     public static class SearchResult extends RecyclerView.ViewHolder {
 
+
         ImageView icono;
         TextView texto;
+
+        public ConstraintLayout cl;
 
         SearchResult(View itemView) {
             super(itemView);
             icono=itemView.findViewById(R.id.searchResultIcon);
             texto=itemView.findViewById(R.id.searchResultText);
+            cl=itemView.findViewById(R.id.constraintSearchItem);
         }
     }
 
@@ -51,8 +66,31 @@ public class ItemSearchResultAdapter extends RecyclerView.Adapter<ItemSearchResu
 
     @Override
     public void onBindViewHolder(final ItemSearchResultAdapter.SearchResult searchResult, int i) {
-        searchResult.texto.setText("PRUEBA");
 
+        final Object item = items.get(i);
+        if(item instanceof Alojamiento)
+        {
+            Alojamiento aloj = (Alojamiento) items.get(i);
+            searchResult.texto.setText(aloj.getNombre());
+            searchResult.icono.setImageResource(R.drawable.ic_hotel_blue_24dp);
+        }
+        else if(item instanceof Municipio){
+            Municipio muni = (Municipio) items.get(i);
+            searchResult.texto.setText(muni.getNombre());
+            searchResult.icono.setImageResource(R.drawable.ic_location_city_black_24dp);
+        }
+
+
+
+        searchResult.cl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent returnIntent = new Intent();
+                //returnIntent.putExtra("item", item);
+                ((Activity)contextoPadre).setResult(Activity.RESULT_OK,returnIntent);
+                ((Activity)contextoPadre).finish();
+            }
+        });
 
     }
 
@@ -63,7 +101,7 @@ public class ItemSearchResultAdapter extends RecyclerView.Adapter<ItemSearchResu
 
     @Override
     public int getItemCount() {
-        return alojamientos.size();
+        return items.size();
     }
 
 

@@ -3,7 +3,6 @@ package com.yuua.alojamientosyuua.activitys;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -12,10 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.ColorSpace;
+import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,14 +21,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Usuario;
+import com.yuua.alojamientosyuua.fragmentos.FragmentAlojPorCiudad;
 import com.yuua.alojamientosyuua.fragmentos.FragmentInicio;
 import com.yuua.alojamientosyuua.fragmentos.FragmentReservas;
 import com.yuua.alojamientosyuua.fragmentos.FragmentUsuario;
@@ -40,7 +35,9 @@ public class Base extends AppCompatActivity {
 
     public BottomNavigationView bottomNavigationView;
     private boolean busquedaAbierta=false;
+    private boolean busquedaPorLocalizacion=false;
     private FragmentInicio fragmentInicio;
+    private FragmentAlojPorCiudad fragmentAlojPorCiudad;
     private FragmentReservas fragment_reservas;
     private FragmentUsuario fragment_usuario;
     public static Context contexto;
@@ -56,8 +53,6 @@ public class Base extends AppCompatActivity {
         setContentView(R.layout.activity_base);
         DatosApp.currentContext=this;
         Inicializar();
-
-
     }
 
     @Override
@@ -95,7 +90,11 @@ public class Base extends AppCompatActivity {
         if(busquedaAbierta)
             cerrarBusqueda();
         else
-            finish();
+            if(busquedaPorLocalizacion)
+                mostrarFragmentInicio();
+            else
+                finish();
+
     }
 
 
@@ -107,12 +106,17 @@ public class Base extends AppCompatActivity {
         toolbar.getLayoutParams().height=1;
         buscador=findViewById(R.id.buscadorBaseLocAloj);
         bottomNavigationView=findViewById(R.id.bottomnavigationview);
-        llm = new LinearLayoutManager(contexto);
-        fragmentInicio = new FragmentInicio(contexto);
-        getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutbase,fragmentInicio).commit();
+        mostrarFragmentInicio();
         AnadirListeners();
     }
 
+    public void mostrarFragmentInicio()
+    {
+        busquedaPorLocalizacion=false;
+        llm = new LinearLayoutManager(contexto);
+        fragmentInicio = new FragmentInicio(contexto);
+        getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutbase,fragmentInicio).commit();
+    }
 
     public void AnadirListeners()
     {
@@ -124,6 +128,7 @@ public class Base extends AppCompatActivity {
                 switch(menuItem.getItemId())
                 {
                     case R.id.bottomnavhome:
+                        busquedaPorLocalizacion=false;
                         fragmentInicio = new FragmentInicio(contexto);
                         selectedFragment = fragmentInicio;
                     break;
@@ -145,10 +150,21 @@ public class Base extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent buscador = new Intent(contexto,BuscadorAlojamientos.class);
-                startActivity(buscador);
+                startActivityForResult(buscador,0);
             }
         });
 
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK && requestCode==0){
+            Object item = data.getStringExtra("item");
+            buscador.setText("FUNCIONA");
+        }
     }
 
     public void establecerDatosUsuario()
@@ -164,6 +180,21 @@ public class Base extends AppCompatActivity {
     public void btnBusquedaPulsado(View view)
     {
         btnBusqueda();
+    }
+
+    public void btnBuscarPulsado(View view)
+    {
+        cerrarBusqueda();
+
+        buscarPorLocalizacion();
+    }
+
+    public void buscarPorLocalizacion()
+    {
+        busquedaPorLocalizacion=true;
+        llm = new LinearLayoutManager(contexto);
+        fragmentAlojPorCiudad = new FragmentAlojPorCiudad(contexto);
+        getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutbase,fragmentAlojPorCiudad).commit();
     }
 
     private void abrirBusqueda()

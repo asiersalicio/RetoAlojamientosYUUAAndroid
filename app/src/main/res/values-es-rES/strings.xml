@@ -26,4 +26,5 @@
     <string name="searchAccPos">Alojaientos, ciudades...</string>
     <string name="checkInDate">Fecha de entrada</string>
     <string name="checkOutDate">Fecha de salida</string>
+    <string name="accommodationavailablein">Alojamientos disponibles en</string>
 </resources>
