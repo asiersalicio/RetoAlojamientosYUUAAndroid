@@ -1,27 +1,20 @@
 package com.yuua.alojamientosyuua.net;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.Log;
 
-import com.yuua.alojamientosyuua.DatosApp;
-import com.yuua.alojamientosyuua.R;
 import com.yuua.reto.net.Request;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 
 
 public class Cliente implements Runnable {
     private final int PUERTO = 55555;
     private final String IP = "192.168.101.233";
-    private Context context;
     private Socket cliente = null;
     private ObjectOutputStream salida = null;
     private ObjectInputStream entrada = null;
@@ -36,40 +29,28 @@ public class Cliente implements Runnable {
     public void run() {
         try {
             cliente = new Socket(IP,PUERTO);
+            Log.println(Log.INFO,"paso","CLIENTE CREADO");
             salida = new ObjectOutputStream(cliente.getOutputStream());
+            Log.println(Log.INFO,"paso","SALIDA CREADO");
             entrada = new ObjectInputStream(cliente.getInputStream());
+            Log.println(Log.INFO,"paso","ENTRADA CREADO");
             salida.writeObject(peticion);
+            Log.println(Log.INFO,"paso","OBJETO ESCRITO");
             Request peticion = (Request) entrada.readObject();
+            Log.println(Log.INFO,"paso","OBJETO LEIDO");
             switch (peticion.getCodigoPeticion()) {
-                case 0:
-                    break;
                 case 61:
                     jsonResultado = (String) peticion.getObjetoEnviado();
                     break;
                 default:
                     break;
             }
+            salida.close();
         } catch(SocketTimeoutException e) {
-            //this.jsonResultado=null;
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-
-        } finally {
-            try {
-                if(cliente!=null)
-                {
-                    cliente.close();
-                }
-                if (entrada != null)
-                    entrada.close();
-                if (salida != null)
-                    salida.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -81,7 +62,9 @@ public class Cliente implements Runnable {
         }
     }
     public String leerJson(){
-        while (jsonResultado.equals(""));
+        while (jsonResultado.equals("")){
+            Log.println(Log.INFO,"paso","ESPERANDO JSON");
+        }
         return jsonResultado;
     }
 

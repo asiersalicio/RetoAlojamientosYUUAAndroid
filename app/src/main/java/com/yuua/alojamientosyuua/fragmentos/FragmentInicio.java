@@ -27,7 +27,6 @@ public class FragmentInicio extends Fragment{
     public ArrayList<Alojamiento> alojamientos;
     public RecyclerView rv;
     private Context contextoBase;
-    private AsyncTask clienteAsyncrono;
 
     public FragmentInicio(Context contextoBase) {
         this.contextoBase=contextoBase;
