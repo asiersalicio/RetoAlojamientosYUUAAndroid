@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activitys.Register"></activity>
+        <activity android:name=".activitys.BuscadorAlojamientos"></activity>
+        <activity android:name=".activitys.Register" />
         <activity android:name=".activitys.Login" />
         <activity android:name=".activitys.HotelInfo" />
         <activity android:name=".activitys.Base" />

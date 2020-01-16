@@ -21,12 +21,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/editText8"
+            android:id="@+id/buscadorBaseLocAloj"
             android:layout_width="336dp"
             android:layout_height="33dp"
             android:layout_marginBottom="136dp"
             android:layout_weight=".75"
             android:background="@drawable/edittext1"
+            android:editable="false"
             android:hint="@string/searchAccPos"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,8 +42,8 @@
             android:layout_weight=".75"
             android:background="@drawable/edittext1"
             android:hint="@string/checkInDate"
-            app:layout_constraintStart_toStartOf="@+id/editText8"
-            app:layout_constraintTop_toBottomOf="@+id/editText8" />
+            app:layout_constraintStart_toStartOf="@+id/buscadorBaseLocAloj"
+            app:layout_constraintTop_toBottomOf="@+id/buscadorBaseLocAloj" />
 
         <EditText
             android:id="@+id/editText9"
@@ -51,7 +52,7 @@
             android:layout_weight=".75"
             android:background="@drawable/edittext1"
             android:hint="@string/checkOutDate"
-            app:layout_constraintEnd_toEndOf="@+id/editText8"
+            app:layout_constraintEnd_toEndOf="@+id/buscadorBaseLocAloj"
             app:layout_constraintTop_toTopOf="@+id/editText7" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

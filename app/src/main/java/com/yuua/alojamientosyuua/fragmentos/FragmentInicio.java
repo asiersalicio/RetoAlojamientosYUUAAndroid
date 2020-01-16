@@ -4,24 +4,22 @@ package com.yuua.alojamientosyuua.fragmentos;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.activitys.Base;
-import com.yuua.alojamientosyuua.adaptadores.RVAdapter;
+import com.yuua.alojamientosyuua.adaptadores.ItemCardAlojAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class FragmentInicio extends Fragment{
 
@@ -48,19 +46,20 @@ public class FragmentInicio extends Fragment{
 
     public void cargarDatosBD() {
 
-        Consultas consultar=new Consultas();
+        /*Consultas consultar=new Consultas();
         Request consulta=consultar.prepararQueryHibernate(60,Alojamiento.class,new String[]{},new String[]{});
         Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
-        alojamientos= (ArrayList<Alojamiento>) resultado;
+        alojamientos= (ArrayList<Alojamiento>) resultado;*/
+
 
         /*alojamientos=new ArrayList<Alojamiento>();
         alojamientos.add(new Alojamiento("Hotel", "Hotel Melia", "Un hotel en bilbao", 600000000, "Sin web", "Sin email", 100, null));
-        alojamientos.add(new Alojamiento("Hotel", "Hotel Prueba", "Un hotel de prueba", 600000000, "Sin web", "Sin email", 100, null));*/
+        alojamientos.add(new Alojamiento("Hotel", "Hotel Prueba", "Un hotel de prueba", 600000000, "Sin web", "Sin email", 100, null));
 
 
         rv.setLayoutManager(Base.llm);
-        RVAdapter adapter = new RVAdapter(contextoBase, alojamientos);
-        rv.setAdapter(adapter);
+        ItemCardAlojAdapter adapter = new ItemCardAlojAdapter(contextoBase, alojamientos);
+        rv.setAdapter(adapter);*/
     }
 
 

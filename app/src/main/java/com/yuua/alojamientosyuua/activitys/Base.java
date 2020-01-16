@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.ColorSpace;
 import android.graphics.drawable.ColorDrawable;
@@ -22,7 +23,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -42,6 +45,7 @@ public class Base extends AppCompatActivity {
     private FragmentUsuario fragment_usuario;
     public static Context contexto;
     private ConstraintLayout toolbar;
+    private EditText buscador;
 
     public static LinearLayoutManager llm;
 
@@ -86,6 +90,14 @@ public class Base extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        if(busquedaAbierta)
+            cerrarBusqueda();
+        else
+            finish();
+    }
+
 
 
     public void Inicializar()
@@ -93,6 +105,7 @@ public class Base extends AppCompatActivity {
         contexto=this;
         toolbar=findViewById(R.id.searchbar);
         toolbar.getLayoutParams().height=1;
+        buscador=findViewById(R.id.buscadorBaseLocAloj);
         bottomNavigationView=findViewById(R.id.bottomnavigationview);
         llm = new LinearLayoutManager(contexto);
         fragmentInicio = new FragmentInicio(contexto);
@@ -127,6 +140,15 @@ public class Base extends AppCompatActivity {
                 return true;
             }
         });
+
+        buscador.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent buscador = new Intent(contexto,BuscadorAlojamientos.class);
+                startActivity(buscador);
+            }
+        });
+
     }
 
     public void establecerDatosUsuario()
@@ -160,6 +182,7 @@ public class Base extends AppCompatActivity {
         anim.setDuration(500);
         anim.start();
         findViewById(R.id.framelayoutbase).setForeground(new ColorDrawable(ContextCompat.getColor(this, R.color.searching)));
+        busquedaAbierta=true;
     }
 
     private void cerrarBusqueda()
@@ -178,19 +201,17 @@ public class Base extends AppCompatActivity {
         anim.setDuration(500);
         anim.start();
         findViewById(R.id.framelayoutbase).setForeground(null);
+        busquedaAbierta=false;
     }
 
     private void btnBusqueda() {
         if(busquedaAbierta)
         {
             cerrarBusqueda();
-            busquedaAbierta=false;
         }
         else
-            {
-                abrirBusqueda();
-                busquedaAbierta=true;
-
+        {
+            abrirBusqueda();
         }
     }
 

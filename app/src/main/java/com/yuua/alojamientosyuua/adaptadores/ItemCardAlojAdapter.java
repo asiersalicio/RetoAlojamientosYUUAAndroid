@@ -2,8 +2,6 @@ package com.yuua.alojamientosyuua.adaptadores;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,30 +19,30 @@ import com.yuua.alojamientosyuua.entidades.Alojamiento;
 
 import java.util.ArrayList;
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder>{
+public class ItemCardAlojAdapter extends RecyclerView.Adapter<ItemCardAlojAdapter.CardAloj>{
 
     public ArrayList<Alojamiento> alojamientos;
     private Context contextoBase;
 
     @NonNull
     @Override
-    public PersonViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public CardAloj onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_card_aloj, viewGroup, false);
-        PersonViewHolder pvh = new PersonViewHolder(v);
+        CardAloj pvh = new CardAloj(v);
         return pvh;
     }
 
     @Override
-    public void onBindViewHolder(final PersonViewHolder personViewHolder, int i) {
-        personViewHolder.nombreHotel.setText(alojamientos.get(i).getNombre());
-        personViewHolder.descHotel.setText(alojamientos.get(i).getDescripcion());
-        personViewHolder.imagen.setImageResource(R.drawable.back1);
-        personViewHolder.cv.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(final CardAloj cardAloj, int i) {
+        cardAloj.nombreHotel.setText(alojamientos.get(i).getNombre());
+        cardAloj.descHotel.setText(alojamientos.get(i).getDescripcion());
+        cardAloj.imagen.setImageResource(R.drawable.back1);
+        cardAloj.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.println(Log.INFO,"A",alojamientos.get(personViewHolder.getAdapterPosition()).getNombre());
+                Log.println(Log.INFO,"A",alojamientos.get(cardAloj.getAdapterPosition()).getNombre());
                 Intent intento = new Intent(contextoBase, HotelInfo.class);
-                Alojamiento aloj = alojamientos.get(personViewHolder.getAdapterPosition());
+                Alojamiento aloj = alojamientos.get(cardAloj.getAdapterPosition());
                 intento.putExtra("alojamiento", aloj);
                 contextoBase.startActivity(intento);
             }
@@ -62,18 +60,18 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder>{
     }
 
 
-    public RVAdapter(Context contextoBase, ArrayList<Alojamiento> alojamientos){
+    public ItemCardAlojAdapter(Context contextoBase, ArrayList<Alojamiento> alojamientos){
         this.alojamientos = alojamientos;
         this.contextoBase = contextoBase;
     }
 
-    public static class PersonViewHolder extends RecyclerView.ViewHolder {
+    public static class CardAloj extends RecyclerView.ViewHolder {
         CardView cv;
         TextView nombreHotel;
         TextView descHotel;
         ImageView imagen;
 
-        PersonViewHolder(View itemView) {
+        CardAloj(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.CardH);
             nombreHotel = (TextView)itemView.findViewById(R.id.cardNombreH);
