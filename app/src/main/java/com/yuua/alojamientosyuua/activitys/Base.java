@@ -5,20 +5,26 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.drawable.Icon;
+import android.graphics.Color;
+import android.graphics.ColorSpace;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.R;
@@ -30,12 +36,12 @@ import com.yuua.alojamientosyuua.fragmentos.FragmentUsuario;
 public class Base extends AppCompatActivity {
 
     public BottomNavigationView bottomNavigationView;
-
+    private boolean busquedaAbierta=false;
     private FragmentInicio fragmentInicio;
     private FragmentReservas fragment_reservas;
     private FragmentUsuario fragment_usuario;
     public static Context contexto;
-    private Toolbar toolbar;
+    private ConstraintLayout toolbar;
 
     public static LinearLayoutManager llm;
 
@@ -44,6 +50,7 @@ public class Base extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        DatosApp.currentContext=this;
         Inicializar();
 
 
@@ -52,7 +59,6 @@ public class Base extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        aplicarAnimaciones();
         establecerDatosUsuario();
     }
 
@@ -64,15 +70,29 @@ public class Base extends AppCompatActivity {
         getSupportActionBar().setElevation(0);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_base, menu);
-
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.btnBusquedaToolbar:
+                btnBusqueda();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 
 
     public void Inicializar()
     {
         contexto=this;
         toolbar=findViewById(R.id.searchbar);
+        toolbar.getLayoutParams().height=1;
         bottomNavigationView=findViewById(R.id.bottomnavigationview);
         llm = new LinearLayoutManager(contexto);
         fragmentInicio = new FragmentInicio(contexto);
@@ -119,9 +139,15 @@ public class Base extends AppCompatActivity {
         }
     }
 
-    public void aplicarAnimaciones()
+    public void btnBusquedaPulsado(View view)
     {
-        ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 100);
+        btnBusqueda();
+    }
+
+    private void abrirBusqueda()
+    {
+        Log.println(Log.INFO,"Toolbar","Barra de busqueda pulsada");
+        ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 1000);
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -131,8 +157,41 @@ public class Base extends AppCompatActivity {
                 toolbar.setLayoutParams(layoutParams);
             }
         });
-        anim.setDuration(3000);
+        anim.setDuration(500);
         anim.start();
+        findViewById(R.id.framelayoutbase).setForeground(new ColorDrawable(ContextCompat.getColor(this, R.color.searching)));
+    }
+
+    private void cerrarBusqueda()
+    {
+        Log.println(Log.INFO,"Toolbar","Barra de busqueda pulsada");
+        ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 1);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                int val = (Integer) valueAnimator.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
+                layoutParams.height = val;
+                toolbar.setLayoutParams(layoutParams);
+            }
+        });
+        anim.setDuration(500);
+        anim.start();
+        findViewById(R.id.framelayoutbase).setForeground(null);
+    }
+
+    private void btnBusqueda() {
+        if(busquedaAbierta)
+        {
+            cerrarBusqueda();
+            busquedaAbierta=false;
+        }
+        else
+            {
+                abrirBusqueda();
+                busquedaAbierta=true;
+
+        }
     }
 
 

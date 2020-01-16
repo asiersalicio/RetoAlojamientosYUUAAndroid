@@ -1,13 +1,21 @@
 package com.yuua.alojamientosyuua.net;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 
+import com.yuua.alojamientosyuua.DatosApp;
+import com.yuua.alojamientosyuua.R;
 import com.yuua.reto.net.Request;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.SocketTimeoutException;
 
 
 public class Cliente implements Runnable {
@@ -27,7 +35,7 @@ public class Cliente implements Runnable {
     @Override
     public void run() {
         try {
-            cliente = new Socket(IP, PUERTO);
+            cliente = new Socket(IP,PUERTO);
             salida = new ObjectOutputStream(cliente.getOutputStream());
             entrada = new ObjectInputStream(cliente.getInputStream());
             salida.writeObject(peticion);
@@ -41,14 +49,20 @@ public class Cliente implements Runnable {
                 default:
                     break;
             }
+        } catch(SocketTimeoutException e) {
+            //this.jsonResultado=null;
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
+
         } finally {
             try {
-                if (cliente != null)
+                if(cliente!=null)
+                {
                     cliente.close();
+                }
                 if (entrada != null)
                     entrada.close();
                 if (salida != null)
@@ -63,10 +77,13 @@ public class Cliente implements Runnable {
         try {
             salida.writeObject(peticion);
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     public String leerJson(){
         while (jsonResultado.equals(""));
         return jsonResultado;
     }
+
+
 }

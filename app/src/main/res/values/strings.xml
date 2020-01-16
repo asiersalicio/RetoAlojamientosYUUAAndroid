@@ -18,6 +18,7 @@
     <string name="keepLogin">Keep logged in</string>
     <string name="login">Login</string>
     <string name="or">or</string>
+    <string name="ok">Ok</string>
     <string name="registerWithEmail">Register with E-Mail</string>
     <string name="identityDocument">ID number</string>
     <string name="name">Name</string>
@@ -27,6 +28,9 @@
     <string name="birthdate">Birthdate</string>
     <string name="registerNow">Register now</string>
     <string name="dateFormat">MM/dd/yyyy</string>
+    <string name="searchAccPos">Accomodation, locality...</string>
+    <string name="checkInDate">Check-In date</string>
+    <string name="checkOutDate">Check-Out date</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

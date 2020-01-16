@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.activitys.Base;
 import com.yuua.alojamientosyuua.adaptadores.RVAdapter;
@@ -39,6 +41,7 @@ public class FragmentInicio extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_inicio, container, false);
         rv=view.findViewById(R.id.recyclerViewInicio);
+        rv.requestFocus();
         cargarDatosBD();
         return view;
     }
@@ -49,6 +52,10 @@ public class FragmentInicio extends Fragment{
         Request consulta=consultar.prepararQueryHibernate(60,Alojamiento.class,new String[]{},new String[]{});
         Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
         alojamientos= (ArrayList<Alojamiento>) resultado;
+
+        /*alojamientos=new ArrayList<Alojamiento>();
+        alojamientos.add(new Alojamiento("Hotel", "Hotel Melia", "Un hotel en bilbao", 600000000, "Sin web", "Sin email", 100, null));
+        alojamientos.add(new Alojamiento("Hotel", "Hotel Prueba", "Un hotel de prueba", 600000000, "Sin web", "Sin email", 100, null));*/
 
 
         rv.setLayoutManager(Base.llm);

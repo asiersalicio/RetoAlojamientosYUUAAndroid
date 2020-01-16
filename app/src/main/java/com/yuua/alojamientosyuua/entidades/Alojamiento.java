@@ -15,7 +15,7 @@ public class Alojamiento implements Serializable {
 
 	Localizacion localizacion;
 
-	protected Alojamiento() {
+	public Alojamiento() {
 	}
 
 	public Alojamiento(String tipo, String nombre, String descripcion, int telefono, String web, String email, int capacidad, Localizacion localizacion) {
