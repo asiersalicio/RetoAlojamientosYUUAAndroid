@@ -71,6 +71,7 @@ public class Register extends AppCompatActivity {
         Date datemax18years = calmax18year.getTime();
 
         datePickerDialog.getDatePicker().setMaxDate(datemax18years.getTime());
+        datePickerDialog.show();
 
     }
 

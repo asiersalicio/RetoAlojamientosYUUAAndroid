@@ -18,6 +18,7 @@ import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ItemCardAlojAdapter extends RecyclerView.Adapter<ItemCardAlojAdapter.CardAloj>{
 
@@ -36,7 +37,7 @@ public class ItemCardAlojAdapter extends RecyclerView.Adapter<ItemCardAlojAdapte
     public void onBindViewHolder(final CardAloj cardAloj, int i) {
         cardAloj.nombreHotel.setText(alojamientos.get(i).getNombre());
         cardAloj.descHotel.setText(alojamientos.get(i).getDescripcion());
-        cardAloj.imagen.setImageResource(R.drawable.back1);
+        //cardAloj.imagen.setImageResource(R.drawable.back1);
         cardAloj.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

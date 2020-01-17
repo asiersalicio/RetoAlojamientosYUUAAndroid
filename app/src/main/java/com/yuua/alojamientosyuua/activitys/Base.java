@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.animation.ValueAnimator;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,16 +20,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.yuua.alojamientosyuua.DatosApp;
+import com.yuua.alojamientosyuua.ObjetoGenerico;
 import com.yuua.alojamientosyuua.R;
+import com.yuua.alojamientosyuua.entidades.Alojamiento;
+import com.yuua.alojamientosyuua.entidades.Municipio;
 import com.yuua.alojamientosyuua.entidades.Usuario;
 import com.yuua.alojamientosyuua.fragmentos.FragmentAlojPorCiudad;
 import com.yuua.alojamientosyuua.fragmentos.FragmentInicio;
 import com.yuua.alojamientosyuua.fragmentos.FragmentReservas;
 import com.yuua.alojamientosyuua.fragmentos.FragmentUsuario;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Base extends AppCompatActivity {
 
@@ -43,6 +51,8 @@ public class Base extends AppCompatActivity {
     public static Context contexto;
     private ConstraintLayout toolbar;
     private EditText buscador;
+    private EditText fechaEntrada, fechaSalida;
+    private Object selectedObject;
 
     public static LinearLayoutManager llm;
 
@@ -105,6 +115,8 @@ public class Base extends AppCompatActivity {
         toolbar=findViewById(R.id.searchbar);
         toolbar.getLayoutParams().height=1;
         buscador=findViewById(R.id.buscadorBaseLocAloj);
+        fechaEntrada=findViewById(R.id.buscadorBaseFEntrada);
+        fechaSalida=findViewById(R.id.buscadorBaseFSalida);
         bottomNavigationView=findViewById(R.id.bottomnavigationview);
         mostrarFragmentInicio();
         AnadirListeners();
@@ -154,16 +166,107 @@ public class Base extends AppCompatActivity {
             }
         });
 
+        fechaEntrada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                setFechaEntrada();
+            }
+        });
+
+        fechaSalida.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(DatosApp.fechaEntrada!=null)
+                {
+                    setFechaSalida();
+                }
+            }
+        });
 
 
+
+    }
+
+    private void setFechaEntrada() {
+
+        DatePickerDialog datePickerDialog;
+        Calendar newCalendar = Calendar.getInstance();
+        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
+                Date startDate = newDate.getTime();
+                DatosApp.fechaEntrada=startDate;
+                String fdate = sd.format(startDate);
+
+                fechaEntrada.setText(fdate);
+
+            }
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+
+        Calendar max6months = Calendar.getInstance();
+        max6months.setTime(new Date());
+        max6months.add(Calendar.MONTH, 6);
+        Date datemax6months = max6months.getTime();
+
+        datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
+        datePickerDialog.getDatePicker().setMaxDate(datemax6months.getTime());
+        datePickerDialog.show();
+
+    }
+
+    private void setFechaSalida() {
+
+        DatePickerDialog datePickerDialog;
+        Calendar newCalendar = Calendar.getInstance();
+        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
+                Date startDate = newDate.getTime();
+                DatosApp.fechaSalida=startDate;
+                String fdate = sd.format(startDate);
+
+                fechaSalida.setText(fdate);
+
+            }
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+
+        Calendar max6months = Calendar.getInstance();
+        max6months.setTime(new Date());
+        max6months.add(Calendar.MONTH, 6);
+        Date datemax6months = max6months.getTime();
+
+        datePickerDialog.getDatePicker().setMinDate(DatosApp.fechaEntrada.getTime());
+        datePickerDialog.getDatePicker().setMaxDate(datemax6months.getTime());
+        datePickerDialog.show();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==RESULT_OK && requestCode==0){
-            Object item = data.getStringExtra("item");
-            buscador.setText("FUNCIONA");
+            selectedObject =((ObjetoGenerico)data.getSerializableExtra("item")).getObject();
+
+            if(selectedObject instanceof Alojamiento)
+            {
+                Alojamiento aloj = (Alojamiento) selectedObject;
+                buscador.setText(aloj.getNombre());
+            }
+            else if(selectedObject instanceof Municipio)
+            {
+                Municipio muni = (Municipio) selectedObject;
+                buscador.setText(muni.getNombre());
+            }
+
+
         }
     }
 

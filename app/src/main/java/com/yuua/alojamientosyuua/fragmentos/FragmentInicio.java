@@ -51,14 +51,14 @@ public class FragmentInicio extends Fragment{
         alojamientos= (ArrayList<Alojamiento>) resultado;*/
 
 
-        /*alojamientos=new ArrayList<Alojamiento>();
+        alojamientos=new ArrayList<Alojamiento>();
         alojamientos.add(new Alojamiento("Hotel", "Hotel Melia", "Un hotel en bilbao", 600000000, "Sin web", "Sin email", 100, null));
         alojamientos.add(new Alojamiento("Hotel", "Hotel Prueba", "Un hotel de prueba", 600000000, "Sin web", "Sin email", 100, null));
 
 
         rv.setLayoutManager(Base.llm);
         ItemCardAlojAdapter adapter = new ItemCardAlojAdapter(contextoBase, alojamientos);
-        rv.setAdapter(adapter);*/
+        rv.setAdapter(adapter);
     }
 
 

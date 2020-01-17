@@ -14,6 +14,11 @@ import java.util.List;
 
 public class Consultas {
 
+    public Request prepararInsertHibernate(int codigo, Class claseObjeto,Object objeto) {
+        Request peticion = new Request(codigo, new Object[]{objeto});
+        return  peticion;
+    }
+
     public Request prepararQueryHibernate(int codigo, Class claseObjeto,String[] campos,String[] condiciones) {
         Request peticion = new Request(codigo, new Object[]{claseObjeto.getSimpleName(), campos, condiciones});
         return  peticion;

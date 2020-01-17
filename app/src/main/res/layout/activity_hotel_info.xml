@@ -17,8 +17,8 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="376dp"
+            android:id="@+id/btnReservarInfoHotel"
+            android:layout_width="330dp"
             android:layout_height="67dp"
             android:backgroundTint="@color/colorPrimaryDark"
             android:elevation="5dp"
