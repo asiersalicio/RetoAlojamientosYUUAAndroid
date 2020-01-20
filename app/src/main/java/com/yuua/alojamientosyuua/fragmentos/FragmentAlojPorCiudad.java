@@ -15,8 +15,12 @@ import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.activitys.Base;
 import com.yuua.alojamientosyuua.adaptadores.ItemCardAlojAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
+import com.yuua.alojamientosyuua.entidades.Reserva;
+import com.yuua.alojamientosyuua.net.Consultas;
+import com.yuua.reto.net.Request;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class FragmentAlojPorCiudad extends Fragment {
 
@@ -36,10 +40,14 @@ public class FragmentAlojPorCiudad extends Fragment {
         view = inflater.inflate(R.layout.fragment_aloj_por_ciudad, container, false);
         view.findViewById(R.id.recyclerViewAlojPorLoc);
         rv=view.findViewById(R.id.recyclerViewAlojPorLoc);
-        alojamientos=new ArrayList<Alojamiento>();
-        alojamientos.add(new Alojamiento("Hotel", "Hotel Melia", "Un hotel en bilbao", 600000000, "Sin web", "Sin email", 100, null));
-        alojamientos.add(new Alojamiento("Hotel", "Hotel Prueba", "Un hotel de prueba", 600000000, "Sin web", "Sin email", 100, null));
+        //alojamientos=new ArrayList<Alojamiento>();
+        //alojamientos.add(new Alojamiento("Hotel", "Hotel Melia", "Un hotel en bilbao", 600000000, "Sin web", "Sin email", 100, null));
+        //alojamientos.add(new Alojamiento("Hotel", "Hotel Prueba", "Un hotel de prueba", 600000000, "Sin web", "Sin email", 100, null));
 
+        Consultas consultar=new Consultas();
+        Request consulta=consultar.prepararQueryHibernate(60,Alojamiento.class,new String[]{},new String[]{});
+        Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
+        alojamientos= (ArrayList<Alojamiento>) resultado;
 
         rv.setLayoutManager(Base.llm);
         ItemCardAlojAdapter adapter = new ItemCardAlojAdapter(contextoPadre, alojamientos);

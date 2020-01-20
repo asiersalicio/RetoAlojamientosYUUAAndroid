@@ -84,7 +84,8 @@ public class HotelInfo extends AppCompatActivity {
             public void onClick(View v) {
                 Reserva res = new Reserva(-1, new Date(), new Date(), alojamiento, null);
                 Consultas consultar = new Consultas();
-                Request consulta = consultar.prepararInsertHibernate(res);
+                Request consulta = consultar.prepararInsertHibernate(Reserva.class,new Object[]{res});
+                consultar.devolverResultadoPeticionBoolean(consulta);
             }
         });
 
