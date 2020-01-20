@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.yuua.alojamientosyuua.DatosApp;
+import com.yuua.alojamientosyuua.ImageDownloader;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.entidades.Localizacion;
@@ -25,6 +26,7 @@ import com.yuua.alojamientosyuua.fragmentos.FragmentMap;
 import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -54,6 +56,11 @@ public class HotelInfo extends AppCompatActivity {
         btnReservar=findViewById(R.id.btnReservarInfoHotel);
 
         alojamiento=(Alojamiento) getIntent().getSerializableExtra("alojamiento");
+
+        try {
+            ImageDownloader id=new ImageDownloader(this);
+            id.savePage("https://duckduckgo.com/?q=hotel&t=h_&iax=images&ia=images");
+        }catch (IOException ex){}
 
         if(DatosApp.fechaEntrada==null || DatosApp.fechaSalida == null)
         {
