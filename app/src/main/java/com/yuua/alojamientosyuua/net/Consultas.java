@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Consultas {
 
-    public Request prepararInsertHibernate(int codigo, Class claseObjeto,Object objeto) {
+    public Request prepararInsertHibernate(int codigo, Object objeto) {
         Request peticion = new Request(codigo, new Object[]{objeto});
         return  peticion;
     }
