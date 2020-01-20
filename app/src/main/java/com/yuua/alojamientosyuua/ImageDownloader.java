@@ -11,6 +11,8 @@ import android.util.Log;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -21,6 +23,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class ImageDownloader extends Thread {
 
@@ -48,30 +53,44 @@ public class ImageDownloader extends Thread {
         }
 
 
+        parseJSON(resul);
+
 
         return resul;
+    }
+
+    private void parseJSON(String resul) {
+        Log.println(Log.DEBUG,"JSON",resul);
+
+            resul=resul.substring( resul.indexOf("\"media\":")+9);
+            resul=resul.substring(0,resul.indexOf("\",\""));
+
+            resul=resul.replace("\\","");
+
+            System.out.println(resul);
+
+
+
     }
 
     @Override
     public void run() {
         String line = "";
         BufferedReader in = null;
-
+        String all = "";
         try {
             in = new BufferedReader(new InputStreamReader(url.openStream()));
             while ((line = in.readLine()) != null) {
-                Log.println(Log.DEBUG,"PRUEBA IMAGEN",line);
-                if(line.contains("<img"))
-                {
-                    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(Environment.getExternalStorageDirectory().getAbsolutePath() + "/temp.html", true)));
-                    out.println(line);
-                    out.close();
-                    Log.println(Log.DEBUG,"IMAGEN",line);
-                }
+
+
+                all+=line;
+
+
             }
             in.close();
         } catch (IOException ex) {
         }
+        setResultado(all);
         setFinalizado(true);
     }
 
