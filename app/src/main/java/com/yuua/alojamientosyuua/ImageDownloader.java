@@ -3,73 +3,73 @@ package com.yuua.alojamientosyuua;
 
 import android.content.Context;
 import android.os.Environment;
-import android.util.Log;
+import android.widget.ImageView;
+
+import com.yuua.alojamientosyuua.entidades.Imagen;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class ImageDownloader extends Thread {
 
     private URL url;
-    private boolean finalizado = false;
+    public static boolean finalizado = false;
     private String resul;
     private BufferedWriter writer;
+    private Imagen imagen = null;
+    private static String parseado;
 
-    private Context context;
 
+    private ImageDownloader(String url)
+    {
+        try{
+            this.url=new URL(url);
+        }
+        catch (MalformedURLException ex){ex.printStackTrace();}
+        prepararHilo();
 
-    public ImageDownloader(Context context) {
-        this.context = context;
     }
 
+    public static ArrayList<String> obtenerLinksImagenes(String urljson)
+    {
+        ImageDownloader id = new ImageDownloader(urljson);
+        id.prepararHilo();
+        ArrayList<String> urls;
+        urls=new ArrayList<String>();
+        urls.add(parseado);
+        return urls;
+    }
 
-    public String savePage(final String URL) throws IOException {
+    private void prepararHilo() {
 
-        url = new URL(URL);
-        start();
+        this.start();
 
         while (!finalizado) {
 
         }
 
 
-        return resul;
+
     }
 
     private String parseJSON(String resul) {
         String resultado = resul;
         resultado = resultado.substring(resul.indexOf("\"media\":") + 9);
-        resultado = resultado.substring(0, resultado.indexOf(","));
+        resultado = resultado.substring(0, resultado.indexOf("\""));
         resultado = resultado.replace("\\", "");
         return resultado;
     }
 
-    private void downloadImage(String imageUrl) {
-        try {
-            System.out.println("URL imagen " + imageUrl);
-            URL url = new URL(imageUrl);
-            InputStream is = url.openStream();
-            OutputStream os = new FileOutputStream(Environment.getDataDirectory().getAbsolutePath() + "/prueba.jpg");
-            System.out.println(Environment.getDataDirectory().getAbsolutePath());
-            byte[] b = new byte[2048];
-            int length;
-
-            while ((length = is.read(b)) != -1) {
-                os.write(b, 0, length);
-            }
-
-            is.close();
-            os.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
 
     @Override
     public void run() {
@@ -85,9 +85,7 @@ public class ImageDownloader extends Thread {
             }
             in.close();
 
-            String parseado;
-            parseado = parseJSON(all);
-            downloadImage(parseado);
+           setParseado(parseJSON(all));
 
 
         } catch (IOException ex) {
@@ -100,8 +98,16 @@ public class ImageDownloader extends Thread {
         this.finalizado = finalizado;
     }
 
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
+    }
+
     private void setResultado(String string) {
         resul = string;
+    }
+
+    private void setParseado(String parseado) {
+        this.parseado = parseado;
     }
 
 
