@@ -15,13 +15,12 @@ import java.util.List;
 
 public class Consultas {
     
-    public Request prepararInsertHibernate(Object objeto) {
+    public Request prepararInsertHibernate(Class clase ,Object[] objeto) {
+        String nombreSimple = clase.getSimpleName();
         Request peticion;
-        if (objeto instanceof Collection<?>) {
-            peticion = new Request(50, objeto);
-        } else {
-            peticion = new Request(50, new Object[]{objeto});
-        }
+        Gson parser =new Gson();
+        String json=parser.toJson(objeto);
+        peticion = new Request(50, new Object[]{nombreSimple,json});
         return peticion;
     }
 
