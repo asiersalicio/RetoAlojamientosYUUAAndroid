@@ -18,12 +18,16 @@ import java.util.ArrayList;
 public class ImageViewer extends AppCompatActivity {
 
     private RecyclerView rv;
+    private Alojamiento alojamiento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_viewer);
+        alojamiento=(Alojamiento)getIntent().getSerializableExtra("aloj");
         mostrarResultados();
+
+
 
         getSupportActionBar().hide();
 
@@ -33,13 +37,19 @@ public class ImageViewer extends AppCompatActivity {
     public void mostrarResultados()
     {
         rv=findViewById(R.id.recycler_vierw_image);
-        ArrayList<String> imagenes = new ArrayList<String>();
+        ArrayList<String> imagenes;
 
-        imagenes=ImageDownloader.obtenerLinksImagenes("https://api.qwant.com/api/search/images?count=1&offset=0&q=hotel bilbao&t=web&uiv=1");
+        imagenes=ImageDownloader.obtenerLinksImagenes("https://api.qwant.com/api/search/images?count=1&offset=0&q=" + alojamiento.getNombre() + "&t=web&uiv=1");
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
         ItemImageAdapter adapter = new ItemImageAdapter(this, imagenes);
         rv.setAdapter(adapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

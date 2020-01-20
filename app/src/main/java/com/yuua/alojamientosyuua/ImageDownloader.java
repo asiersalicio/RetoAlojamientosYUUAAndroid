@@ -59,7 +59,6 @@ public class ImageDownloader extends Thread {
         }
 
 
-
     }
 
     private String parseJSON(String resul) {
@@ -67,6 +66,7 @@ public class ImageDownloader extends Thread {
         resultado = resultado.substring(resul.indexOf("\"media\":") + 9);
         resultado = resultado.substring(0, resultado.indexOf("\""));
         resultado = resultado.replace("\\", "");
+        System.out.println(resultado);
         return resultado;
     }
 
