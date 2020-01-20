@@ -58,7 +58,7 @@ public class HotelInfo extends AppCompatActivity {
 
         try {
             ImageDownloader id=new ImageDownloader(this);
-            id.savePage("https://duckduckgo.com/?q=hotel&t=h_&iax=images&ia=images");
+            id.savePage("https://api.qwant.com/api/search/images?count=1&offset=0&q=hotel&t=web&uiv=1");
         }catch (IOException ex){}
 
         if (DatosApp.fechaEntrada == null || DatosApp.fechaSalida == null) {
