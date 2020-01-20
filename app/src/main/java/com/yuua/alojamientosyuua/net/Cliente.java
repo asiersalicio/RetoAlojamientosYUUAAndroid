@@ -3,6 +3,7 @@ package com.yuua.alojamientosyuua.net;
 import android.content.Context;
 import android.util.Log;
 
+import com.yuua.alojamientosyuua.activitys.MainActivity;
 import com.yuua.reto.net.Request;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class Cliente implements Runnable {
     private ObjectInputStream entrada = null;
     private Request peticion;
     public String jsonResultado = "";
+    public Boolean booleanResultado = null;
 
     public Cliente(Request peticion) {
         this.peticion = peticion;
@@ -28,25 +30,33 @@ public class Cliente implements Runnable {
     @Override
     public void run() {
         try {
-            cliente = new Socket(IP,PUERTO);
-            Log.println(Log.INFO,"paso","CLIENTE CREADO");
+            cliente = new Socket(IP, PUERTO);
             salida = new ObjectOutputStream(cliente.getOutputStream());
-            Log.println(Log.INFO,"paso","SALIDA CREADO");
             entrada = new ObjectInputStream(cliente.getInputStream());
-            Log.println(Log.INFO,"paso","ENTRADA CREADO");
             salida.writeObject(peticion);
-            Log.println(Log.INFO,"paso","OBJETO ESCRITO");
             Request peticion = (Request) entrada.readObject();
-            Log.println(Log.INFO,"paso","OBJETO LEIDO");
             switch (peticion.getCodigoPeticion()) {
+                //Buscar alojamientos disponibles por fechas
+                case 31:
+                    jsonResultado = (String) peticion.getObjetoEnviado();
+                //Respuesta consulta fechas aloj
+                case 41:
+                    booleanResultado=(boolean) peticion.getObjetoEnviado();
+                //Respuesta insert - boolean
+                case 51:
+                    booleanResultado = (boolean) peticion.getObjetoEnviado();
+                    break;
+                //Respuesta peticion - objeto
                 case 61:
                     jsonResultado = (String) peticion.getObjetoEnviado();
+                    break;
+                case 71:
                     break;
                 default:
                     break;
             }
             salida.close();
-        } catch(SocketTimeoutException e) {
+        } catch (SocketTimeoutException e) {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -61,12 +71,16 @@ public class Cliente implements Runnable {
             e.printStackTrace();
         }
     }
-    public String leerJson(){
-        while (jsonResultado.equals("")){
-            Log.println(Log.INFO,"paso","ESPERANDO JSON");
+
+    public String leerJson() {
+        while (jsonResultado.equals("")) {
         }
         return jsonResultado;
     }
 
-
+    public boolean leerBoolean() {
+        while (booleanResultado == null) {
+        }
+        return booleanResultado.booleanValue();
+    }
 }

@@ -43,46 +43,41 @@ public class HotelInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_info);
-        DatosApp.currentContext=this;
+        DatosApp.currentContext = this;
         inizializar();
 
     }
 
-    public void inizializar()
-    {
-        contexto=this;
-        btnReservar=findViewById(R.id.btnReservarInfoHotel);
+    public void inizializar() {
+        contexto = this;
+        btnReservar = findViewById(R.id.btnReservarInfoHotel);
 
-        alojamiento=(Alojamiento) getIntent().getSerializableExtra("alojamiento");
+        alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
 
-        if(DatosApp.fechaEntrada==null || DatosApp.fechaSalida == null)
-        {
+        if (DatosApp.fechaEntrada == null || DatosApp.fechaSalida == null) {
             btnReservar.setText("Comprobar disponibilidad");
-        }
-        else
-        {
+        } else {
 
             btnReservar.setText("Reservar para: " + DatosApp.fechaEntrada.toLocaleString() + " " + DatosApp.fechaSalida.toLocaleString());
         }
 
-        nombreHotel=findViewById(R.id.NombreInfoH);
-        descHotel=findViewById(R.id.descInfoH);
+        nombreHotel = findViewById(R.id.NombreInfoH);
+        descHotel = findViewById(R.id.descInfoH);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
 
 
-        if(alojamiento.getLocalizacion()!=null)
-        {
-            ft.replace(R.id.map_info_frame_H, new FragmentMap(alojamiento.getLocalizacion(),alojamiento.getNombre(), R.drawable.hotel));
+        if (alojamiento.getLocalizacion() != null) {
+            ft.replace(R.id.map_info_frame_H, new FragmentMap(alojamiento.getLocalizacion(), alojamiento.getNombre(), R.drawable.hotel));
             ft.commitAllowingStateLoss();
         }
 
         btnReservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Reserva res = new Reserva(-1,new Date(),new Date(), alojamiento, null);
-                Consultas consultar=new Consultas();
-                Request consulta=consultar.prepararInsertHibernate(50,Reserva.class,new Object[]{res});
+                Reserva res = new Reserva(-1, new Date(), new Date(), alojamiento, null);
+                Consultas consultar = new Consultas();
+                Request consulta = consultar.prepararInsertHibernate(50, res);
             }
         });
 
@@ -90,13 +85,10 @@ public class HotelInfo extends AppCompatActivity {
     }
 
 
-
-    public void RellenarDatos()
-    {
+    public void RellenarDatos() {
         nombreHotel.setText(alojamiento.getNombre());
         descHotel.setText(alojamiento.getDescripcion());
     }
-
 
 
     private void setFechaEntrada() {
@@ -110,7 +102,7 @@ public class HotelInfo extends AppCompatActivity {
                 newDate.set(year, monthOfYear, dayOfMonth);
                 SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
                 Date startDate = newDate.getTime();
-                DatosApp.fechaEntrada=startDate;
+                DatosApp.fechaEntrada = startDate;
                 String fdate = sd.format(startDate);
 
             }
@@ -139,7 +131,7 @@ public class HotelInfo extends AppCompatActivity {
                 newDate.set(year, monthOfYear, dayOfMonth);
                 SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
                 Date startDate = newDate.getTime();
-                DatosApp.fechaSalida=startDate;
+                DatosApp.fechaSalida = startDate;
                 String fdate = sd.format(startDate);
 
             }
