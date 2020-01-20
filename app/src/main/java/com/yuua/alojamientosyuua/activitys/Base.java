@@ -42,8 +42,8 @@ import java.util.Date;
 public class Base extends AppCompatActivity {
 
     public BottomNavigationView bottomNavigationView;
-    private boolean busquedaAbierta=false;
-    private boolean busquedaPorLocalizacion=false;
+    private boolean busquedaAbierta = false;
+    private boolean busquedaPorLocalizacion = false;
     private FragmentInicio fragmentInicio;
     private FragmentAlojPorCiudad fragmentAlojPorCiudad;
     private FragmentReservas fragment_reservas;
@@ -53,15 +53,13 @@ public class Base extends AppCompatActivity {
     private EditText buscador;
     private EditText fechaEntrada, fechaSalida;
     private Object selectedObject;
-
     public static LinearLayoutManager llm;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        DatosApp.currentContext=this;
+        DatosApp.currentContext = this;
         Inicializar();
     }
 
@@ -84,9 +82,7 @@ public class Base extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
-
             case R.id.btnBusquedaToolbar:
                 btnBusqueda();
             default:
@@ -94,56 +90,47 @@ public class Base extends AppCompatActivity {
         }
     }
 
-
     @Override
     public void onBackPressed() {
-        if(busquedaAbierta)
+        if (busquedaAbierta)
             cerrarBusqueda();
+        else if (busquedaPorLocalizacion)
+            mostrarFragmentInicio();
         else
-            if(busquedaPorLocalizacion)
-                mostrarFragmentInicio();
-            else
-                finish();
-
+            finish();
     }
 
-
-
-    public void Inicializar()
-    {
-        contexto=this;
-        toolbar=findViewById(R.id.searchbar);
-        toolbar.getLayoutParams().height=1;
-        buscador=findViewById(R.id.buscadorBaseLocAloj);
-        fechaEntrada=findViewById(R.id.buscadorBaseFEntrada);
-        fechaSalida=findViewById(R.id.buscadorBaseFSalida);
-        bottomNavigationView=findViewById(R.id.bottomnavigationview);
+    public void Inicializar() {
+        contexto = this;
+        toolbar = findViewById(R.id.searchbar);
+        toolbar.getLayoutParams().height = 1;
+        buscador = findViewById(R.id.buscadorBaseLocAloj);
+        fechaEntrada = findViewById(R.id.buscadorBaseFEntrada);
+        fechaSalida = findViewById(R.id.buscadorBaseFSalida);
+        bottomNavigationView = findViewById(R.id.bottomnavigationview);
         mostrarFragmentInicio();
         AnadirListeners();
     }
 
-    public void mostrarFragmentInicio()
-    {
-        busquedaPorLocalizacion=false;
+    public void mostrarFragmentInicio() {
+        busquedaPorLocalizacion = false;
         llm = new LinearLayoutManager(contexto);
         fragmentInicio = new FragmentInicio(contexto);
-        getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutbase,fragmentInicio).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutbase, fragmentInicio).commit();
     }
 
-    public void AnadirListeners()
-    {
+    public void AnadirListeners() {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Fragment selectedFragment = null;
                 llm = new LinearLayoutManager(contexto);
-                switch(menuItem.getItemId())
-                {
+                switch (menuItem.getItemId()) {
                     case R.id.bottomnavhome:
-                        busquedaPorLocalizacion=false;
+                        busquedaPorLocalizacion = false;
                         fragmentInicio = new FragmentInicio(contexto);
                         selectedFragment = fragmentInicio;
-                    break;
+                        break;
                     case R.id.bottomnavbookings:
                         fragment_reservas = new FragmentReservas();
                         selectedFragment = fragment_reservas;
@@ -151,9 +138,9 @@ public class Base extends AppCompatActivity {
                     case R.id.bottomnavuser:
                         fragment_usuario = new FragmentUsuario();
                         selectedFragment = fragment_usuario;
-                    break;
+                        break;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutbase,selectedFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutbase, selectedFragment).commit();
                 return true;
             }
         });
@@ -161,8 +148,8 @@ public class Base extends AppCompatActivity {
         buscador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent buscador = new Intent(contexto,BuscadorAlojamientos.class);
-                startActivityForResult(buscador,0);
+                Intent buscador = new Intent(contexto, BuscadorAlojamientos.class);
+                startActivityForResult(buscador, 0);
             }
         });
 
@@ -177,13 +164,11 @@ public class Base extends AppCompatActivity {
         fechaSalida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(DatosApp.fechaEntrada!=null)
-                {
+                if (DatosApp.fechaEntrada != null) {
                     setFechaSalida();
                 }
             }
         });
-
 
 
     }
@@ -199,7 +184,7 @@ public class Base extends AppCompatActivity {
                 newDate.set(year, monthOfYear, dayOfMonth);
                 SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
                 Date startDate = newDate.getTime();
-                DatosApp.fechaEntrada=startDate;
+                DatosApp.fechaEntrada = startDate;
                 String fdate = sd.format(startDate);
 
                 fechaEntrada.setText(fdate);
@@ -230,7 +215,7 @@ public class Base extends AppCompatActivity {
                 newDate.set(year, monthOfYear, dayOfMonth);
                 SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
                 Date startDate = newDate.getTime();
-                DatosApp.fechaSalida=startDate;
+                DatosApp.fechaSalida = startDate;
                 String fdate = sd.format(startDate);
 
                 fechaSalida.setText(fdate);
@@ -252,16 +237,13 @@ public class Base extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK && requestCode==0){
-            selectedObject =((ObjetoGenerico)data.getSerializableExtra("item")).getObject();
+        if (resultCode == RESULT_OK && requestCode == 0) {
+            selectedObject = ((ObjetoGenerico) data.getSerializableExtra("item")).getObject();
 
-            if(selectedObject instanceof Alojamiento)
-            {
+            if (selectedObject instanceof Alojamiento) {
                 Alojamiento aloj = (Alojamiento) selectedObject;
                 buscador.setText(aloj.getNombre());
-            }
-            else if(selectedObject instanceof Municipio)
-            {
+            } else if (selectedObject instanceof Municipio) {
                 Municipio muni = (Municipio) selectedObject;
                 buscador.setText(muni.getNombre());
             }
@@ -270,39 +252,33 @@ public class Base extends AppCompatActivity {
         }
     }
 
-    public void establecerDatosUsuario()
-    {
-        if(DatosApp.user!=null)
-        {
+    public void establecerDatosUsuario() {
+        if (DatosApp.user != null) {
             Usuario user = DatosApp.user;
             BottomNavigationView bottomNavigationView = findViewById(R.id.bottomnavigationview);
             bottomNavigationView.getMenu().getItem(2).setTitle(user.getNombreUsuario());
         }
     }
 
-    public void btnBusquedaPulsado(View view)
-    {
+    public void btnBusquedaPulsado(View view) {
         btnBusqueda();
     }
 
-    public void btnBuscarPulsado(View view)
-    {
+    public void btnBuscarPulsado(View view) {
         cerrarBusqueda();
 
         buscarPorLocalizacion();
     }
 
-    public void buscarPorLocalizacion()
-    {
-        busquedaPorLocalizacion=true;
+    public void buscarPorLocalizacion() {
+        busquedaPorLocalizacion = true;
         llm = new LinearLayoutManager(contexto);
         fragmentAlojPorCiudad = new FragmentAlojPorCiudad(contexto);
-        getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutbase,fragmentAlojPorCiudad).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutbase, fragmentAlojPorCiudad).commit();
     }
 
-    private void abrirBusqueda()
-    {
-        Log.println(Log.INFO,"Toolbar","Barra de busqueda pulsada");
+    private void abrirBusqueda() {
+        Log.println(Log.INFO, "Toolbar", "Barra de busqueda pulsada");
         ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 1000);
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -316,12 +292,11 @@ public class Base extends AppCompatActivity {
         anim.setDuration(500);
         anim.start();
         findViewById(R.id.framelayoutbase).setForeground(new ColorDrawable(ContextCompat.getColor(this, R.color.searching)));
-        busquedaAbierta=true;
+        busquedaAbierta = true;
     }
 
-    private void cerrarBusqueda()
-    {
-        Log.println(Log.INFO,"Toolbar","Barra de busqueda pulsada");
+    private void cerrarBusqueda() {
+        Log.println(Log.INFO, "Toolbar", "Barra de busqueda pulsada");
         ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 1);
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -335,22 +310,14 @@ public class Base extends AppCompatActivity {
         anim.setDuration(500);
         anim.start();
         findViewById(R.id.framelayoutbase).setForeground(null);
-        busquedaAbierta=false;
+        busquedaAbierta = false;
     }
 
     private void btnBusqueda() {
-        if(busquedaAbierta)
-        {
+        if (busquedaAbierta) {
             cerrarBusqueda();
-        }
-        else
-        {
+        } else {
             abrirBusqueda();
         }
     }
-
-
-
-
-
 }
