@@ -10,7 +10,6 @@ import com.yuua.alojamientosyuua.entidades.Territorio;
 import com.yuua.reto.net.Request;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Consultas {

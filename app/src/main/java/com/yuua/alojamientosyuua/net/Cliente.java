@@ -1,9 +1,5 @@
 package com.yuua.alojamientosyuua.net;
 
-import android.content.Context;
-import android.util.Log;
-
-import com.yuua.alojamientosyuua.activitys.MainActivity;
 import com.yuua.reto.net.Request;
 
 import java.io.IOException;
@@ -60,14 +56,6 @@ public class Cliente implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void mandarRequest(Request peticion) {
-        try {
-            salida.writeObject(peticion);
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }
