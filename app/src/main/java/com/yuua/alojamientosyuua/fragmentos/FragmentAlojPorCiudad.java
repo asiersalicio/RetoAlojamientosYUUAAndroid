@@ -41,17 +41,17 @@ public class FragmentAlojPorCiudad extends Fragment {
         view.findViewById(R.id.recyclerViewAlojPorLoc);
         rv=view.findViewById(R.id.recyclerViewAlojPorLoc);
         alojamientos=new ArrayList<Alojamiento>();
-        alojamientos.add(new Alojamiento("Hotel", "Hotel Melia Bilbao", "Un hotel en bilbao", 600000000, "Sin web", "Sin email", 100, null));
+        /*alojamientos.add(new Alojamiento("Hotel", "Hotel Melia Bilbao", "Un hotel en bilbao", 600000000, "Sin web", "Sin email", 100, null));
         alojamientos.add(new Alojamiento("Hotel", "Sercotel Bilbao", "Un hotel de prueba", 600000000, "Sin web", "Sin email", 100, null));
         alojamientos.add(new Alojamiento("Hotel", "7 Kale Bed And Breakfast Bilbao", "Un hotel de prueba", 600000000, "Sin web", "Sin email", 100, null));
         alojamientos.add(new Alojamiento("Hotel", "Hotel Carlton", "Un hotel de prueba", 600000000, "Sin web", "Sin email", 100, null));
         alojamientos.add(new Alojamiento("Hotel", "Hotel Ibis Bilbao", "Un hotel de prueba", 600000000, "Sin web", "Sin email", 100, null));
+        */
 
-
-        /*Consultas consultar=new Consultas();
+        Consultas consultar=new Consultas();
         Request consulta=consultar.prepararQueryHibernate(60,Alojamiento.class,new String[]{},new String[]{});
         Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
-        alojamientos= (ArrayList<Alojamiento>) resultado;*/
+        alojamientos= (ArrayList<Alojamiento>) resultado;
 
         rv.setLayoutManager(Base.llm);
         ItemCardAlojAdapter adapter = new ItemCardAlojAdapter(contextoPadre, alojamientos);

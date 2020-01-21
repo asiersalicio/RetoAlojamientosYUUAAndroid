@@ -13,7 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Consultas {
-    
+
+    public static final int QUERY_CON_CONDICIONES=60;
+    public static final int QUERY_CON_CONDICIONES_LIKE=65;
+
     public Request prepararInsertHibernate(Class clase ,Object[] objeto) {
         String nombreSimple = clase.getSimpleName();
         Request peticion;

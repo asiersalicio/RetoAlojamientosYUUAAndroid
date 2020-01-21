@@ -23,28 +23,20 @@ import java.util.ArrayList;
 
 public class ItemSearchResultAdapter extends RecyclerView.Adapter<ItemSearchResultAdapter.SearchResult> {
 
-    private ArrayList<Object> items;
+    public ArrayList<Object> itemsAdaptador;
     private Context contextoPadre;
     private Intent intent;
 
-
     public ItemSearchResultAdapter(Context contextoPadre, ArrayList<Object> items){
-        this.items = items;
+        this.itemsAdaptador = items;
         this.contextoPadre = contextoPadre;
         this.intent=intent;
     }
 
-
-
-
     public static class SearchResult extends RecyclerView.ViewHolder {
-
-
         ImageView icono;
         TextView texto;
-
         public ConstraintLayout cl;
-
         SearchResult(View itemView) {
             super(itemView);
             icono=itemView.findViewById(R.id.searchResultIcon);
@@ -63,22 +55,16 @@ public class ItemSearchResultAdapter extends RecyclerView.Adapter<ItemSearchResu
 
     @Override
     public void onBindViewHolder(final ItemSearchResultAdapter.SearchResult searchResult, int i) {
-
-        final Object item = items.get(i);
-        if(item instanceof Alojamiento)
-        {
-            Alojamiento aloj = (Alojamiento) items.get(i);
+        final Object item = itemsAdaptador.get(i);
+        if(item instanceof Alojamiento) {
+            Alojamiento aloj = (Alojamiento) itemsAdaptador.get(i);
             searchResult.texto.setText(aloj.getNombre());
             searchResult.icono.setImageResource(R.drawable.ic_hotel_blue_24dp);
-        }
-        else if(item instanceof Municipio){
-            Municipio muni = (Municipio) items.get(i);
+        } else if(item instanceof Municipio){
+            Municipio muni = (Municipio) itemsAdaptador.get(i);
             searchResult.texto.setText(muni.getNombre());
             searchResult.icono.setImageResource(R.drawable.ic_location_city_black_24dp);
         }
-
-
-
         searchResult.cl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +74,6 @@ public class ItemSearchResultAdapter extends RecyclerView.Adapter<ItemSearchResu
                 ((Activity)contextoPadre).finish();
             }
         });
-
     }
 
     @Override
@@ -98,8 +83,14 @@ public class ItemSearchResultAdapter extends RecyclerView.Adapter<ItemSearchResu
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return itemsAdaptador.size();
     }
 
-
+    public void reemplazarItems(ArrayList<Object> items)
+    {
+        this.itemsAdaptador.clear();
+        this.itemsAdaptador.add(items);
+        //notifyDataSetChanged();
+        System.out.println("Cambiada lista de hoteles con: " + items.size() + " items");
+    }
 }
