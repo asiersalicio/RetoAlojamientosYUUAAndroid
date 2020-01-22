@@ -24,13 +24,10 @@ public class ImageViewer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_viewer);
-        searchFor=getIntent().getExtras().getString("searchfor");
+        searchFor=getIntent().getExtras().getString("searchFor");
         mostrarResultados();
 
-
-
         getSupportActionBar().hide();
-
 
     }
 

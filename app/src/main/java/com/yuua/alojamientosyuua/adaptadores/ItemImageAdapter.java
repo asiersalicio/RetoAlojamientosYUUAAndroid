@@ -34,10 +34,6 @@ public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.Imag
 
     }
 
-
-
-
-
     public static class Image extends RecyclerView.ViewHolder {
 
 
@@ -62,9 +58,7 @@ public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.Imag
     @Override
     public void onBindViewHolder(final ItemImageAdapter.Image image, final int i) {
 
-
-
-            String image_url = "here url";
+            image.imageView.setImageBitmap(null);
             new Thread(new Runnable()
             {
                 public void run()
@@ -72,40 +66,13 @@ public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.Imag
                     try
                     {
                         final Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(imagenes.get(i)).getContent());
-                        image.imageView.post(new Runnable()
-                        {
-                            public void run()
-                            {
-                                if(bitmap !=null)
-                                {
-                                    image.imageView.setImageBitmap(bitmap);
-                                }
-                            }
-                        });
+                        image.imageView.setImageBitmap(bitmap);
                     } catch (Exception e)
                     {
                         // TODO: handle exception
                     }
                 }
             }).start();
-
-            //image.imageView.setImageBitmap(img.getBitmap(image.imageView.getWidth(),image.imageView.getHeight()));
-
-
-
-
-
-
-
-        /*searchResult.cl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("item", new ObjetoGenerico(item));
-                ((Activity)contextoPadre).setResult(Activity.RESULT_OK,returnIntent);
-                ((Activity)contextoPadre).finish();
-            }
-        });*/
 
     }
 

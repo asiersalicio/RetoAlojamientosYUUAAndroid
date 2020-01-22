@@ -42,7 +42,8 @@ public class ImageDownloader extends Thread {
 
     public static ArrayList<String> obtenerLinksImagenes(String criterioBusqueda, int cantidad)
     {
-
+        criterioBusqueda=criterioBusqueda.replace(" ","+");
+        System.out.println("Query busqueda: " + "https://api.qwant.com/api/search/images?count="+cantidad+"&offset=0&q=" + criterioBusqueda + "&t=web&uiv=1");
         ImageDownloader id = new ImageDownloader("https://api.qwant.com/api/search/images?count="+cantidad+"&offset=0&q=" + criterioBusqueda + "&t=web&uiv=1");
         id.prepararHilo();
         ArrayList<String> urls;
