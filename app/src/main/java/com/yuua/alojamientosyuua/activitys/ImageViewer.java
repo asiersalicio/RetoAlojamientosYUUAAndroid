@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.yuua.alojamientosyuua.ImageDownloader;
@@ -24,11 +25,15 @@ public class ImageViewer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_viewer);
-        searchFor=getIntent().getExtras().getString("searchFor");
-        mostrarResultados();
-
         getSupportActionBar().hide();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        searchFor=getIntent().getExtras().getString("searchFor");
+        mostrarResultados();
     }
 
     public void mostrarResultados()
@@ -36,12 +41,12 @@ public class ImageViewer extends AppCompatActivity {
         rv=findViewById(R.id.recycler_vierw_image);
         ArrayList<String> imagenes;
 
-        imagenes=ImageDownloader.obtenerLinksImagenes(searchFor,1);
-
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
+        imagenes=ImageDownloader.obtenerLinksImagenes(searchFor,1);
         ItemImageAdapter adapter = new ItemImageAdapter(this, imagenes);
         rv.setAdapter(adapter);
+
     }
 
     @Override

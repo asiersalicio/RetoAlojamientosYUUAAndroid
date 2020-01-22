@@ -2,7 +2,10 @@ package com.yuua.alojamientosyuua;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.yuua.alojamientosyuua.entidades.Imagen;
@@ -18,6 +21,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 public class ImageDownloader implements Runnable {
@@ -45,10 +49,16 @@ public class ImageDownloader implements Runnable {
         criterioBusqueda=criterioBusqueda.replace(" ","+");
         System.out.println("Query busqueda: " + "https://api.qwant.com/api/search/images?count="+cantidad+"&offset=0&q=" + criterioBusqueda + "&t=web&uiv=1");
         ImageDownloader id = new ImageDownloader("https://api.qwant.com/api/search/images?count="+cantidad+"&offset=0&q=" + criterioBusqueda + "&t=web&uiv=1");
+        finalizado=false;
         id.prepararHilo();
+        while(!finalizado)
+        {
+            Thread.yield();
+        }
         ArrayList<String> urls;
         urls=new ArrayList<String>();
         urls.add(parseado);
+        System.out.println(urls.toString());
         return urls;
     }
 
@@ -58,11 +68,6 @@ public class ImageDownloader implements Runnable {
         Thread hilo = new Thread(this);
 
         hilo.start();
-
-        while (!finalizado) {
-            Thread.yield();
-        }
-
 
     }
 
@@ -74,6 +79,7 @@ public class ImageDownloader implements Runnable {
         System.out.println("JSON imagen: " + resultado);
         return resultado;
     }
+
 
 
     @Override

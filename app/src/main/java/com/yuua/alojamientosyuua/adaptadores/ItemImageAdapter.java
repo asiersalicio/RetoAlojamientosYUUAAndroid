@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.yuua.alojamientosyuua.ImageDownloader;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
@@ -57,23 +58,8 @@ public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.Imag
 
     @Override
     public void onBindViewHolder(final ItemImageAdapter.Image image, final int i) {
-
-            image.imageView.setImageBitmap(null);
-            new Thread(new Runnable()
-            {
-                public void run()
-                {
-                    try
-                    {
-                        final Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(imagenes.get(i)).getContent());
-                        image.imageView.setImageBitmap(bitmap);
-                    } catch (Exception e)
-                    {
-                        // TODO: handle exception
-                    }
-                }
-            }).start();
-
+            System.out.println("Aplicando imagen: " + imagenes.get(i));
+            Picasso.get().load(imagenes.get(i)).into(image.imageView);
     }
 
     @Override
