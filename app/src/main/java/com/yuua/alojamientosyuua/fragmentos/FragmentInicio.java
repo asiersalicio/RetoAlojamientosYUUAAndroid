@@ -2,9 +2,7 @@ package com.yuua.alojamientosyuua.fragmentos;
 
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.activitys.Base;
 import com.yuua.alojamientosyuua.adaptadores.ItemCardAlojAdapter;
@@ -45,15 +44,17 @@ public class FragmentInicio extends Fragment{
 
     public void cargarDatosBD() {
 
-        /*Consultas consultar=new Consultas();
-        Request consulta=consultar.prepararQueryHibernate(60,Alojamiento.class,new String[]{},new String[]{});
-        Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
-        alojamientos= (ArrayList<Alojamiento>) resultado;*/
-
-
-        alojamientos=new ArrayList<Alojamiento>();
-        alojamientos.add(new Alojamiento("Hotel", "Hotel Melia", "Un hotel en bilbao", 600000000, "Sin web", "Sin email", 100, null));
-        alojamientos.add(new Alojamiento("Hotel", "Hotel Prueba", "Un hotel de prueba", 600000000, "Sin web", "Sin email", 100, null));
+        if(!DatosApp.DATOSDEBUG)
+        {
+            Consultas consultar=new Consultas();
+            Request consulta=consultar.prepararQueryHibernate(60,Alojamiento.class,new String[]{},new String[]{});
+            Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
+            alojamientos= (ArrayList<Alojamiento>) resultado;
+        }
+        else
+        {
+            alojamientos=DatosApp.getDebugAlojamientos();
+        }
 
 
         rv.setLayoutManager(Base.llm);

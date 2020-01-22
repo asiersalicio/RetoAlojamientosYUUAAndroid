@@ -3,7 +3,6 @@ package com.yuua.alojamientosyuua.adaptadores;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,16 +35,16 @@ public class ItemSearchResultAdapter extends RecyclerView.Adapter<ItemSearchResu
     public static class SearchResult extends RecyclerView.ViewHolder {
         ImageView icono;
         TextView texto;
-        TextView textoCiudad;
-        ImageView iconoCiudad;
+        TextView textoDescripcion;
+        ImageView iconoDescripcion;
         ConstraintLayout cl;
         SearchResult(View itemView) {
             super(itemView);
             icono=itemView.findViewById(R.id.searchResultIcon);
             texto=itemView.findViewById(R.id.searchResultText);
             cl=itemView.findViewById(R.id.constraintSearchItem);
-            textoCiudad=itemView.findViewById(R.id.searchResultTextCity);
-            iconoCiudad=itemView.findViewById(R.id.searchResultIconCity);
+            textoDescripcion=itemView.findViewById(R.id.searchResultTextDesc);
+            iconoDescripcion =itemView.findViewById(R.id.searchResultIconDesc);
         }
     }
 
@@ -61,16 +60,24 @@ public class ItemSearchResultAdapter extends RecyclerView.Adapter<ItemSearchResu
     public void onBindViewHolder(final ItemSearchResultAdapter.SearchResult searchResult, int i) {
         final Object item = itemsAdaptador.get(i);
         if(item instanceof Alojamiento) {
-            Alojamiento aloj = (Alojamiento) itemsAdaptador.get(i);
+            Alojamiento aloj = (Alojamiento) item;
             searchResult.texto.setText(aloj.getNombre());
             searchResult.icono.setImageResource(R.drawable.ic_hotel_blue_24dp);
-            searchResult.textoCiudad.setText(aloj.getLocalizacion().getTmunicipio().getNombre());
+            searchResult.textoDescripcion.setText(aloj.getLocalizacion().getTmunicipio().getNombre());
+            searchResult.textoDescripcion.setVisibility(View.VISIBLE);
+            searchResult.iconoDescripcion.setVisibility(View.VISIBLE);
+
         } else if(item instanceof Municipio){
-            Municipio muni = (Municipio) itemsAdaptador.get(i);
+            Municipio muni = (Municipio) item;
             searchResult.texto.setText(muni.getNombre());
             searchResult.icono.setImageResource(R.drawable.ic_location_city_black_24dp);
-            searchResult.textoCiudad.setVisibility(View.INVISIBLE);
-            searchResult.iconoCiudad.setVisibility(View.INVISIBLE);
+
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) searchResult.texto.getLayoutParams();
+            params.verticalBias = 0.5f; // here is one modification for example. modify anything else you want :)
+            searchResult.texto.setLayoutParams(params);
+
+            searchResult.textoDescripcion.setVisibility(View.INVISIBLE);
+            searchResult.iconoDescripcion.setVisibility(View.INVISIBLE);
         }
         searchResult.cl.setOnClickListener(new View.OnClickListener() {
             @Override

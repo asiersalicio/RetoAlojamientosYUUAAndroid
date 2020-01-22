@@ -30,10 +30,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchResultIcon"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19999999" />
 
     <TextView
-        android:id="@+id/searchResultTextCity"
+        android:id="@+id/searchResultTextDesc"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="La capital del mundo"
@@ -45,12 +46,12 @@
         app:layout_constraintTop_toBottomOf="@+id/searchResultText" />
 
     <ImageView
-        android:id="@+id/searchResultIconCity"
+        android:id="@+id/searchResultIconDesc"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/searchResultTextCity"
-        app:layout_constraintEnd_toStartOf="@+id/searchResultTextCity"
-        app:layout_constraintTop_toTopOf="@+id/searchResultTextCity"
+        app:layout_constraintBottom_toBottomOf="@+id/searchResultTextDesc"
+        app:layout_constraintEnd_toStartOf="@+id/searchResultTextDesc"
+        app:layout_constraintTop_toTopOf="@+id/searchResultTextDesc"
         app:srcCompat="@drawable/ic_location_city_black_24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

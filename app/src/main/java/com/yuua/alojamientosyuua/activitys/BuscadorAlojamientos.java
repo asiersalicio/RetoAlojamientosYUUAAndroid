@@ -8,11 +8,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.AttributeSet;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.ItemSearchResultAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
@@ -68,9 +67,33 @@ public class BuscadorAlojamientos extends AppCompatActivity {
             }
         });
 
-        iniciarBuscador();
-
+        if (!DatosApp.DATOSDEBUG) {
+            iniciarBuscador();
+        } else {
+            final ArrayList<Object> arrayPruebas = new ArrayList<Object>();
+            arrayPruebas.addAll(DatosApp.getDebugMunicipios());
+            arrayPruebas.addAll(DatosApp.getDebugAlojamientos());
+            new Thread(new HiloBusqueda(items, adapter) {
+                @Override
+                public void run() {
+                    super.run();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter.itemsAdaptador.clear();
+                            adapter.itemsAdaptador.addAll(arrayPruebas);
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+            }
+            ).start();
+        }
     }
+
+
+
+
 
     private void iniciarBuscador() {
         new Thread(new HiloBusqueda(items, adapter) {
@@ -97,12 +120,7 @@ public class BuscadorAlojamientos extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
-
-
                                     adapter.itemsAdaptador.clear();
-                                    /*ArrayList<Object> prueba =new ArrayList<Object>();
-                                    prueba.add(new Municipio(new char[]{0},"PRUEBA"));*/
                                     adapter.itemsAdaptador.addAll(nuevoArray);
                                     adapter.notifyDataSetChanged();
                                     System.out.println("Actualizando lista de alojamientos busqueda, con: " + nuevoArray.size());

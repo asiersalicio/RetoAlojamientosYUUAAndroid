@@ -52,7 +52,6 @@ public class Base extends AppCompatActivity {
     private ConstraintLayout toolbar;
     private EditText buscador;
     private EditText fechaEntrada, fechaSalida;
-    private Object selectedObject;
     public static LinearLayoutManager llm;
 
     @Override
@@ -238,14 +237,14 @@ public class Base extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == 0) {
-            selectedObject = ((ObjetoGenerico) data.getSerializableExtra("item")).getObject();
+            DatosApp.itemSeleccionado = ((ObjetoGenerico) data.getSerializableExtra("item")).getObject();
 
-            if (selectedObject instanceof Alojamiento) {
-                Alojamiento aloj = (Alojamiento) selectedObject;
-                buscador.setText(aloj.getNombre());
-            } else if (selectedObject instanceof Municipio) {
-                Municipio muni = (Municipio) selectedObject;
-                buscador.setText(muni.getNombre());
+            if (DatosApp.itemSeleccionado instanceof Alojamiento) {
+                Alojamiento aloj = (Alojamiento) DatosApp.itemSeleccionado;
+                buscador.setText("\uD83D\uDECF: " +aloj.getNombre());
+            } else if (DatosApp.itemSeleccionado instanceof Municipio) {
+                Municipio muni = (Municipio) DatosApp.itemSeleccionado;
+                buscador.setText("\uD83C\uDF06: " + muni.getNombre());
             }
 
 
@@ -267,7 +266,15 @@ public class Base extends AppCompatActivity {
     public void btnBuscarPulsado(View view) {
         cerrarBusqueda();
 
-        buscarPorLocalizacion();
+        if(DatosApp.itemSeleccionado instanceof Alojamiento)
+        {
+
+        }else if(DatosApp.itemSeleccionado instanceof Municipio)
+        {
+            buscarPorLocalizacion();
+        }
+
+
     }
 
     public void buscarPorLocalizacion() {
