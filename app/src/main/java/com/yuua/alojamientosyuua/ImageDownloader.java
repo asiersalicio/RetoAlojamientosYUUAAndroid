@@ -20,7 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ImageDownloader extends Thread {
+public class ImageDownloader implements Runnable {
 
     private URL url;
     public static boolean finalizado = false;
@@ -54,7 +54,10 @@ public class ImageDownloader extends Thread {
 
     private void prepararHilo() {
 
-        this.start();
+
+        Thread hilo = new Thread(this);
+
+        hilo.start();
 
         while (!finalizado) {
             Thread.yield();
@@ -68,7 +71,7 @@ public class ImageDownloader extends Thread {
         resultado = resultado.substring(resul.indexOf("\"media\":") + 9);
         resultado = resultado.substring(0, resultado.indexOf("\""));
         resultado = resultado.replace("\\", "");
-        System.out.println(resultado);
+        System.out.println("JSON imagen: " + resultado);
         return resultado;
     }
 
