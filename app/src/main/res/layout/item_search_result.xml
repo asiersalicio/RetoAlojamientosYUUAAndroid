@@ -25,8 +25,32 @@
         android:layout_height="wrap_content"
         android:clickable="false"
         android:text="Bilbao"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchResultIcon"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/searchResultTextCity"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="La capital del mundo"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintStart_toStartOf="@+id/searchResultText"
+        app:layout_constraintTop_toBottomOf="@+id/searchResultText" />
+
+    <ImageView
+        android:id="@+id/searchResultIconCity"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/searchResultTextCity"
+        app:layout_constraintEnd_toStartOf="@+id/searchResultTextCity"
+        app:layout_constraintTop_toTopOf="@+id/searchResultTextCity"
+        app:srcCompat="@drawable/ic_location_city_black_24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

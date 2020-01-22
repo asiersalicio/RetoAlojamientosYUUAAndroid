@@ -36,12 +36,16 @@ public class ItemSearchResultAdapter extends RecyclerView.Adapter<ItemSearchResu
     public static class SearchResult extends RecyclerView.ViewHolder {
         ImageView icono;
         TextView texto;
-        public ConstraintLayout cl;
+        TextView textoCiudad;
+        ImageView iconoCiudad;
+        ConstraintLayout cl;
         SearchResult(View itemView) {
             super(itemView);
             icono=itemView.findViewById(R.id.searchResultIcon);
             texto=itemView.findViewById(R.id.searchResultText);
             cl=itemView.findViewById(R.id.constraintSearchItem);
+            textoCiudad=itemView.findViewById(R.id.searchResultTextCity);
+            iconoCiudad=itemView.findViewById(R.id.searchResultIconCity);
         }
     }
 
@@ -60,10 +64,13 @@ public class ItemSearchResultAdapter extends RecyclerView.Adapter<ItemSearchResu
             Alojamiento aloj = (Alojamiento) itemsAdaptador.get(i);
             searchResult.texto.setText(aloj.getNombre());
             searchResult.icono.setImageResource(R.drawable.ic_hotel_blue_24dp);
+            searchResult.textoCiudad.setText(aloj.getLocalizacion().getTmunicipio().getNombre());
         } else if(item instanceof Municipio){
             Municipio muni = (Municipio) itemsAdaptador.get(i);
             searchResult.texto.setText(muni.getNombre());
             searchResult.icono.setImageResource(R.drawable.ic_location_city_black_24dp);
+            searchResult.textoCiudad.setVisibility(View.INVISIBLE);
+            searchResult.iconoCiudad.setVisibility(View.INVISIBLE);
         }
         searchResult.cl.setOnClickListener(new View.OnClickListener() {
             @Override

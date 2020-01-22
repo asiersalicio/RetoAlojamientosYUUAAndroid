@@ -35,7 +35,7 @@ public class Cliente implements Runnable {
             salida.writeObject(peticion);
             System.out.println("Write object");
             Request peticion = (Request) entrada.readObject();
-            System.out.println("Read object");
+            System.out.println("Read object: " + peticion.getCodigoPeticion());
             switch (peticion.getCodigoPeticion()) {
                 //Buscar alojamientos disponibles por fechas
                 case 31:
@@ -71,12 +71,14 @@ public class Cliente implements Runnable {
 
     public String leerJson() {
         while (jsonResultado.equals("")) {
+            Thread.yield();
         }
         return jsonResultado;
     }
 
     public boolean leerBoolean() {
         while (booleanResultado == null) {
+            Thread.yield();
         }
         return booleanResultado.booleanValue();
     }

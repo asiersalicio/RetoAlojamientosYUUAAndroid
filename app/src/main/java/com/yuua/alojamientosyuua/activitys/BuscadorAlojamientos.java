@@ -79,7 +79,7 @@ public class BuscadorAlojamientos extends AppCompatActivity {
                 String ultimoTexto = "";
                 while (!salir) {
                     try {
-                        Thread.sleep(3000);
+                        Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                     }
                     ;
@@ -89,15 +89,24 @@ public class BuscadorAlojamientos extends AppCompatActivity {
                         //pb.setVisibility(View.VISIBLE);
                         textoCambiado = false;
 
+                        System.out.println("Intentando actualizar lista de alojamientos...");
+
+                        final ArrayList<Object> nuevoArray;
+                        nuevoArray=buscarPorTexto(campoBusqueda.getText().toString());
 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                ArrayList<Object> nuevoArray;
-                                nuevoArray=buscarPorTexto(campoBusqueda.getText().toString());
-                                adapter.itemsAdaptador.clear();
-                                adapter.itemsAdaptador.addAll(nuevoArray);
-                                adapter.notifyDataSetChanged();
+
+
+
+                                    adapter.itemsAdaptador.clear();
+                                    /*ArrayList<Object> prueba =new ArrayList<Object>();
+                                    prueba.add(new Municipio(new char[]{0},"PRUEBA"));*/
+                                    adapter.itemsAdaptador.addAll(nuevoArray);
+                                    adapter.notifyDataSetChanged();
+                                    System.out.println("Actualizando lista de alojamientos busqueda, con: " + nuevoArray.size());
+
                             }
                         });
                     }
@@ -121,11 +130,11 @@ public class BuscadorAlojamientos extends AppCompatActivity {
         Request peticionMunicipio = consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES_LIKE, Municipio.class, new String[]{"nombre"}, new String[]{texto});
         arrayList.addAll((ArrayList<Object>) consultar.devolverResultadoPeticion(peticionMunicipio, Municipio.class));
 
+
+        Request peticionAlojamientos=consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES_LIKE,Alojamiento.class,new String[]{"nombre"},new String[]{texto});
+
+        arrayList.addAll((ArrayList<Object>)consultar.devolverResultadoPeticion(peticionAlojamientos,Alojamiento.class));
+
         return arrayList;
-//        Request peticionAlojamientos=consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES_LIKE,Alojamiento.class,new String[]{"nombre"},new String[]{texto});
-
-        //items.addAll((ArrayList<Object>)consultar.devolverResultadoPeticion(peticionAlojamientos,Alojamiento.class));
-
-
     }
 }
