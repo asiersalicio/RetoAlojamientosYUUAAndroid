@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.yuua.alojamientosyuua.DatosApp;
@@ -50,9 +51,8 @@ public class Base extends AppCompatActivity {
     private FragmentUsuario fragment_usuario;
     public static Context contexto;
     private ConstraintLayout toolbar;
-    private EditText buscador;
+    private TextView buscador;
     private EditText fechaEntrada, fechaSalida;
-    private Object selectedObject;
     public static LinearLayoutManager llm;
 
     @Override
@@ -148,8 +148,9 @@ public class Base extends AppCompatActivity {
         buscador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent buscador = new Intent(contexto, BuscadorAlojamientos.class);
-                startActivityForResult(buscador, 0);
+                Intent intentBuscador = new Intent(contexto, BuscadorAlojamientos.class);
+                intentBuscador.putExtra("busqueda",buscador.getText().toString());
+                startActivityForResult(intentBuscador, 0);
             }
         });
 
@@ -238,13 +239,13 @@ public class Base extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == 0) {
-            selectedObject = ((ObjetoGenerico) data.getSerializableExtra("item")).getObject();
+            DatosApp.itemSeleccionado = ((ObjetoGenerico) data.getSerializableExtra("item")).getObject();
 
-            if (selectedObject instanceof Alojamiento) {
-                Alojamiento aloj = (Alojamiento) selectedObject;
+            if (DatosApp.itemSeleccionado instanceof Alojamiento) {
+                Alojamiento aloj = (Alojamiento) DatosApp.itemSeleccionado;
                 buscador.setText(aloj.getNombre());
-            } else if (selectedObject instanceof Municipio) {
-                Municipio muni = (Municipio) selectedObject;
+            } else if (DatosApp.itemSeleccionado instanceof Municipio) {
+                Municipio muni = (Municipio) DatosApp.itemSeleccionado;
                 buscador.setText(muni.getNombre());
             }
 
@@ -267,7 +268,15 @@ public class Base extends AppCompatActivity {
     public void btnBuscarPulsado(View view) {
         cerrarBusqueda();
 
-        buscarPorLocalizacion();
+        if(DatosApp.itemSeleccionado instanceof Alojamiento)
+        {
+
+        }else if(DatosApp.itemSeleccionado instanceof Municipio)
+        {
+            buscarPorLocalizacion();
+        }
+
+
     }
 
     public void buscarPorLocalizacion() {

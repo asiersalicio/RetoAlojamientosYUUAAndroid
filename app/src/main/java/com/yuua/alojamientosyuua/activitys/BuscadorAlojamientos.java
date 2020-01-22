@@ -8,11 +8,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.ItemSearchResultAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
@@ -59,7 +59,7 @@ public class BuscadorAlojamientos extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 textoCambiado = true;
-                System.out.println("Texto cambiado");
+                activarProgressbar();
             }
 
             @Override
@@ -68,9 +68,35 @@ public class BuscadorAlojamientos extends AppCompatActivity {
             }
         });
 
-        iniciarBuscador();
+        if (!DatosApp.DATOSDEBUG) {
+            iniciarBuscador();
+        } else {
+            final ArrayList<Object> arrayPruebas = new ArrayList<Object>();
+            arrayPruebas.addAll(DatosApp.getDebugMunicipios());
+            arrayPruebas.addAll(DatosApp.getDebugAlojamientos());
+            new Thread(new HiloBusqueda(items, adapter) {
+                @Override
+                public void run() {
+                    super.run();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter.itemsAdaptador.clear();
+                            adapter.itemsAdaptador.addAll(arrayPruebas);
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+            }
+            ).start();
+        }
 
+        campoBusqueda.setText(getIntent().getExtras().getString("busqueda"));
     }
+
+
+
+
 
     private void iniciarBuscador() {
         new Thread(new HiloBusqueda(items, adapter) {
@@ -79,29 +105,33 @@ public class BuscadorAlojamientos extends AppCompatActivity {
                 String ultimoTexto = "";
                 while (!salir) {
                     try {
-                        Thread.sleep(3000);
+                        Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                     }
                     ;
 
 
                     if (textoCambiado && campoBusqueda.getText().length() > 0) {
-                        //pb.setVisibility(View.VISIBLE);
+                        activarProgressbar();
                         textoCambiado = false;
 
+                        System.out.println("Intentando actualizar lista de alojamientos...");
+
+                        final ArrayList<Object> nuevoArray;
+                        nuevoArray=buscarPorTexto(campoBusqueda.getText().toString());
 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                ArrayList<Object> nuevoArray;
-                                nuevoArray=buscarPorTexto(campoBusqueda.getText().toString());
-                                adapter.itemsAdaptador.clear();
-                                adapter.itemsAdaptador.addAll(nuevoArray);
-                                adapter.notifyDataSetChanged();
+                                    adapter.itemsAdaptador.clear();
+                                    adapter.itemsAdaptador.addAll(nuevoArray);
+                                    adapter.notifyDataSetChanged();
+                                    System.out.println("Actualizando lista de alojamientos busqueda, con: " + nuevoArray.size());
+
                             }
                         });
                     }
-                    //pb.setVisibility(View.INVISIBLE);
+                    desactivarProgresBar();
                 }
             }
         }).start();
@@ -121,11 +151,36 @@ public class BuscadorAlojamientos extends AppCompatActivity {
         Request peticionMunicipio = consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES_LIKE, Municipio.class, new String[]{"nombre"}, new String[]{texto});
         arrayList.addAll((ArrayList<Object>) consultar.devolverResultadoPeticion(peticionMunicipio, Municipio.class));
 
+
+        Request peticionAlojamientos=consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES_LIKE,Alojamiento.class,new String[]{"nombre"},new String[]{texto});
+
+        arrayList.addAll((ArrayList<Object>)consultar.devolverResultadoPeticion(peticionAlojamientos,Alojamiento.class));
+
         return arrayList;
-//        Request peticionAlojamientos=consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES_LIKE,Alojamiento.class,new String[]{"nombre"},new String[]{texto});
+    }
 
-        //items.addAll((ArrayList<Object>)consultar.devolverResultadoPeticion(peticionAlojamientos,Alojamiento.class));
+    public void borrarBusqueda(View view)
+    {
+        campoBusqueda.setText("");
+    }
 
+    private void activarProgressbar()
+    {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                pb.setVisibility(View.VISIBLE);
+            }
+        });
+    }
 
+    private void desactivarProgresBar()
+    {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                pb.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 }

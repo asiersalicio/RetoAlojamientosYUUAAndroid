@@ -55,7 +55,7 @@ public class ImageDownloader extends Thread {
         this.start();
 
         while (!finalizado) {
-
+            Thread.yield();
         }
 
 
