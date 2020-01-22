@@ -52,7 +52,9 @@ public class Cliente implements Runnable {
                     break;
             }
             salida.close();
+            cliente.close();
         } catch (SocketTimeoutException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -62,12 +64,14 @@ public class Cliente implements Runnable {
 
     public String leerJson() {
         while (jsonResultado.equals("")) {
+            Thread.yield();
         }
         return jsonResultado;
     }
 
     public boolean leerBoolean() {
         while (booleanResultado == null) {
+            Thread.yield();
         }
         return booleanResultado.booleanValue();
     }
