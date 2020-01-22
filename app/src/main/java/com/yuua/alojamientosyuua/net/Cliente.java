@@ -27,10 +27,15 @@ public class Cliente implements Runnable {
     public void run() {
         try {
             cliente = new Socket(IP, PUERTO);
+            System.out.println("Conectado");
             salida = new ObjectOutputStream(cliente.getOutputStream());
+            System.out.println("Get output stream");
             entrada = new ObjectInputStream(cliente.getInputStream());
+            System.out.println("Get input stream");
             salida.writeObject(peticion);
+            System.out.println("Write object");
             Request peticion = (Request) entrada.readObject();
+            System.out.println("Read object");
             switch (peticion.getCodigoPeticion()) {
                 //Buscar alojamientos disponibles por fechas
                 case 31:
@@ -51,8 +56,10 @@ public class Cliente implements Runnable {
                 default:
                     break;
             }
+            System.out.println("preclose");
             salida.close();
             cliente.close();
+            System.out.println("postclose");
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
         } catch (IOException e) {

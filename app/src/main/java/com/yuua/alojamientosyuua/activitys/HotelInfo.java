@@ -56,10 +56,6 @@ public class HotelInfo extends AppCompatActivity {
 
         alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
 
-        try {
-            ImageDownloader id=new ImageDownloader(this);
-            id.savePage("https://api.qwant.com/api/search/images?count=1&offset=0&q=hotel&t=web&uiv=1");
-        }catch (IOException ex){}
 
         if (DatosApp.fechaEntrada == null || DatosApp.fechaSalida == null) {
             btnReservar.setText("Comprobar disponibilidad");
@@ -155,5 +151,12 @@ public class HotelInfo extends AppCompatActivity {
         datePickerDialog.getDatePicker().setMaxDate(datemax6months.getTime());
         datePickerDialog.show();
 
+    }
+
+    public void btnGaleriaImagenes(View view)
+    {
+        Intent galeria = new Intent(this, ImageViewer.class);
+        galeria.putExtra("aloj", alojamiento);
+        startActivity(galeria);
     }
 }
