@@ -10,6 +10,7 @@ import com.yuua.alojamientosyuua.entidades.Territorio;
 import com.yuua.reto.net.Request;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Consultas {
@@ -25,6 +26,13 @@ public class Consultas {
         String json=parser.toJson(objeto);
         peticion = new Request(50, new Object[]{nombreSimple,json});
         return peticion;
+    }
+
+    public Request alojamientosDisponiblesEntreFechasEnMunicipio(Date fecha1,Date fecha2,Municipio municipio){
+        Gson parser =new Gson();
+        String json=parser.toJson(municipio);
+        Request peticion = new Request(20, new Object[]{json,fecha1,fecha2});
+        return  peticion;
     }
 
     public Request prepararQueryHibernate(int codigo, Class claseObjeto, String[] campos, String[] condiciones) {
