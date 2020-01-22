@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.yuua.alojamientosyuua.DatosApp;
@@ -50,7 +51,7 @@ public class Base extends AppCompatActivity {
     private FragmentUsuario fragment_usuario;
     public static Context contexto;
     private ConstraintLayout toolbar;
-    private EditText buscador;
+    private TextView buscador;
     private EditText fechaEntrada, fechaSalida;
     public static LinearLayoutManager llm;
 
@@ -147,8 +148,9 @@ public class Base extends AppCompatActivity {
         buscador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent buscador = new Intent(contexto, BuscadorAlojamientos.class);
-                startActivityForResult(buscador, 0);
+                Intent intentBuscador = new Intent(contexto, BuscadorAlojamientos.class);
+                intentBuscador.putExtra("busqueda",buscador.getText().toString());
+                startActivityForResult(intentBuscador, 0);
             }
         });
 
@@ -241,10 +243,10 @@ public class Base extends AppCompatActivity {
 
             if (DatosApp.itemSeleccionado instanceof Alojamiento) {
                 Alojamiento aloj = (Alojamiento) DatosApp.itemSeleccionado;
-                buscador.setText("\uD83D\uDECF: " +aloj.getNombre());
+                buscador.setText(aloj.getNombre());
             } else if (DatosApp.itemSeleccionado instanceof Municipio) {
                 Municipio muni = (Municipio) DatosApp.itemSeleccionado;
-                buscador.setText("\uD83C\uDF06: " + muni.getNombre());
+                buscador.setText(muni.getNombre());
             }
 
 

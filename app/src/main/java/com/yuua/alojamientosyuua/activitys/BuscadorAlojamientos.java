@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -58,7 +59,7 @@ public class BuscadorAlojamientos extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 textoCambiado = true;
-                System.out.println("Texto cambiado");
+                activarProgressbar();
             }
 
             @Override
@@ -89,6 +90,8 @@ public class BuscadorAlojamientos extends AppCompatActivity {
             }
             ).start();
         }
+
+        campoBusqueda.setText(getIntent().getExtras().getString("busqueda"));
     }
 
 
@@ -109,7 +112,7 @@ public class BuscadorAlojamientos extends AppCompatActivity {
 
 
                     if (textoCambiado && campoBusqueda.getText().length() > 0) {
-                        //pb.setVisibility(View.VISIBLE);
+                        activarProgressbar();
                         textoCambiado = false;
 
                         System.out.println("Intentando actualizar lista de alojamientos...");
@@ -128,7 +131,7 @@ public class BuscadorAlojamientos extends AppCompatActivity {
                             }
                         });
                     }
-                    //pb.setVisibility(View.INVISIBLE);
+                    desactivarProgresBar();
                 }
             }
         }).start();
@@ -154,5 +157,30 @@ public class BuscadorAlojamientos extends AppCompatActivity {
         arrayList.addAll((ArrayList<Object>)consultar.devolverResultadoPeticion(peticionAlojamientos,Alojamiento.class));
 
         return arrayList;
+    }
+
+    public void borrarBusqueda(View view)
+    {
+        campoBusqueda.setText("");
+    }
+
+    private void activarProgressbar()
+    {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                pb.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void desactivarProgresBar()
+    {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                pb.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 }

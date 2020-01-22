@@ -66,6 +66,9 @@ public class ItemSearchResultAdapter extends RecyclerView.Adapter<ItemSearchResu
             searchResult.textoDescripcion.setText(aloj.getLocalizacion().getTmunicipio().getNombre());
             searchResult.textoDescripcion.setVisibility(View.VISIBLE);
             searchResult.iconoDescripcion.setVisibility(View.VISIBLE);
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) searchResult.texto.getLayoutParams();
+            params.verticalBias = 0.2f; // here is one modification for example. modify anything else you want :)
+            searchResult.texto.setLayoutParams(params);
 
         } else if(item instanceof Municipio){
             Municipio muni = (Municipio) item;

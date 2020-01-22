@@ -31,25 +31,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchResultIcon"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19999999" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <TextView
         android:id="@+id/searchResultTextDesc"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="La capital del mundo"
+        android:textColor="#4D000000"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="@+id/searchResultText"
-        app:layout_constraintTop_toBottomOf="@+id/searchResultText" />
+        app:layout_constraintTop_toBottomOf="@+id/searchResultText"
+        app:layout_constraintVertical_bias="0.25" />
 
     <ImageView
         android:id="@+id/searchResultIconDesc"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/searchResultTextDesc"
         app:layout_constraintEnd_toStartOf="@+id/searchResultTextDesc"
         app:layout_constraintTop_toTopOf="@+id/searchResultTextDesc"
