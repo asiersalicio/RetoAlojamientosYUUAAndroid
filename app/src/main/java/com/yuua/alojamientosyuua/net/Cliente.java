@@ -58,8 +58,8 @@ public class Cliente implements Runnable {
             }
             System.out.println("preclose");
             salida.close();
+            cliente.close();
             System.out.println("postclose");
-
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
         } catch (IOException e) {
