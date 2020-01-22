@@ -40,9 +40,10 @@ public class ImageDownloader extends Thread {
 
     }
 
-    public static ArrayList<String> obtenerLinksImagenes(String urljson)
+    public static ArrayList<String> obtenerLinksImagenes(String criterioBusqueda, int cantidad)
     {
-        ImageDownloader id = new ImageDownloader(urljson);
+
+        ImageDownloader id = new ImageDownloader("https://api.qwant.com/api/search/images?count="+cantidad+"&offset=0&q=" + criterioBusqueda + "&t=web&uiv=1");
         id.prepararHilo();
         ArrayList<String> urls;
         urls=new ArrayList<String>();

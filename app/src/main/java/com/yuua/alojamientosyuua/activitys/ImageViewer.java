@@ -18,13 +18,13 @@ import java.util.ArrayList;
 public class ImageViewer extends AppCompatActivity {
 
     private RecyclerView rv;
-    private Alojamiento alojamiento;
+    private String searchFor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_viewer);
-        alojamiento=(Alojamiento)getIntent().getSerializableExtra("aloj");
+        searchFor=getIntent().getExtras().getString("searchfor");
         mostrarResultados();
 
 
@@ -39,7 +39,7 @@ public class ImageViewer extends AppCompatActivity {
         rv=findViewById(R.id.recycler_vierw_image);
         ArrayList<String> imagenes;
 
-        imagenes=ImageDownloader.obtenerLinksImagenes("https://api.qwant.com/api/search/images?count=1&offset=0&q=" + alojamiento.getNombre() + "&t=web&uiv=1");
+        imagenes=ImageDownloader.obtenerLinksImagenes(searchFor,1);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);

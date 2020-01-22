@@ -16,6 +16,7 @@ public class Consultas {
 
     public static final int QUERY_CON_CONDICIONES=60;
     public static final int QUERY_CON_CONDICIONES_LIKE=65;
+    public static final int QUERY_ALOJAMIENTOS_ENTRE_FECHAS_CIUDAD=20;
 
     public Request prepararInsertHibernate(Class clase ,Object[] objeto) {
         String nombreSimple = clase.getSimpleName();

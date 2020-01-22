@@ -49,7 +49,7 @@ public class FragmentAlojPorCiudad extends Fragment {
             Municipio municipio = (Municipio) DatosApp.itemSeleccionado;
             nombreCiudad.setText(municipio.getNombre());
             Consultas consultar=new Consultas();
-            Request consulta=consultar.prepararQueryHibernate(60,Alojamiento.class,new String[]{},new String[]{});
+            Request consulta=consultar.prepararQueryHibernate(Consultas.QUERY_ALOJAMIENTOS_ENTRE_FECHAS_CIUDAD,Alojamiento.class,new String[]{},new String[]{});
             Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
             alojamientos= (ArrayList<Alojamiento>) resultado;
         }

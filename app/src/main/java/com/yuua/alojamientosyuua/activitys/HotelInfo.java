@@ -156,7 +156,7 @@ public class HotelInfo extends AppCompatActivity {
     public void btnGaleriaImagenes(View view)
     {
         Intent galeria = new Intent(this, ImageViewer.class);
-        galeria.putExtra("aloj", alojamiento);
+        galeria.putExtra("searchFor", alojamiento.getNombre());
         startActivity(galeria);
     }
 }
