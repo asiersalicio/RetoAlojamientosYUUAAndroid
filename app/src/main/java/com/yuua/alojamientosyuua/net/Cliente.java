@@ -37,6 +37,10 @@ public class Cliente implements Runnable {
             Request peticion = (Request) entrada.readObject();
             System.out.println("Read object: " + peticion.getCodigoPeticion());
             switch (peticion.getCodigoPeticion()) {
+                //Buscar alojamientos disponibles por fechas y municipio
+                case 21:
+                    jsonResultado = (String) peticion.getObjetoEnviado();
+                    break;
                 //Buscar alojamientos disponibles por fechas
                 case 31:
                     jsonResultado = (String) peticion.getObjetoEnviado();

@@ -21,6 +21,7 @@ import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class FragmentAlojPorCiudad extends Fragment {
 
@@ -49,7 +50,7 @@ public class FragmentAlojPorCiudad extends Fragment {
             Municipio municipio = (Municipio) DatosApp.itemSeleccionado;
             nombreCiudad.setText(municipio.getNombre());
             Consultas consultar=new Consultas();
-            Request consulta=consultar.prepararQueryHibernate(Consultas.QUERY_ALOJAMIENTOS_ENTRE_FECHAS_CIUDAD,Alojamiento.class,new String[]{},new String[]{});
+            Request consulta=consultar.alojamientosDisponiblesEntreFechasEnMunicipio(new Date(),new Date(),municipio);
             Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
             alojamientos= (ArrayList<Alojamiento>) resultado;
         }
