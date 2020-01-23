@@ -16,7 +16,7 @@ import com.yuua.alojamientosyuua.entidades.Municipio;
 
 import java.util.ArrayList;
 
-public class ImageViewer extends AppCompatActivity {
+public class ImageViewer extends AppCompatActivity implements Runnable {
 
     private RecyclerView rv;
     private String searchFor;
@@ -39,13 +39,14 @@ public class ImageViewer extends AppCompatActivity {
     public void mostrarResultados()
     {
         rv=findViewById(R.id.recycler_vierw_image);
-        ArrayList<String> imagenes;
+
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
-        imagenes=ImageDownloader.obtenerLinksImagenes(searchFor,1);
-        ItemImageAdapter adapter = new ItemImageAdapter(this, imagenes);
-        rv.setAdapter(adapter);
+
+        Thread hilo = new Thread(this);
+        hilo.start();
+
 
     }
 
@@ -53,5 +54,19 @@ public class ImageViewer extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void run() {
+        ArrayList<String> imagenes;
+        imagenes=ImageDownloader.obtenerLinksImagenes(searchFor,1);
+        final ItemImageAdapter adapter = new ItemImageAdapter(this, imagenes);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                rv.setAdapter(adapter);
+            }
+        });
+
     }
 }
