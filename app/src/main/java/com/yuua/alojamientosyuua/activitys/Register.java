@@ -18,6 +18,8 @@ import com.yuua.alojamientosyuua.net.Cliente;
 import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -102,7 +104,8 @@ public class Register extends AppCompatActivity {
     {
         if(validarCampos())
         {
-            Usuario usuario = new Usuario(campoDNI.getText().toString(), campoNombre.getText().toString(),campoApellidos.getText().toString(),"cliente",campoNombreUsuario.getText().toString(),campoContrasena.getText().toString(), new Date(),campoEmail.getText().toString(),Long.parseLong(campoTelefono.getText().toString()),null);
+            //Usuario usuario = new Usuario(campoDNI.getText().toString(), campoNombre.getText().toString(),campoApellidos.getText().toString(),"cliente",campoNombreUsuario.getText().toString(),campoContrasena.getText().toString(), new Date(),campoEmail.getText().toString(),Long.parseLong(campoTelefono.getText().toString()),null);
+            Usuario usuario = new Usuario(campoDNI.getText().toString(), campoNombre.getText().toString(),campoApellidos.getText().toString(),"cliente",campoNombreUsuario.getText().toString(),md5(campoContrasena.getText().toString()), new Date(),campoEmail.getText().toString(),Long.parseLong(campoTelefono.getText().toString()),null);
             Consultas consultas = new Consultas();
             Request peticion= consultas.prepararInsertHibernate(Usuario.class, new Object[]{usuario});
             consultas.devolverResultadoPeticionBoolean(peticion);
@@ -143,6 +146,32 @@ public class Register extends AppCompatActivity {
         }
 
         return valido;
+    }
+
+    // Encriptacion MD5 clean as fuck
+
+    public static final String md5(final String s) {
+        final String MD5 = "MD5";
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest) {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 

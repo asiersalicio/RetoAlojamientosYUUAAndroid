@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -18,12 +19,16 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Usuario;
+import com.yuua.alojamientosyuua.net.Consultas;
+import com.yuua.reto.net.Request;
 
 public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient apiClient;
     private SignInButton signInButton;
     private static int RC_SIGN_IN = 1;
+
+    private EditText etLoginUser, etLoginPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 startActivityForResult(intent,RC_SIGN_IN);
             }
         });
+
+        etLoginUser=findViewById(R.id.loginUser);
+        etLoginPass=findViewById(R.id.loginPass);
     }
 
 
@@ -94,6 +102,22 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         Intent intentRegistro = new Intent(this, Register.class);
         startActivity(intentRegistro);
         finish();
+    }
+
+
+    public void login(View view){
+        String loginPassEncrypted = Register.md5(etLoginPass.getText().toString());
+
+        Consultas consultar = new Consultas();
+        Request peticionUsuario = consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES, Usuario.class, new String[]{"nombreUsuario","contrasena"}, new String[]{etLoginUser.getText().toString(),loginPassEncrypted});
+
+        if(peticionUsuario != null){
+            Toast.makeText(this, "Te has logeado", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, Base.class);
+            startActivity(i);
+        }else{
+            Toast.makeText(this, "¿Creiste que iba a funcionar?", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
