@@ -85,11 +85,14 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
     @Override
     public void run() {
         final ArrayList<String> imagenes;
-        imagenes= ImageDownloader.obtenerLinksImagenes(municipio.getNombre(),1);
+        ImageDownloader imageDownloader = new ImageDownloader(municipio.getNombre(),1);
+        imagenes= imageDownloader.obtenerLinksImagenes();
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Picasso.get().load(imagenes.get(0)).into(imagenCiudad);
+                try{
+                    Picasso.get().load(imagenes.get(0)).into(imagenCiudad);
+                }catch (IllegalArgumentException ex){}
             }
         });
     }

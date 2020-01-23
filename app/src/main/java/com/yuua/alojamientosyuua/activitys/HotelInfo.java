@@ -96,14 +96,18 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     @Override
     public void run() {
         final ArrayList<String> imagenes;
-        imagenes=ImageDownloader.obtenerLinksImagenes(alojamiento.getNombre(),1);
-        final ItemImageAdapter adapter = new ItemImageAdapter(this, imagenes);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Picasso.get().load(imagenes.get(0)).into(imagen);
-            }
-        });
+        ImageDownloader imageDownloader = new ImageDownloader(alojamiento.getNombre(),1);
+        imagenes=imageDownloader.obtenerLinksImagenes();
+        if(imagenes.size()>0)
+        {
+            final ItemImageAdapter adapter = new ItemImageAdapter(this, imagenes);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Picasso.get().load(imagenes.get(0)).into(imagen);
+                }
+            });
+        }
     }
 
     public void RellenarDatos() {

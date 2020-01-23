@@ -154,7 +154,11 @@ public class BuscadorAlojamientos extends AppCompatActivity {
 
         Request peticionAlojamientos=consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES_LIKE,Alojamiento.class,new String[]{"nombre"},new String[]{texto});
 
-        arrayList.addAll((ArrayList<Object>)consultar.devolverResultadoPeticion(peticionAlojamientos,Alojamiento.class));
+        ArrayList<Object> resultadosBusqueda = (ArrayList<Object>)consultar.devolverResultadoPeticion(peticionAlojamientos,Alojamiento.class);
+        if(resultadosBusqueda!=null)
+        {
+            arrayList.addAll(resultadosBusqueda);
+        }
 
         return arrayList;
     }

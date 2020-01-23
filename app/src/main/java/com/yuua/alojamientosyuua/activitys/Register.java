@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.R;
@@ -22,6 +23,7 @@ public class Register extends AppCompatActivity {
     EditText fechaNacimiento;
     final Calendar myCalendar = Calendar.getInstance();
     private DatePickerDialog datePickerDialog;
+    private EditText campoNombre, campoApellidos, campoDNI, campoEmail, campoNombreUsuario, campoTelefono;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,13 @@ public class Register extends AppCompatActivity {
     private void inizializar() {
 
         fechaNacimiento=findViewById(R.id.RegFechaNacimiento);
+        campoNombre=findViewById(R.id.RegNombre);
+        campoApellidos=findViewById(R.id.RegApellidos);
+        campoDNI=findViewById(R.id.regDNI);
+        campoEmail=findViewById(R.id.regEmail);
+        campoNombreUsuario=findViewById(R.id.regUsername);
+        campoTelefono=findViewById(R.id.regTelefono);
+
 
         fechaNacimiento.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +90,25 @@ public class Register extends AppCompatActivity {
 
         fechaNacimiento.setText(sdf.format(myCalendar.getTime()));
 
+    }
+
+    public void btnRegistrarse(View view)
+    {
+        if(validarCampos())
+        {
+
+        }
+        else
+        {
+            Toast.makeText(this,R.string.theDataIsNotValid,Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    private boolean validarCampos() {
+
+
+        return false;
     }
 
 

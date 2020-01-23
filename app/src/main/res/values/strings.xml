@@ -33,6 +33,7 @@
     <string name="checkOutDate">Check-Out date</string>
     <string name="accommodationavailablein">Accommodation available in</string>
     <string name="plus5" translatable="false">+5</string>
+    <string name="theDataIsNotValid">The data entered is not valid</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -59,14 +59,19 @@ public class ImageViewer extends AppCompatActivity implements Runnable {
     @Override
     public void run() {
         ArrayList<String> imagenes;
-        imagenes=ImageDownloader.obtenerLinksImagenes(searchFor,1);
-        final ItemImageAdapter adapter = new ItemImageAdapter(this, imagenes);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                rv.setAdapter(adapter);
-            }
-        });
+        ImageDownloader imageDownloader = new ImageDownloader(searchFor,1);
+        imagenes=imageDownloader.obtenerLinksImagenes();
+        if(imagenes.size()>0)
+        {
+            final ItemImageAdapter adapter = new ItemImageAdapter(this, imagenes);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    rv.setAdapter(adapter);
+                }
+            });
+        }
+
 
     }
 }

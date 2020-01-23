@@ -27,40 +27,44 @@ import java.util.ArrayList;
 public class ImageDownloader implements Runnable {
 
     private URL url;
-    public static boolean finalizado = false;
+    public boolean finalizado = false;
     private String resul;
     private BufferedWriter writer;
     private Imagen imagen = null;
-    private static String parseado;
+    private String parseado;
+    private String criterioBusqueda;
+    private int cantidad;
+    private ArrayList<String> urlsImagenes;
 
 
-    private ImageDownloader(String url)
+    public ImageDownloader(String criterioBusqueda, int cantidad)
     {
-        try{
-            this.url=new URL(url);
-        }
-        catch (MalformedURLException ex){ex.printStackTrace();}
-        prepararHilo();
+        this.criterioBusqueda=criterioBusqueda;
+        this.cantidad=cantidad;
+
 
     }
 
-    public static ArrayList<String> obtenerLinksImagenes(String criterioBusqueda, int cantidad)
+    public ArrayList<String> obtenerLinksImagenes()
     {
+        urlsImagenes = new ArrayList<String>();
         criterioBusqueda=criterioBusqueda.replace(" ","+");
         System.out.println("Query busqueda: " + "https://api.qwant.com/api/search/images?count="+cantidad+"&offset=0&q=" + criterioBusqueda + "&t=web&uiv=1");
-        ImageDownloader id = new ImageDownloader("https://api.qwant.com/api/search/images?count="+cantidad+"&offset=0&q=" + criterioBusqueda + "&t=web&uiv=1");
+        try{
+            url=new URL("https://api.qwant.com/api/search/images?count="+cantidad+"&offset=0&q=" + criterioBusqueda + "&t=web&uiv=1");
+        }catch (MalformedURLException ex){}
+
         finalizado=false;
-        id.prepararHilo();
+        prepararHilo();
         while(!finalizado)
         {
             Thread.yield();
         }
-        ArrayList<String> urls;
-        urls=new ArrayList<String>();
-        urls.add(parseado);
-        System.out.println(urls.toString());
-        return urls;
+        System.out.println("URLS: " + urlsImagenes.toString());
+        return urlsImagenes;
     }
+
+
 
     private void prepararHilo() {
 
@@ -71,13 +75,13 @@ public class ImageDownloader implements Runnable {
 
     }
 
-    private String parseJSON(String resul) {
+    private void parseJSON(String resul) {
         String resultado = resul;
         resultado = resultado.substring(resul.indexOf("\"media\":") + 9);
         resultado = resultado.substring(0, resultado.indexOf("\""));
         resultado = resultado.replace("\\", "");
         System.out.println("JSON imagen: " + resultado);
-        return resultado;
+        urlsImagenes.add(resultado);
     }
 
 
@@ -86,19 +90,14 @@ public class ImageDownloader implements Runnable {
     public void run() {
         String line = "";
         BufferedReader in = null;
-        String all = "";
+        String jsonCompleto = "";
         try {
             in = new BufferedReader(new InputStreamReader(url.openStream()));
             while ((line = in.readLine()) != null) {
-
-                all += line;
-
+                jsonCompleto += line;
             }
             in.close();
-
-           setParseado(parseJSON(all));
-
-
+           parseJSON(jsonCompleto);
         } catch (IOException ex) {
         }
         setFinalizado(true);
