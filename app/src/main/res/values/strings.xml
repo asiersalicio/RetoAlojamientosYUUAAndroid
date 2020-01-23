@@ -32,6 +32,7 @@
     <string name="checkInDate">Check-In date</string>
     <string name="checkOutDate">Check-Out date</string>
     <string name="accommodationavailablein">Accommodation available in</string>
+    <string name="plus5" translatable="false">+5</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

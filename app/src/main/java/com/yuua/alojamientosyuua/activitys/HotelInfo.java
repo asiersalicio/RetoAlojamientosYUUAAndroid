@@ -13,12 +13,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.squareup.picasso.Picasso;
 import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.ImageDownloader;
 import com.yuua.alojamientosyuua.R;
+import com.yuua.alojamientosyuua.adaptadores.ItemImageAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.entidades.Localizacion;
 import com.yuua.alojamientosyuua.entidades.Reserva;
@@ -28,10 +31,11 @@ import com.yuua.reto.net.Request;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class HotelInfo extends AppCompatActivity {
+public class HotelInfo extends AppCompatActivity implements Runnable{
 
     private Alojamiento alojamiento;
     public TextView nombreHotel;
@@ -39,6 +43,7 @@ public class HotelInfo extends AppCompatActivity {
     public FragmentMap fragmentMap;
     public TextView descHotel;
     private Button btnReservar;
+    private ImageView imagen;
 
 
     @Override
@@ -53,7 +58,7 @@ public class HotelInfo extends AppCompatActivity {
     public void inizializar() {
         contexto = this;
         btnReservar = findViewById(R.id.btnReservarInfoHotel);
-
+        imagen=findViewById(R.id.ImagenInfoH);
         alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
 
 
@@ -88,10 +93,26 @@ public class HotelInfo extends AppCompatActivity {
         RellenarDatos();
     }
 
+    @Override
+    public void run() {
+        final ArrayList<String> imagenes;
+        imagenes=ImageDownloader.obtenerLinksImagenes(alojamiento.getNombre(),1);
+        final ItemImageAdapter adapter = new ItemImageAdapter(this, imagenes);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Picasso.get().load(imagenes.get(0)).into(imagen);
+            }
+        });
+    }
 
     public void RellenarDatos() {
         nombreHotel.setText(alojamiento.getNombre());
         descHotel.setText(alojamiento.getDescripcion());
+
+        Thread hiloDescargarImagen = new Thread(this);
+        hiloDescargarImagen.start();
+
     }
 
 

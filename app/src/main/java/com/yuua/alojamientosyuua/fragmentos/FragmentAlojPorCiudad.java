@@ -9,12 +9,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.yuua.alojamientosyuua.DatosApp;
+import com.yuua.alojamientosyuua.ImageDownloader;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.activitys.Base;
 import com.yuua.alojamientosyuua.adaptadores.ItemCardAlojAdapter;
+import com.yuua.alojamientosyuua.adaptadores.ItemImageAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.entidades.Municipio;
 import com.yuua.alojamientosyuua.net.Consultas;
@@ -23,13 +27,15 @@ import com.yuua.reto.net.Request;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class FragmentAlojPorCiudad extends Fragment {
+public class FragmentAlojPorCiudad extends Fragment implements Runnable{
 
     private View view;
     private ArrayList<Alojamiento> alojamientos;
     private RecyclerView rv;
     private TextView nombreCiudad;
     private Context contextoPadre;
+    private ImageView imagenCiudad;
+    private Municipio municipio;
 
     public FragmentAlojPorCiudad(Context context) {
         this.contextoPadre=context;
@@ -43,22 +49,30 @@ public class FragmentAlojPorCiudad extends Fragment {
         view.findViewById(R.id.recyclerViewAlojPorLoc);
         rv=view.findViewById(R.id.recyclerViewAlojPorLoc);
         nombreCiudad=view.findViewById(R.id.CiudadAlojPorLoc);
+        imagenCiudad=view.findViewById(R.id.ImagenAlojPorLoc);
         alojamientos=new ArrayList<Alojamiento>();
+
+        municipio = (Municipio) DatosApp.itemSeleccionado;
 
         if(!DatosApp.DATOSDEBUG)
         {
-            Municipio municipio = (Municipio) DatosApp.itemSeleccionado;
             nombreCiudad.setText(municipio.getNombre());
+
             Consultas consultar=new Consultas();
             Request consulta=consultar.alojamientosDisponiblesEntreFechasEnMunicipio(new Date(),new Date(),municipio);
             Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
             alojamientos= (ArrayList<Alojamiento>) resultado;
+
         }
         else
         {
-            nombreCiudad.setText("Bilbao");
+            nombreCiudad.setText(municipio.getNombre());
             alojamientos=DatosApp.getDebugAlojamientos();
+
         }
+
+        Thread descargarImagen = new Thread(this);
+        descargarImagen.start();
 
         rv.setLayoutManager(Base.llm);
         ItemCardAlojAdapter adapter = new ItemCardAlojAdapter(contextoPadre, alojamientos);
@@ -68,4 +82,15 @@ public class FragmentAlojPorCiudad extends Fragment {
         return view;
     }
 
+    @Override
+    public void run() {
+        final ArrayList<String> imagenes;
+        imagenes= ImageDownloader.obtenerLinksImagenes(municipio.getNombre(),1);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Picasso.get().load(imagenes.get(0)).into(imagenCiudad);
+            }
+        });
+    }
 }
