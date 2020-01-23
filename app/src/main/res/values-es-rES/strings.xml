@@ -28,4 +28,9 @@
     <string name="checkOutDate">Fecha de salida</string>
     <string name="accommodationavailablein">Alojamientos disponibles en</string>
     <string name="theDataIsNotValid">Los datos introducidos no son validos</string>
+    <string name="emailIsNotValid">El correo electronico no es valido</string>
+    <string name="identityDocumentIsNotValid">El DNI no es valido</string>
+    <string name="nameIsNotValid">El nombre debe tener al menos 2 caracheres</string>
+    <string name="surnameIsNotValid">El apellido debe tener al menos 2 caracteres</string>
+    <string name="usernameIsNotValid">El usuario ya existe o tiene menos de 4 caracteres</string>
 </resources>

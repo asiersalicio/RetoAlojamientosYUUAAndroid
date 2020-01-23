@@ -34,6 +34,11 @@
     <string name="accommodationavailablein">Accommodation available in</string>
     <string name="plus5" translatable="false">+5</string>
     <string name="theDataIsNotValid">The data entered is not valid</string>
+    <string name="nameIsNotValid">The name must have at least 2 characters</string>
+    <string name="surnameIsNotValid">The surname must have at least 2 characters</string>
+    <string name="identityDocumentIsNotValid">Identity document is not valid</string>
+    <string name="emailIsNotValid">Email is not valid</string>
+    <string name="usernameIsNotValid">Username is taken and needs to have 4 characters</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -98,7 +98,7 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
         final ArrayList<String> imagenes;
         ImageDownloader imageDownloader = new ImageDownloader(alojamiento.getNombre(),1);
         imagenes=imageDownloader.obtenerLinksImagenes();
-        if(imagenes.size()>0)
+        if(imagenes.size()>0 & imagenes!=null)
         {
             final ItemImageAdapter adapter = new ItemImageAdapter(this, imagenes);
             runOnUiThread(new Runnable() {

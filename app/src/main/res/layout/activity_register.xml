@@ -43,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
             android:clickable="false"
             android:editable="false"
             android:ems="10"
@@ -61,7 +62,7 @@
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/regUsername" />
+            app:layout_constraintTop_toBottomOf="@+id/regContrasena" />
 
         <Button
             android:id="@+id/button2"
@@ -136,6 +137,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/RegApellidos" />
+
+        <EditText
+            android:id="@+id/regContrasena"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/regUsername" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

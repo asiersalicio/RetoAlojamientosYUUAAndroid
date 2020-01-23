@@ -1,8 +1,10 @@
 package com.yuua.alojamientosyuua.activitys;
 
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -11,6 +13,10 @@ import android.widget.Toast;
 
 import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.R;
+import com.yuua.alojamientosyuua.entidades.Usuario;
+import com.yuua.alojamientosyuua.net.Cliente;
+import com.yuua.alojamientosyuua.net.Consultas;
+import com.yuua.reto.net.Request;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -23,7 +29,7 @@ public class Register extends AppCompatActivity {
     EditText fechaNacimiento;
     final Calendar myCalendar = Calendar.getInstance();
     private DatePickerDialog datePickerDialog;
-    private EditText campoNombre, campoApellidos, campoDNI, campoEmail, campoNombreUsuario, campoTelefono;
+    private EditText campoNombre, campoApellidos, campoDNI, campoEmail, campoNombreUsuario, campoTelefono, campoContrasena;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +50,7 @@ public class Register extends AppCompatActivity {
         campoEmail=findViewById(R.id.regEmail);
         campoNombreUsuario=findViewById(R.id.regUsername);
         campoTelefono=findViewById(R.id.regTelefono);
-
+        campoContrasena=findViewById(R.id.regContrasena);
 
         fechaNacimiento.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +102,10 @@ public class Register extends AppCompatActivity {
     {
         if(validarCampos())
         {
-
+            Usuario usuario = new Usuario(campoDNI.getText().toString(), campoNombre.getText().toString(),campoApellidos.getText().toString(),"cliente",campoNombreUsuario.getText().toString(),campoContrasena.getText().toString(), new Date(),campoEmail.getText().toString(),Long.parseLong(campoTelefono.getText().toString()),null);
+            Consultas consultas = new Consultas();
+            Request peticion= consultas.prepararInsertHibernate(Usuario.class, new Object[]{usuario});
+            consultas.devolverResultadoPeticionBoolean(peticion);
         }
         else
         {
@@ -107,8 +116,33 @@ public class Register extends AppCompatActivity {
 
     private boolean validarCampos() {
 
+        boolean valido=true;
 
-        return false;
+
+
+        if(campoNombreUsuario.getText().toString().length()<2)
+        {
+            valido=false;
+            campoNombreUsuario.setError(getString(R.string.usernameIsNotValid));
+            campoNombreUsuario.requestFocus();
+        }
+
+        // TODO Falta hacer el DNI y el email
+
+        if(campoApellidos.getText().toString().length()<2)
+        {
+            valido=false;
+            campoApellidos.setError(getString(R.string.surnameIsNotValid));
+            campoApellidos.requestFocus();
+        }
+        if(campoNombre.getText().toString().length()<2)
+        {
+            valido=false;
+            campoNombre.setError(getString(R.string.nameIsNotValid));
+            campoNombre.requestFocus();
+        }
+
+        return valido;
     }
 
 
