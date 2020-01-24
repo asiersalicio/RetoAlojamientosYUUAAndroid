@@ -1,8 +1,10 @@
 package com.yuua.alojamientosyuua.adaptadores;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,7 @@ public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.Imag
 
         ImageView imageView;
         TextView texto;
+        ConstraintLayout constraintLayout;
 
         public ConstraintLayout cl;
 
@@ -50,6 +53,7 @@ public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.Imag
             super(itemView);
             imageView=itemView.findViewById(R.id.item_imageview);
             texto=itemView.findViewById(R.id.item_textoImagen);
+            constraintLayout=itemView.findViewById(R.id.item_contraintImagen);
         }
     }
 
@@ -66,6 +70,12 @@ public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.Imag
             System.out.println("Aplicando imagen + " + imagenes.get(i).title + ": " + imagenes.get(i));
             Picasso.get().load(imagenes.get(i).media).into(image.imageView);
             image.texto.setText(imagenes.get(i).title);
+            image.constraintLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    btnAbrirImagen(imagenes.get(i).media);
+                }
+            });
     }
 
     @Override
@@ -76,6 +86,12 @@ public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.Imag
     @Override
     public int getItemCount() {
         return imagenes.size();
+    }
+
+    public void btnAbrirImagen(String url)
+    {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        contextoPadre.startActivity(browserIntent);
     }
 
 

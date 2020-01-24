@@ -68,7 +68,7 @@ public class ImageViewer extends AppCompatActivity implements Runnable {
             imageDownloader = new ImageDownloader(searchFor,5);
             imagenes=imageDownloader.obtenerImagenes();
         }
-        if(imagenes.size()>0)
+        if(imagenes.size()>0 && imagenes!=null)
         {
             final ItemImageAdapter adapter = new ItemImageAdapter(this, imagenes);
             runOnUiThread(new Runnable() {
