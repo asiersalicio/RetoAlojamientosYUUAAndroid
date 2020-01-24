@@ -42,7 +42,7 @@ public class ImageDownloader implements Runnable {
     private String parseado;
     private String criterioBusqueda;
     private int cantidad;
-    private ArrayList<String> urlsImagenes;
+    private ArrayList<Imagen> urlsImagenes;
 
 
     public ImageDownloader(String criterioBusqueda, int cantidad)
@@ -51,13 +51,14 @@ public class ImageDownloader implements Runnable {
         this.cantidad=cantidad;
     }
 
-    public ArrayList<String> obtenerLinksImagenes()
+    public ArrayList<Imagen> obtenerImagenes()
     {
-        urlsImagenes = new ArrayList<String>();
+        urlsImagenes = new ArrayList<Imagen>();
         criterioBusqueda=criterioBusqueda.replace(" ","+");
-        System.out.println("Query busqueda: " + "https://api.qwant.com/api/search/images?count="+cantidad+"&offset=0&q=" + criterioBusqueda + "&t=web&uiv=1");
+        String query = "https://api.qwant.com/api/search/images?count="+cantidad+"&offset=0&q=" + criterioBusqueda + "&t=web&uiv=1";
+        System.out.println("Query busqueda: " + query);
         try{
-            url=new URL("https://api.qwant.com/api/search/images?count="+cantidad+"&offset=0&q=" + criterioBusqueda + "&t=web&uiv=1");
+            url=new URL(query);
         }catch (MalformedURLException ex){}
 
         finalizado=false;
@@ -89,7 +90,9 @@ public class ImageDownloader implements Runnable {
 
             for(int i=0;i<jsonArray.length();i++)
             {
-                urlsImagenes.add(jsonArray.getJSONObject(i).getString("media"));
+                JSONObject itemJson = jsonArray.getJSONObject(i);
+                Imagen imagen = new Imagen(itemJson.getString("media"),itemJson.getString("title"));
+                urlsImagenes.add(imagen);
             }
 
 

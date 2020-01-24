@@ -1,25 +1,18 @@
 package com.yuua.alojamientosyuua.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
-import com.google.android.gms.common.util.Strings;
 import com.yuua.alojamientosyuua.ImageDownloader;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.ItemImageAdapter;
-import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.entidades.Imagen;
-import com.yuua.alojamientosyuua.entidades.Municipio;
 
 import java.util.ArrayList;
 
@@ -27,7 +20,7 @@ public class ImageViewer extends AppCompatActivity implements Runnable {
 
     private RecyclerView rv;
     private String searchFor;
-    private ArrayList<String> imagenes;
+    private ArrayList<Imagen> imagenes;
     private Context context;
 
     @Override
@@ -43,7 +36,7 @@ public class ImageViewer extends AppCompatActivity implements Runnable {
     protected void onStart() {
         super.onStart();
         searchFor=getIntent().getExtras().getString("searchFor");
-        imagenes=getIntent().getExtras().getStringArrayList("listaLinksImagenes");
+        imagenes=(ArrayList<Imagen>) getIntent().getExtras().getSerializable("listaLinksImagenes");
         mostrarResultados();
     }
 
@@ -73,7 +66,7 @@ public class ImageViewer extends AppCompatActivity implements Runnable {
         if(searchFor!=null)
         {
             imageDownloader = new ImageDownloader(searchFor,5);
-            imagenes=imageDownloader.obtenerLinksImagenes();
+            imagenes=imageDownloader.obtenerImagenes();
         }
         if(imagenes.size()>0)
         {

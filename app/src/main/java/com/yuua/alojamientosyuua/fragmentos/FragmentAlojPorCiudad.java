@@ -18,8 +18,8 @@ import com.yuua.alojamientosyuua.ImageDownloader;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.activitys.Base;
 import com.yuua.alojamientosyuua.adaptadores.ItemCardAlojAdapter;
-import com.yuua.alojamientosyuua.adaptadores.ItemImageAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
+import com.yuua.alojamientosyuua.entidades.Imagen;
 import com.yuua.alojamientosyuua.entidades.Municipio;
 import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;
@@ -84,14 +84,14 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
 
     @Override
     public void run() {
-        final ArrayList<String> imagenes;
+        final ArrayList<Imagen> imagenes;
         ImageDownloader imageDownloader = new ImageDownloader(municipio.getNombre(),1);
-        imagenes= imageDownloader.obtenerLinksImagenes();
+        imagenes= imageDownloader.obtenerImagenes();
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 try{
-                    Picasso.get().load(imagenes.get(0)).into(imagenCiudad);
+                    Picasso.get().load(imagenes.get(0).media).into(imagenCiudad);
                 }catch (IllegalArgumentException ex){}
             }
         });

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -18,6 +19,8 @@ import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.entidades.Imagen;
 
+import org.w3c.dom.Text;
+
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,11 +28,11 @@ import java.util.ArrayList;
 
 public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.Image>{
 
-    private ArrayList<String> imagenes;
+    private ArrayList<Imagen> imagenes;
     private Context contextoPadre;
 
 
-    public ItemImageAdapter(Context contextoPadre, ArrayList<String> imagenes){
+    public ItemImageAdapter(Context contextoPadre, ArrayList<Imagen> imagenes){
         this.imagenes = imagenes;
         this.contextoPadre = contextoPadre;
 
@@ -39,12 +42,14 @@ public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.Imag
 
 
         ImageView imageView;
+        TextView texto;
 
         public ConstraintLayout cl;
 
         Image(View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.item_imageview);
+            texto=itemView.findViewById(R.id.item_textoImagen);
         }
     }
 
@@ -58,8 +63,9 @@ public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.Imag
 
     @Override
     public void onBindViewHolder(final ItemImageAdapter.Image image, final int i) {
-            System.out.println("Aplicando imagen: " + imagenes.get(i));
-            Picasso.get().load(imagenes.get(i)).into(image.imageView);
+            System.out.println("Aplicando imagen + " + imagenes.get(i).title + ": " + imagenes.get(i));
+            Picasso.get().load(imagenes.get(i).media).into(image.imageView);
+            image.texto.setText(imagenes.get(i).title);
     }
 
     @Override

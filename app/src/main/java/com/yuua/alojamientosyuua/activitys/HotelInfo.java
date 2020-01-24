@@ -7,29 +7,25 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.squareup.picasso.Picasso;
 import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.ImageDownloader;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.ItemImageAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
-import com.yuua.alojamientosyuua.entidades.Localizacion;
+import com.yuua.alojamientosyuua.entidades.Imagen;
 import com.yuua.alojamientosyuua.entidades.Reserva;
 import com.yuua.alojamientosyuua.fragmentos.FragmentMap;
 import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,7 +41,7 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     private Button btnReservar;
     private ImageView imagen;
     private ImageDownloader imageDownloader;
-    private ArrayList<String> imagenes;
+    private ArrayList<Imagen> imagenes;
 
 
     @Override
@@ -98,14 +94,14 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     @Override
     public void run() {
         imageDownloader = new ImageDownloader(alojamiento.getNombre(),5);
-        imagenes=imageDownloader.obtenerLinksImagenes();
+        imagenes=imageDownloader.obtenerImagenes();
         if(imagenes.size()>0 & imagenes!=null)
         {
             final ItemImageAdapter adapter = new ItemImageAdapter(this, imagenes);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Picasso.get().load(imagenes.get(0)).into(imagen);
+                    Picasso.get().load(imagenes.get(0).media).into(imagen);
                 }
             });
         }

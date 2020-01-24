@@ -11,8 +11,8 @@ public class Imagen implements Serializable {
     public String media;
     public String title;
 
-    public Imagen(URL media, String nombreImagen) {
-        this.media = media.toString();
+    public Imagen(String media, String title) {
+        this.media = media;
         this.title = title;
     }
 
