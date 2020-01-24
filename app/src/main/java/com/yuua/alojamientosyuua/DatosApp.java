@@ -16,7 +16,7 @@ public class DatosApp {
 
     public static Context currentContext;
     public static Usuario user;
-    public static boolean DATOSDEBUG =false;
+    public static boolean DATOSDEBUG =true;
     public static Object itemSeleccionado;
     public static Date fechaEntrada, fechaSalida;
 

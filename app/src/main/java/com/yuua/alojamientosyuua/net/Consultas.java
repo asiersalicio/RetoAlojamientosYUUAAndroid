@@ -7,6 +7,7 @@ import com.yuua.alojamientosyuua.entidades.Localizacion;
 import com.yuua.alojamientosyuua.entidades.Municipio;
 import com.yuua.alojamientosyuua.entidades.Pais;
 import com.yuua.alojamientosyuua.entidades.Territorio;
+import com.yuua.alojamientosyuua.entidades.Usuario;
 import com.yuua.reto.net.Request;
 
 import java.util.ArrayList;
@@ -63,6 +64,10 @@ public class Consultas {
                 break;
             case "Localizacion":
                 list = gson.fromJson(jsonResultado, new TypeToken<List<Localizacion>>() {
+                }.getType());
+                break;
+            case "Usuario":
+                list = gson.fromJson(jsonResultado, new TypeToken<List<Usuario>>() {
                 }.getType());
                 break;
         }

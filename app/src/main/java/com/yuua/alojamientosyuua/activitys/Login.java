@@ -22,6 +22,8 @@ import com.yuua.alojamientosyuua.entidades.Usuario;
 import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;
 
+import java.util.ArrayList;
+
 public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient apiClient;
@@ -109,9 +111,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         String loginPassEncrypted = Register.md5(etLoginPass.getText().toString());
 
         Consultas consultar = new Consultas();
-        Request peticionUsuario = consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES, Usuario.class, new String[]{"nombreUsuario","contrasena"}, new String[]{etLoginUser.getText().toString(),loginPassEncrypted});
-
-        if(peticionUsuario != null){
+        Request peticionUsuario = consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES_LIKE, Usuario.class, new String[]{"nombreUsuario","contrasena"}, new String[]{etLoginUser.getText().toString(),loginPassEncrypted});
+        ArrayList<Object> resultadosBusqueda = (ArrayList<Object>)consultar.devolverResultadoPeticion(peticionUsuario,Usuario.class);
+        if(resultadosBusqueda != null){
             Toast.makeText(this, "Te has logeado", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(this, Base.class);
             startActivity(i);
