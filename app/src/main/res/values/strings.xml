@@ -39,6 +39,7 @@
     <string name="identityDocumentIsNotValid">Identity document is not valid</string>
     <string name="emailIsNotValid">Email is not valid</string>
     <string name="usernameIsNotValid">Username is taken and needs to have 4 characters</string>
+    <string name="imagesNotAvailable">There aren\'t images available</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

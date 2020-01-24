@@ -1,12 +1,19 @@
 package com.yuua.alojamientosyuua.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.google.android.gms.common.util.Strings;
 import com.yuua.alojamientosyuua.ImageDownloader;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.ItemImageAdapter;
@@ -20,11 +27,14 @@ public class ImageViewer extends AppCompatActivity implements Runnable {
 
     private RecyclerView rv;
     private String searchFor;
+    private ArrayList<String> imagenes;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_viewer);
+        context=this;
         getSupportActionBar().hide();
 
     }
@@ -33,6 +43,7 @@ public class ImageViewer extends AppCompatActivity implements Runnable {
     protected void onStart() {
         super.onStart();
         searchFor=getIntent().getExtras().getString("searchFor");
+        imagenes=getIntent().getExtras().getStringArrayList("listaLinksImagenes");
         mostrarResultados();
     }
 
@@ -58,9 +69,12 @@ public class ImageViewer extends AppCompatActivity implements Runnable {
 
     @Override
     public void run() {
-        ArrayList<String> imagenes;
-        ImageDownloader imageDownloader = new ImageDownloader(searchFor,1);
-        imagenes=imageDownloader.obtenerLinksImagenes();
+        ImageDownloader imageDownloader;
+        if(searchFor!=null)
+        {
+            imageDownloader = new ImageDownloader(searchFor,5);
+            imagenes=imageDownloader.obtenerLinksImagenes();
+        }
         if(imagenes.size()>0)
         {
             final ItemImageAdapter adapter = new ItemImageAdapter(this, imagenes);
@@ -68,6 +82,23 @@ public class ImageViewer extends AppCompatActivity implements Runnable {
                 @Override
                 public void run() {
                     rv.setAdapter(adapter);
+                }
+            });
+        }
+        else
+        {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage(getString(R.string.imagesNotAvailable));
+                    builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+                    builder.show();
                 }
             });
         }

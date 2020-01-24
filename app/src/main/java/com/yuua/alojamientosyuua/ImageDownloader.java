@@ -8,7 +8,15 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.yuua.alojamientosyuua.entidades.Imagen;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -23,6 +31,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ImageDownloader implements Runnable {
 
@@ -30,7 +39,6 @@ public class ImageDownloader implements Runnable {
     public boolean finalizado = false;
     private String resul;
     private BufferedWriter writer;
-    private Imagen imagen = null;
     private String parseado;
     private String criterioBusqueda;
     private int cantidad;
@@ -41,8 +49,6 @@ public class ImageDownloader implements Runnable {
     {
         this.criterioBusqueda=criterioBusqueda;
         this.cantidad=cantidad;
-
-
     }
 
     public ArrayList<String> obtenerLinksImagenes()
@@ -76,14 +82,20 @@ public class ImageDownloader implements Runnable {
     }
 
     private void parseJSON(String resul) {
-        String resultado = resul;
-        resultado = resultado.substring(resul.indexOf("\"media\":") + 9);
-        resultado = resultado.substring(0, resultado.indexOf("\""));
-        resultado = resultado.replace("\\", "");
-        System.out.println("JSON imagen: " + resultado);
-        urlsImagenes.add(resultado);
-    }
 
+        try{
+            JSONObject obj = new JSONObject(resul);
+            JSONArray jsonArray = obj.getJSONObject("data").getJSONObject("result").getJSONArray("items");
+
+            for(int i=0;i<jsonArray.length();i++)
+            {
+                urlsImagenes.add(jsonArray.getJSONObject(i).getString("media"));
+            }
+
+
+        }catch (JSONException ex){}
+
+    }
 
 
     @Override
@@ -106,10 +118,6 @@ public class ImageDownloader implements Runnable {
 
     private void setFinalizado(boolean finalizado) {
         this.finalizado = finalizado;
-    }
-
-    public void setImagen(Imagen imagen) {
-        this.imagen = imagen;
     }
 
     private void setResultado(String string) {

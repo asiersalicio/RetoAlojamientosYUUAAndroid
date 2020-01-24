@@ -44,6 +44,8 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     public TextView descHotel;
     private Button btnReservar;
     private ImageView imagen;
+    private ImageDownloader imageDownloader;
+    private ArrayList<String> imagenes;
 
 
     @Override
@@ -95,8 +97,7 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
 
     @Override
     public void run() {
-        final ArrayList<String> imagenes;
-        ImageDownloader imageDownloader = new ImageDownloader(alojamiento.getNombre(),1);
+        imageDownloader = new ImageDownloader(alojamiento.getNombre(),5);
         imagenes=imageDownloader.obtenerLinksImagenes();
         if(imagenes.size()>0 & imagenes!=null)
         {
@@ -181,7 +182,7 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     public void btnGaleriaImagenes(View view)
     {
         Intent galeria = new Intent(this, ImageViewer.class);
-        galeria.putExtra("searchFor", alojamiento.getNombre());
+        galeria.putExtra("listaLinksImagenes", imagenes);
         startActivity(galeria);
     }
 }

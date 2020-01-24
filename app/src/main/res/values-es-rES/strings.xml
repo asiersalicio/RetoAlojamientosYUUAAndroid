@@ -33,4 +33,5 @@
     <string name="nameIsNotValid">El nombre debe tener al menos 2 caracheres</string>
     <string name="surnameIsNotValid">El apellido debe tener al menos 2 caracteres</string>
     <string name="usernameIsNotValid">El usuario ya existe o tiene menos de 4 caracteres</string>
+    <string name="imagesNotAvailable">No hay imagenes disponibles</string>
 </resources>
