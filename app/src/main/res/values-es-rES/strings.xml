@@ -34,4 +34,5 @@
     <string name="surnameIsNotValid">El apellido debe tener al menos 2 caracteres</string>
     <string name="usernameIsNotValid">El usuario ya existe o tiene menos de 4 caracteres</string>
     <string name="imagesNotAvailable">No hay imagenes disponibles</string>
+    <string name="yourBookings">Tus reservas</string>
 </resources>

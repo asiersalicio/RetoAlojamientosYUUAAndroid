@@ -5,9 +5,9 @@
     android:id="@+id/item_contraintImagen"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="vertical">
 
     <ProgressBar
         android:id="@+id/progressBar2"

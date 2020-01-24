@@ -3,10 +3,15 @@ package com.yuua.alojamientosyuua.fragmentos;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,8 +29,8 @@ public class FragmentInicio extends Fragment{
 
     public View view;
     public ArrayList<Alojamiento> alojamientos;
-    public RecyclerView rv;
     private Context contextoBase;
+    private ScrollView scrollView;
 
     public FragmentInicio(Context contextoBase) {
         this.contextoBase=contextoBase;
@@ -36,8 +41,8 @@ public class FragmentInicio extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_inicio, container, false);
-        rv=view.findViewById(R.id.recyclerViewInicio);
-        rv.requestFocus();
+        scrollView=view.findViewById(R.id.inicioScrollView);
+
         cargarDatosBD();
         return view;
     }
@@ -56,10 +61,6 @@ public class FragmentInicio extends Fragment{
             alojamientos=DatosApp.getDebugAlojamientos();
         }
 
-
-        rv.setLayoutManager(Base.llm);
-        ItemCardAlojAdapter adapter = new ItemCardAlojAdapter(contextoBase, alojamientos);
-        rv.setAdapter(adapter);
     }
 
 

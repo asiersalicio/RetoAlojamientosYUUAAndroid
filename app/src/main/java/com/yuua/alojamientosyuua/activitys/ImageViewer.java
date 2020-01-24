@@ -12,7 +12,7 @@ import android.os.Bundle;
 import com.yuua.alojamientosyuua.ImageDownloader;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.ItemImageAdapter;
-import com.yuua.alojamientosyuua.entidades.Imagen;
+import com.yuua.alojamientosyuua.entidades.ImagenOnline;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public class ImageViewer extends AppCompatActivity implements Runnable {
 
     private RecyclerView rv;
     private String searchFor;
-    private ArrayList<Imagen> imagenes;
+    private ArrayList<ImagenOnline> imagenes;
     private Context context;
 
     @Override
@@ -36,7 +36,7 @@ public class ImageViewer extends AppCompatActivity implements Runnable {
     protected void onStart() {
         super.onStart();
         searchFor=getIntent().getExtras().getString("searchFor");
-        imagenes=(ArrayList<Imagen>) getIntent().getExtras().getSerializable("listaLinksImagenes");
+        imagenes=(ArrayList<ImagenOnline>) getIntent().getExtras().getSerializable("listaLinksImagenes");
         mostrarResultados();
     }
 

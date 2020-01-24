@@ -1,18 +1,7 @@
 package com.yuua.alojamientosyuua;
 
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Environment;
-import android.util.Log;
-import android.widget.ImageView;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import com.yuua.alojamientosyuua.entidades.Imagen;
+import com.yuua.alojamientosyuua.entidades.ImagenOnline;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,18 +9,11 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.PublicKey;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ImageDownloader implements Runnable {
 
@@ -42,7 +24,7 @@ public class ImageDownloader implements Runnable {
     private String parseado;
     private String criterioBusqueda;
     private int cantidad;
-    private ArrayList<Imagen> urlsImagenes;
+    private ArrayList<ImagenOnline> urlsImagenes;
 
 
     public ImageDownloader(String criterioBusqueda, int cantidad)
@@ -51,9 +33,9 @@ public class ImageDownloader implements Runnable {
         this.cantidad=cantidad;
     }
 
-    public ArrayList<Imagen> obtenerImagenes()
+    public ArrayList<ImagenOnline> obtenerImagenes()
     {
-        urlsImagenes = new ArrayList<Imagen>();
+        urlsImagenes = new ArrayList<ImagenOnline>();
         criterioBusqueda=criterioBusqueda.replace(" ","+");
         String query = "https://api.qwant.com/api/search/images?count="+cantidad+"&offset=0&q=" + criterioBusqueda + "&t=web&uiv=1";
         System.out.println("Query busqueda: " + query);
@@ -91,7 +73,7 @@ public class ImageDownloader implements Runnable {
             for(int i=0;i<jsonArray.length();i++)
             {
                 JSONObject itemJson = jsonArray.getJSONObject(i);
-                Imagen imagen = new Imagen(itemJson.getString("media"),itemJson.getString("title"));
+                ImagenOnline imagen = new ImagenOnline(itemJson.getString("media"),itemJson.getString("title"));
                 urlsImagenes.add(imagen);
             }
 

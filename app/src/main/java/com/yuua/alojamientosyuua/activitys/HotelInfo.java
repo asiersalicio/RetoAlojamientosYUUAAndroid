@@ -20,7 +20,7 @@ import com.yuua.alojamientosyuua.ImageDownloader;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.ItemImageAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
-import com.yuua.alojamientosyuua.entidades.Imagen;
+import com.yuua.alojamientosyuua.entidades.ImagenOnline;
 import com.yuua.alojamientosyuua.entidades.Reserva;
 import com.yuua.alojamientosyuua.fragmentos.FragmentMap;
 import com.yuua.alojamientosyuua.net.Consultas;
@@ -41,7 +41,7 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     private Button btnReservar;
     private ImageView imagen;
     private ImageDownloader imageDownloader;
-    private ArrayList<Imagen> imagenes;
+    private ArrayList<ImagenOnline> imagenes;
 
 
     @Override

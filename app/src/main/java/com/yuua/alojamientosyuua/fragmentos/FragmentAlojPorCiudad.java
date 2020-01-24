@@ -19,7 +19,7 @@ import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.activitys.Base;
 import com.yuua.alojamientosyuua.adaptadores.ItemCardAlojAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
-import com.yuua.alojamientosyuua.entidades.Imagen;
+import com.yuua.alojamientosyuua.entidades.ImagenOnline;
 import com.yuua.alojamientosyuua.entidades.Municipio;
 import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;
@@ -84,7 +84,7 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
 
     @Override
     public void run() {
-        final ArrayList<Imagen> imagenes;
+        final ArrayList<ImagenOnline> imagenes;
         ImageDownloader imageDownloader = new ImageDownloader(municipio.getNombre(),1);
         imagenes= imageDownloader.obtenerImagenes();
         getActivity().runOnUiThread(new Runnable() {

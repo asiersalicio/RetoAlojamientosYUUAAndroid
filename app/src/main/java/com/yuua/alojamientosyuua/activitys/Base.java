@@ -136,8 +136,19 @@ public class Base extends AppCompatActivity {
                         selectedFragment = fragment_reservas;
                         break;
                     case R.id.bottomnavuser:
-                        fragment_usuario = new FragmentUsuario();
-                        selectedFragment = fragment_usuario;
+                        if(DatosApp.user!=null)
+                        {
+                            fragment_usuario = new FragmentUsuario();
+                            selectedFragment = fragment_usuario;
+
+                        }
+                        else
+                        {
+                            fragmentInicio = new FragmentInicio(contexto);
+                            selectedFragment = fragmentInicio;
+                            Intent intentUsuario=new Intent(contexto, Login.class);
+                            contexto.startActivity(intentUsuario);
+                        }
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutbase, selectedFragment).commit();
@@ -288,7 +299,7 @@ public class Base extends AppCompatActivity {
 
     private void abrirBusqueda() {
         Log.println(Log.INFO, "Toolbar", "Barra de busqueda pulsada");
-        ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 1000);
+        ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 600);
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {

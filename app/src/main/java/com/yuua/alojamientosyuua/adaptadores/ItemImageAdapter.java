@@ -2,8 +2,6 @@ package com.yuua.alojamientosyuua.adaptadores;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,25 +14,18 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
-import com.yuua.alojamientosyuua.ImageDownloader;
 import com.yuua.alojamientosyuua.R;
-import com.yuua.alojamientosyuua.entidades.Alojamiento;
-import com.yuua.alojamientosyuua.entidades.Imagen;
+import com.yuua.alojamientosyuua.entidades.ImagenOnline;
 
-import org.w3c.dom.Text;
-
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.Image>{
 
-    private ArrayList<Imagen> imagenes;
+    private ArrayList<ImagenOnline> imagenes;
     private Context contextoPadre;
 
 
-    public ItemImageAdapter(Context contextoPadre, ArrayList<Imagen> imagenes){
+    public ItemImageAdapter(Context contextoPadre, ArrayList<ImagenOnline> imagenes){
         this.imagenes = imagenes;
         this.contextoPadre = contextoPadre;
 
