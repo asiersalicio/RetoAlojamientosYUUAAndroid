@@ -16,7 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.yuua.alojamientosyuua.DatosApp;
+import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Usuario;
 import com.yuua.alojamientosyuua.net.Consultas;
@@ -37,10 +37,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
-        inizializar();
+        inicializar();
     }
 
-    private void inizializar() {
+    private void inicializar() {
         GoogleSignInOptions gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -59,6 +59,8 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         etLoginUser=findViewById(R.id.loginUser);
         etLoginPass=findViewById(R.id.loginPass);
+
+
     }
 
 
@@ -82,7 +84,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
     private void gotoProfile(GoogleSignInResult result){
         GoogleSignInAccount account=result.getSignInAccount();
-        DatosApp.user = new Usuario(account.getFamilyName(),account.getGivenName(),account.getDisplayName(),"usuario",account.getDisplayName(),null,null,account.getEmail(),0,account.getPhotoUrl());
+        Sistema.user = new Usuario(account.getFamilyName(),account.getGivenName(),account.getDisplayName(),"usuario",account.getDisplayName(),null,null,account.getEmail(),0,account.getPhotoUrl());
         finish();
     }
 
@@ -108,15 +110,21 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         String loginPassEncrypted = Register.md5(etLoginPass.getText().toString());
 
         Consultas consultar = new Consultas();
-        Request peticionUsuario = consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES_LIKE, Usuario.class, new String[]{"nombreUsuario","contrasena"}, new String[]{etLoginUser.getText().toString(),loginPassEncrypted});
+        Request peticionUsuario = consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES, Usuario.class, new String[]{"nombreUsuario","contrasena"}, new String[]{etLoginUser.getText().toString(),loginPassEncrypted});
         ArrayList<Object> resultadosBusqueda = (ArrayList<Object>)consultar.devolverResultadoPeticion(peticionUsuario,Usuario.class);
-        if(resultadosBusqueda != null){
-            Toast.makeText(this, "Te has logeado", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(this, Base.class);
-            startActivity(i);
-        }else{
-            Toast.makeText(this, "¿Creiste que iba a funcionar?", Toast.LENGTH_SHORT).show();
+        if(resultadosBusqueda.size()>0)
+        {
+            if(resultadosBusqueda != null) {
+                Sistema.user = (Usuario) resultadosBusqueda.get(0);
+                Toast.makeText(this, "Te has logeado", Toast.LENGTH_LONG).show();
+                finish();
+            }
         }
+        else
+        {
+            Toast.makeText(this, getString(R.string.incorrectUserAndPassword), Toast.LENGTH_LONG).show();
+        }
+
     }
 
 

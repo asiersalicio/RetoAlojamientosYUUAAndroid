@@ -10,7 +10,7 @@ import android.widget.ScrollView;
 
 import androidx.fragment.app.Fragment;
 
-import com.yuua.alojamientosyuua.DatosApp;
+import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.net.Consultas;
@@ -36,25 +36,7 @@ public class FragmentInicio extends Fragment{
         view = inflater.inflate(R.layout.fragment_inicio, container, false);
         scrollView=view.findViewById(R.id.inicioScrollView);
 
-        cargarDatosBD();
         return view;
     }
-
-    public void cargarDatosBD() {
-
-        if(!DatosApp.DATOSDEBUG)
-        {
-            Consultas consultar=new Consultas();
-            Request consulta=consultar.prepararQueryHibernate(60,Alojamiento.class,new String[]{},new String[]{});
-            Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
-            alojamientos= (ArrayList<Alojamiento>) resultado;
-        }
-        else
-        {
-            alojamientos=DatosApp.getDebugAlojamientos();
-        }
-
-    }
-
 
 }

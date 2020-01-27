@@ -9,7 +9,7 @@ import com.yuua.alojamientosyuua.entidades.Usuario;
 
 import java.util.ArrayList;
 
-public class DatosApp {
+public class Sistema {
 
     public static Usuario user;
     public static boolean DATOSDEBUG =false;

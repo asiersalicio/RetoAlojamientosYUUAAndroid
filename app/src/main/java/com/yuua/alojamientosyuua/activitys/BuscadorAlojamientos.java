@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.yuua.alojamientosyuua.DatosApp;
+import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.ItemSearchResultAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
@@ -68,12 +68,12 @@ public class BuscadorAlojamientos extends AppCompatActivity {
             }
         });
 
-        if (!DatosApp.DATOSDEBUG) {
+        if (!Sistema.DATOSDEBUG) {
             iniciarBuscador();
         } else {
             final ArrayList<Object> arrayPruebas = new ArrayList<Object>();
-            arrayPruebas.addAll(DatosApp.getDebugMunicipios());
-            arrayPruebas.addAll(DatosApp.getDebugAlojamientos());
+            arrayPruebas.addAll(Sistema.getDebugMunicipios());
+            arrayPruebas.addAll(Sistema.getDebugAlojamientos());
             new Thread(new HiloBusqueda(items, adapter) {
                 @Override
                 public void run() {

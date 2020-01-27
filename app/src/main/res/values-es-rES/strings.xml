@@ -38,4 +38,7 @@
     <string name="theSearchBarMustnBeNull">La barra de busqueda no puede esta vacia</string>
     <string name="theCheckInDateCannotBeNull">La fecha de entrada no puede esta vacia</string>
     <string name="theCheckOutDateCannotBeNull">La fecha de salida no puede esta vacia</string>
+    <string name="anonymous">Anonimo</string>
+    <string name="welcomeAgain">¡Bienvenido de nuevo!</string>
+    <string name="incorrectUserAndPassword">Usuario o contraseña incorrecta</string>
 </resources>

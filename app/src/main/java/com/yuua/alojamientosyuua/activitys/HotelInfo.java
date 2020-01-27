@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.squareup.picasso.Picasso;
+import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.ImageDownloader;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.ItemImageAdapter;
@@ -180,5 +181,24 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
         Intent galeria = new Intent(this, ImageViewer.class);
         galeria.putExtra("listaLinksImagenes", imagenes);
         startActivity(galeria);
+    }
+
+    private void reservarPara(Alojamiento alojamiento, Date fechaEntrada, Date fechaSalida)
+    {
+        if(Sistema.user==null)
+        {
+            Intent intentLogin = new Intent(this, Login.class);
+            startActivity(intentLogin);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        establecerDatosUsuario();
+    }
+
+    private void establecerDatosUsuario() {
+
     }
 }

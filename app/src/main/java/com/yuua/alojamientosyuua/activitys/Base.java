@@ -25,7 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.yuua.alojamientosyuua.DatosApp;
+import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.ObjetoGenerico;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
@@ -56,6 +56,7 @@ public class Base extends AppCompatActivity {
     public static LinearLayoutManager llm;
     private Date fechaEntrada, fechaSalida;
     private Object itemSeleccionado;
+    private MenuItem btnCerrarSesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +75,18 @@ public class Base extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+        getSupportActionBar().setCustomView(R.menu.custom_action_bar);
         getSupportActionBar().setElevation(0);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_base, menu);
+
+        btnCerrarSesion=menu.findItem(R.id.btnCerrarSesionToolbar);
+        if(Sistema.user==null)
+        {
+            btnCerrarSesion.setVisible(false);
+        }
+
+
         return true;
     }
 
@@ -86,9 +95,19 @@ public class Base extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.btnBusquedaToolbar:
                 btnBusqueda();
-            default:
-                return super.onOptionsItemSelected(item);
+                break;
+            case R.id.btnCerrarSesionToolbar:
+                cerrarSesion();
+                break;
         }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void cerrarSesion() {
+        Sistema.user=null;
+        Intent intentMain = new Intent(this, MainActivity.class);
+        startActivity(intentMain);
+        finish();
     }
 
     @Override
@@ -137,7 +156,7 @@ public class Base extends AppCompatActivity {
                         selectedFragment = fragment_reservas;
                         break;
                     case R.id.bottomnavuser:
-                        if(DatosApp.user!=null)
+                        if(Sistema.user!=null)
                         {
                             fragment_usuario = new FragmentUsuario();
                             selectedFragment = fragment_usuario;
@@ -266,10 +285,11 @@ public class Base extends AppCompatActivity {
     }
 
     public void establecerDatosUsuario() {
-        if (DatosApp.user != null) {
-            Usuario user = DatosApp.user;
+        if (Sistema.user != null) {
+            Usuario user = Sistema.user;
             BottomNavigationView bottomNavigationView = findViewById(R.id.bottomnavigationview);
             bottomNavigationView.getMenu().getItem(2).setTitle(user.getNombreUsuario());
+            btnCerrarSesion.setVisible(true);
         }
     }
 
