@@ -7,11 +7,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 
 public class Cliente implements Runnable {
     private final int PUERTO = 55555;
-    private final String IP = "192.168.101.21";
+    private final String IP = "192.168.101.233";
     private Socket cliente = null;
     private ObjectOutputStream salida = null;
     private ObjectInputStream entrada = null;
@@ -27,15 +28,10 @@ public class Cliente implements Runnable {
     public void run() {
         try {
             cliente = new Socket(IP, PUERTO);
-            System.out.println("Conectado");
             salida = new ObjectOutputStream(cliente.getOutputStream());
-            System.out.println("Get output stream");
             entrada = new ObjectInputStream(cliente.getInputStream());
-            System.out.println("Get input stream");
             salida.writeObject(peticion);
-            System.out.println("Write object");
             Request peticion = (Request) entrada.readObject();
-            System.out.println("Read object: " + peticion.getCodigoPeticion());
             switch (peticion.getCodigoPeticion()) {
                 //Buscar alojamientos disponibles por fechas y municipio
                 case 21:
@@ -56,6 +52,10 @@ public class Cliente implements Runnable {
                     jsonResultado = (String) peticion.getObjetoEnviado();
                     break;
                 case 71:
+                    break;
+                //Respuesta distinct - strings
+                case 81:
+                    jsonResultado = (String) peticion.getObjetoEnviado();
                     break;
                 default:
                     break;

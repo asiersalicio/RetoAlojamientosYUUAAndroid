@@ -42,11 +42,9 @@ public class ImageDownloader implements Runnable {
         try{
             url=new URL(query);
         }catch (MalformedURLException ex){}
-
         finalizado=false;
         prepararHilo();
-        while(!finalizado)
-        {
+        while(!finalizado) {
             Thread.yield();
         }
         System.out.println("URLS: " + urlsImagenes.toString());
@@ -56,32 +54,21 @@ public class ImageDownloader implements Runnable {
 
 
     private void prepararHilo() {
-
-
         Thread hilo = new Thread(this);
-
         hilo.start();
-
     }
 
     private void parseJSON(String resul) {
-
         try{
             JSONObject obj = new JSONObject(resul);
             JSONArray jsonArray = obj.getJSONObject("data").getJSONObject("result").getJSONArray("items");
-
-            for(int i=0;i<jsonArray.length();i++)
-            {
+            for(int i=0;i<jsonArray.length();i++) {
                 JSONObject itemJson = jsonArray.getJSONObject(i);
                 ImagenOnline imagen = new ImagenOnline(itemJson.getString("media"),itemJson.getString("title"));
                 urlsImagenes.add(imagen);
             }
-
-
         }catch (JSONException ex){}
-
     }
-
 
     @Override
     public void run() {
@@ -100,7 +87,6 @@ public class ImageDownloader implements Runnable {
         setFinalizado(true);
     }
 
-
     private void setFinalizado(boolean finalizado) {
         this.finalizado = finalizado;
     }
@@ -112,8 +98,6 @@ public class ImageDownloader implements Runnable {
     private void setParseado(String parseado) {
         this.parseado = parseado;
     }
-
-
 }
 
 

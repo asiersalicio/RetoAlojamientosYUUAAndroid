@@ -16,7 +16,6 @@ import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.ItemSearchResultAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
-import com.yuua.alojamientosyuua.entidades.Municipio;
 import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;
 
@@ -70,7 +69,8 @@ public class BuscadorAlojamientos extends AppCompatActivity {
 
         if (!Sistema.DATOSDEBUG) {
             iniciarBuscador();
-        } else {
+        }
+        /*else {
             final ArrayList<Object> arrayPruebas = new ArrayList<Object>();
             arrayPruebas.addAll(Sistema.getDebugMunicipios());
             arrayPruebas.addAll(Sistema.getDebugAlojamientos());
@@ -89,14 +89,9 @@ public class BuscadorAlojamientos extends AppCompatActivity {
                 }
             }
             ).start();
-        }
-
+        }*/
         campoBusqueda.setText(getIntent().getExtras().getString("busqueda"));
     }
-
-
-
-
 
     private void iniciarBuscador() {
         new Thread(new HiloBusqueda(items, adapter) {
@@ -108,18 +103,12 @@ public class BuscadorAlojamientos extends AppCompatActivity {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                     }
-                    ;
-
-
                     if (textoCambiado && campoBusqueda.getText().length() > 0) {
                         activarProgressbar();
                         textoCambiado = false;
-
                         System.out.println("Intentando actualizar lista de alojamientos...");
-
                         final ArrayList<Object> nuevoArray;
                         nuevoArray=buscarPorTexto(campoBusqueda.getText().toString());
-
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -148,18 +137,13 @@ public class BuscadorAlojamientos extends AppCompatActivity {
         ArrayList<Object> arrayList = new ArrayList<Object>();
         System.out.println("Buscar en BD por: " + texto);
         Consultas consultar = new Consultas();
-        Request peticionMunicipio = consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES_LIKE, Municipio.class, new String[]{"nombre"}, new String[]{texto});
-        arrayList.addAll((ArrayList<Object>) consultar.devolverResultadoPeticion(peticionMunicipio, Municipio.class));
-
-
+        Request peticionMunicipio = consultar.municipiosDistinctParaBuscador(texto);
+        arrayList.addAll((ArrayList<Object>) consultar.devolverResultadoPeticion(peticionMunicipio, String.class));
         Request peticionAlojamientos=consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES_LIKE,Alojamiento.class,new String[]{"nombre"},new String[]{texto});
-
         ArrayList<Object> resultadosBusqueda = (ArrayList<Object>)consultar.devolverResultadoPeticion(peticionAlojamientos,Alojamiento.class);
-        if(resultadosBusqueda!=null)
-        {
+        if(resultadosBusqueda!=null) {
             arrayList.addAll(resultadosBusqueda);
         }
-
         return arrayList;
     }
 
@@ -168,8 +152,7 @@ public class BuscadorAlojamientos extends AppCompatActivity {
         campoBusqueda.setText("");
     }
 
-    private void activarProgressbar()
-    {
+    private void activarProgressbar() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -178,8 +161,7 @@ public class BuscadorAlojamientos extends AppCompatActivity {
         });
     }
 
-    private void desactivarProgresBar()
-    {
+    private void desactivarProgresBar() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

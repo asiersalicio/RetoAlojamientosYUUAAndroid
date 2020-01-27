@@ -33,12 +33,10 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         getSupportActionBar().hide();
-
         inizializar();
     }
 
     private void inizializar() {
-
         fechaNacimiento=findViewById(R.id.RegFechaNacimiento);
         campoNombre=findViewById(R.id.RegNombre);
         campoApellidos=findViewById(R.id.RegApellidos);
@@ -47,7 +45,6 @@ public class Register extends AppCompatActivity {
         campoNombreUsuario=findViewById(R.id.regUsername);
         campoTelefono=findViewById(R.id.regTelefono);
         campoContrasena=findViewById(R.id.regContrasena);
-
         fechaNacimiento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +52,6 @@ public class Register extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
-
     }
 
     private void setDateTimeField() {

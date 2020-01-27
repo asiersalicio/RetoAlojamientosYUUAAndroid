@@ -29,7 +29,7 @@ import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.ObjetoGenerico;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
-import com.yuua.alojamientosyuua.entidades.Municipio;
+import com.yuua.alojamientosyuua.entidades.Localizacion;
 import com.yuua.alojamientosyuua.entidades.Usuario;
 import com.yuua.alojamientosyuua.fragmentos.FragmentAlojPorCiudad;
 import com.yuua.alojamientosyuua.fragmentos.FragmentInicio;
@@ -275,9 +275,9 @@ public class Base extends AppCompatActivity {
             if (itemSeleccionado instanceof Alojamiento) {
                 Alojamiento aloj = (Alojamiento) itemSeleccionado;
                 textoBusqueda.setText(aloj.getNombre());
-            } else if (itemSeleccionado instanceof Municipio) {
-                Municipio muni = (Municipio) itemSeleccionado;
-                textoBusqueda.setText(muni.getNombre());
+            } else if (itemSeleccionado instanceof Alojamiento) {
+                String muni = (String) itemSeleccionado;
+                textoBusqueda.setText(muni);
             }
 
 
@@ -298,54 +298,46 @@ public class Base extends AppCompatActivity {
     }
 
     public void btnBuscarPulsado(View view) {
-
-
-        if(validarDatosBusqueda())
-        {
+        if(validarDatosBusqueda()) {
             cerrarBusqueda();
-            if(itemSeleccionado instanceof Alojamiento)
-            {
-
-            }else if(itemSeleccionado instanceof Municipio)
-            {
+            if(itemSeleccionado instanceof Alojamiento) {
+                //TO-DO
+            }else if(itemSeleccionado instanceof Localizacion) {
                 buscarPorLocalizacion();
             }
         }
-
     }
 
     private boolean validarDatosBusqueda() {
-
         boolean valido=true;
-
-        if(itemSeleccionado==null)
-        {
+        if(itemSeleccionado==null) {
             valido=false;
             textoBusqueda.setError(getString(R.string.theSearchBarMustnBeNull));
         }
-        else
+        else {
             textoBusqueda.setError(null);
+        }
         if(fechaEntrada==null) {
             valido = false;
             campoFechaEntrada.setError(getString(R.string.theCheckInDateCannotBeNull));
         }
-        else
+        else {
             campoFechaEntrada.setError(null);
-        if(fechaSalida==null)
-        {
+        }
+        if(fechaSalida==null) {
             valido=false;
             campoFechaSalida.setError(getString(R.string.theCheckOutDateCannotBeNull));
         }
-        else
+        else {
             campoFechaSalida.setError(null);
+        }
         return valido;
-
     }
 
     public void buscarPorLocalizacion() {
         busquedaPorLocalizacion = true;
         llm = new LinearLayoutManager(contexto);
-        fragmentAlojPorCiudad = new FragmentAlojPorCiudad(contexto, (Municipio) itemSeleccionado, fechaEntrada, fechaSalida);
+        fragmentAlojPorCiudad = new FragmentAlojPorCiudad(contexto, (String) itemSeleccionado, fechaEntrada, fechaSalida);
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutbase, fragmentAlojPorCiudad).commit();
     }
 

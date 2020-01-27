@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.yuua.alojamientosyuua.ObjetoGenerico;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
-import com.yuua.alojamientosyuua.entidades.Municipio;
 
 import java.util.ArrayList;
 
@@ -63,16 +62,16 @@ public class ItemSearchResultAdapter extends RecyclerView.Adapter<ItemSearchResu
             Alojamiento aloj = (Alojamiento) item;
             searchResult.texto.setText(aloj.getNombre());
             searchResult.icono.setImageResource(R.drawable.ic_hotel_blue_24dp);
-            searchResult.textoDescripcion.setText(aloj.getLocalizacion().getTmunicipio().getNombre());
+            searchResult.textoDescripcion.setText(aloj.getLocalizacion().getTmunicipio());
             searchResult.textoDescripcion.setVisibility(View.VISIBLE);
             searchResult.iconoDescripcion.setVisibility(View.VISIBLE);
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) searchResult.texto.getLayoutParams();
             params.verticalBias = 0.2f; // here is one modification for example. modify anything else you want :)
             searchResult.texto.setLayoutParams(params);
 
-        } else if(item instanceof Municipio){
-            Municipio muni = (Municipio) item;
-            searchResult.texto.setText(muni.getNombre());
+        } else if(item instanceof String){
+            String muni = (String) item;
+            searchResult.texto.setText(muni);
             searchResult.icono.setImageResource(R.drawable.ic_location_city_black_24dp);
 
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) searchResult.texto.getLayoutParams();

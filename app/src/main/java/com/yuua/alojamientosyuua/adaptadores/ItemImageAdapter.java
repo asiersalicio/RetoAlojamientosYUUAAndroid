@@ -24,22 +24,15 @@ public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.Imag
     private ArrayList<ImagenOnline> imagenes;
     private Context contextoPadre;
 
-
     public ItemImageAdapter(Context contextoPadre, ArrayList<ImagenOnline> imagenes){
         this.imagenes = imagenes;
         this.contextoPadre = contextoPadre;
-
     }
 
     public static class Image extends RecyclerView.ViewHolder {
-
-
         ImageView imageView;
         TextView texto;
         ConstraintLayout constraintLayout;
-
-        public ConstraintLayout cl;
-
         Image(View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.item_imageview);
@@ -84,6 +77,4 @@ public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.Imag
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         contextoPadre.startActivity(browserIntent);
     }
-
-
 }

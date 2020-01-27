@@ -24,9 +24,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -35,7 +32,5 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }, 1000);
-
     }
-
 }
