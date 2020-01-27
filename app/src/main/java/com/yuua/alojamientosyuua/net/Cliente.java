@@ -11,7 +11,7 @@ import java.net.SocketTimeoutException;
 
 public class Cliente implements Runnable {
     private final int PUERTO = 55555;
-    private final String IP = "192.168.101.233";
+    private final String IP = "192.168.101.21";
     private Socket cliente = null;
     private ObjectOutputStream salida = null;
     private ObjectInputStream entrada = null;

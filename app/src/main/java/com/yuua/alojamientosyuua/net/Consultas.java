@@ -29,7 +29,7 @@ public class Consultas {
         return peticion;
     }
 
-    public Request alojamientosDisponiblesEntreFechasEnMunicipio(Date fecha1,Date fecha2,Municipio municipio){
+    public Request alojamientosDisponiblesEntreFechasEnMunicipio(Municipio municipio,Date fecha1,Date fecha2){
         Gson parser =new Gson();
         String json=parser.toJson(municipio);
         Request peticion = new Request(20, new Object[]{json,fecha1,fecha2});

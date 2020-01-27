@@ -298,23 +298,23 @@ public class Base extends AppCompatActivity {
 
         boolean valido=true;
 
-        if(textoBusqueda.getText().length()<1)
+        if(itemSeleccionado==null)
         {
             valido=false;
             textoBusqueda.setError(getString(R.string.theSearchBarMustnBeNull));
         }
         else
             textoBusqueda.setError(null);
-        if(campoFechaEntrada.getText().length()<1) {
+        if(fechaEntrada==null) {
             valido = false;
-            campoFechaEntrada.setError(getString(R.string.checkInDate));
+            campoFechaEntrada.setError(getString(R.string.theCheckInDateCannotBeNull));
         }
         else
             campoFechaEntrada.setError(null);
-        if(campoFechaSalida.getText().length()<1)
+        if(fechaSalida==null)
         {
             valido=false;
-            campoFechaSalida.setError(getString(R.string.checkOutDate));
+            campoFechaSalida.setError(getString(R.string.theCheckOutDateCannotBeNull));
         }
         else
             campoFechaSalida.setError(null);
@@ -371,5 +371,23 @@ public class Base extends AppCompatActivity {
         } else {
             abrirBusqueda();
         }
+    }
+
+    public void btnBorrarResultado(View view)
+    {
+        textoBusqueda.setText("");
+        itemSeleccionado=null;
+    }
+
+    public void btnBorrarFechaEntrada(View view)
+    {
+        campoFechaEntrada.setText("");
+        fechaEntrada=null;
+    }
+
+    public void btnBorrarFechaSalida(View view)
+    {
+        campoFechaSalida.setText("");
+        fechaSalida=null;
     }
 }

@@ -22,40 +22,89 @@
 
         <EditText
             android:id="@+id/buscadorBaseLocAloj"
-            android:layout_width="336dp"
-            android:layout_height="33dp"
-            android:layout_marginBottom="136dp"
-            android:layout_weight=".75"
-            android:background="@drawable/edittext1"
-            android:editable="false"
-            android:hint="@string/searchAccPos"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <EditText
-            android:id="@+id/buscadorBaseFEntrada"
-            android:layout_width="150dp"
-            android:layout_height="33dp"
+            android:layout_width="330dp"
+            android:layout_height="45dp"
             android:layout_marginTop="24dp"
             android:layout_weight=".75"
             android:background="@drawable/edittext1"
             android:editable="false"
+            android:elevation="5dp"
+            android:hint="@string/searchAccPos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/buscadorBaseFEntrada"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="24dp"
+            android:layout_weight=".75"
+            android:background="@drawable/edittext1"
+            android:editable="false"
+            android:elevation="5dp"
             android:hint="@string/checkInDate"
+            app:layout_constraintEnd_toEndOf="@+id/buscadorBaseLocAloj"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="@+id/buscadorBaseLocAloj"
             app:layout_constraintTop_toBottomOf="@+id/buscadorBaseLocAloj" />
 
         <EditText
             android:id="@+id/buscadorBaseFSalida"
-            android:layout_width="150dp"
-            android:layout_height="33dp"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="16dp"
             android:layout_weight=".75"
             android:background="@drawable/edittext1"
             android:editable="false"
+            android:elevation="5dp"
             android:hint="@string/checkOutDate"
             app:layout_constraintEnd_toEndOf="@+id/buscadorBaseLocAloj"
-            app:layout_constraintTop_toTopOf="@+id/buscadorBaseFEntrada" />
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="@+id/buscadorBaseLocAloj"
+            app:layout_constraintTop_toBottomOf="@+id/buscadorBaseFEntrada" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="btnBorrarFechaEntrada"
+            android:tint="#FFFFFF"
+            android:translationZ="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/buscadorBaseFEntrada"
+            app:layout_constraintEnd_toStartOf="@+id/buscadorBaseFEntrada"
+            app:layout_constraintTop_toTopOf="@+id/buscadorBaseFEntrada"
+            app:layout_constraintVertical_bias="0.466"
+            app:srcCompat="@drawable/ic_cancel_black_24dp" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:onClick="btnBorrarFechaSalida"
+            android:tint="#FFFFFF"
+            android:translationZ="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/buscadorBaseFSalida"
+            app:layout_constraintEnd_toStartOf="@+id/buscadorBaseFSalida"
+            app:layout_constraintTop_toTopOf="@+id/buscadorBaseFSalida"
+            app:srcCompat="@drawable/ic_cancel_black_24dp" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:onClick="btnBorrarResultado"
+            android:tint="#FFFFFF"
+            android:translationZ="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/buscadorBaseLocAloj"
+            app:layout_constraintEnd_toStartOf="@+id/buscadorBaseLocAloj"
+            app:layout_constraintTop_toTopOf="@+id/buscadorBaseLocAloj"
+            app:layout_constraintVertical_bias="0.476"
+            app:srcCompat="@drawable/ic_cancel_black_24dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
@@ -64,7 +113,9 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:clickable="true"
+            android:elevation="30dp"
             android:onClick="btnBuscarPulsado"
+            android:translationZ="30dp"
             app:backgroundTint="@color/colorSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class DatosApp {
 
     public static Usuario user;
-    public static boolean DATOSDEBUG =true;
+    public static boolean DATOSDEBUG =false;
 
     public static ArrayList<Alojamiento> getDebugAlojamientos(){
         Localizacion loc = new Localizacion(new Pais(new char[]{'3','4'},"España"), new Municipio(new char[]{'0','1'}, "Bilbao"),new Territorio(new char[]{'1'},"Vizcaya"),"48001","Alameda Rekalde", 43.263433, -2.934844);

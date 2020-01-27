@@ -61,7 +61,7 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
             nombreCiudad.setText(municipio.getNombre());
 
             Consultas consultar=new Consultas();
-            Request consulta=consultar.alojamientosDisponiblesEntreFechasEnMunicipio(fechaEntrada,fechaSalida,municipio);
+            Request consulta=consultar.alojamientosDisponiblesEntreFechasEnMunicipio(municipio,fechaEntrada,fechaSalida);
             Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
             alojamientos= (ArrayList<Alojamiento>) resultado;
 
