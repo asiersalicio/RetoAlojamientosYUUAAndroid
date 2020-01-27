@@ -1,27 +1,22 @@
 package com.yuua.alojamientosyuua.activitys;
 
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.yuua.alojamientosyuua.DatosApp;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Usuario;
-import com.yuua.alojamientosyuua.net.Cliente;
 import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -37,7 +32,6 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        DatosApp.currentContext=this;
         getSupportActionBar().hide();
 
         inizializar();

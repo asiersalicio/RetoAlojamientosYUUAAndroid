@@ -35,4 +35,7 @@
     <string name="usernameIsNotValid">El usuario ya existe o tiene menos de 4 caracteres</string>
     <string name="imagesNotAvailable">No hay imagenes disponibles</string>
     <string name="yourBookings">Tus reservas</string>
+    <string name="theSearchBarMustnBeNull">La barra de busqueda no puede esta vacia</string>
+    <string name="theCheckInDateCannotBeNull">La fecha de entrada no puede esta vacia</string>
+    <string name="theCheckOutDateCannotBeNull">La fecha de salida no puede esta vacia</string>
 </resources>

@@ -1,13 +1,5 @@
 package com.yuua.alojamientosyuua.activitys;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.animation.ValueAnimator;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -23,6 +15,14 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.yuua.alojamientosyuua.DatosApp;
@@ -51,15 +51,16 @@ public class Base extends AppCompatActivity {
     private FragmentUsuario fragment_usuario;
     public static Context contexto;
     private ConstraintLayout toolbar;
-    private TextView buscador;
-    private EditText fechaEntrada, fechaSalida;
+    private TextView textoBusqueda;
+    private EditText campoFechaEntrada, campoFechaSalida;
     public static LinearLayoutManager llm;
+    private Date fechaEntrada, fechaSalida;
+    private Object itemSeleccionado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        DatosApp.currentContext = this;
         Inicializar();
     }
 
@@ -104,9 +105,9 @@ public class Base extends AppCompatActivity {
         contexto = this;
         toolbar = findViewById(R.id.searchbar);
         toolbar.getLayoutParams().height = 1;
-        buscador = findViewById(R.id.buscadorBaseLocAloj);
-        fechaEntrada = findViewById(R.id.buscadorBaseFEntrada);
-        fechaSalida = findViewById(R.id.buscadorBaseFSalida);
+        textoBusqueda = findViewById(R.id.buscadorBaseLocAloj);
+        campoFechaEntrada = findViewById(R.id.buscadorBaseFEntrada);
+        campoFechaSalida = findViewById(R.id.buscadorBaseFSalida);
         bottomNavigationView = findViewById(R.id.bottomnavigationview);
         mostrarFragmentInicio();
         AnadirListeners();
@@ -156,16 +157,16 @@ public class Base extends AppCompatActivity {
             }
         });
 
-        buscador.setOnClickListener(new View.OnClickListener() {
+        textoBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentBuscador = new Intent(contexto, BuscadorAlojamientos.class);
-                intentBuscador.putExtra("busqueda",buscador.getText().toString());
+                intentBuscador.putExtra("busqueda", textoBusqueda.getText().toString());
                 startActivityForResult(intentBuscador, 0);
             }
         });
 
-        fechaEntrada.setOnClickListener(new View.OnClickListener() {
+        campoFechaEntrada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -173,10 +174,10 @@ public class Base extends AppCompatActivity {
             }
         });
 
-        fechaSalida.setOnClickListener(new View.OnClickListener() {
+        campoFechaSalida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (DatosApp.fechaEntrada != null) {
+                if (fechaEntrada != null) {
                     setFechaSalida();
                 }
             }
@@ -196,10 +197,10 @@ public class Base extends AppCompatActivity {
                 newDate.set(year, monthOfYear, dayOfMonth);
                 SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
                 Date startDate = newDate.getTime();
-                DatosApp.fechaEntrada = startDate;
+                fechaEntrada = startDate;
                 String fdate = sd.format(startDate);
 
-                fechaEntrada.setText(fdate);
+                campoFechaEntrada.setText(fdate);
 
             }
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -226,11 +227,11 @@ public class Base extends AppCompatActivity {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
                 SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
-                Date startDate = newDate.getTime();
-                DatosApp.fechaSalida = startDate;
-                String fdate = sd.format(startDate);
+                Date fecha = newDate.getTime();
+                fechaSalida = fecha;
+                String fdate = sd.format(fecha);
 
-                fechaSalida.setText(fdate);
+                campoFechaSalida.setText(fdate);
 
             }
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -241,7 +242,7 @@ public class Base extends AppCompatActivity {
         max6months.add(Calendar.MONTH, 6);
         Date datemax6months = max6months.getTime();
 
-        datePickerDialog.getDatePicker().setMinDate(DatosApp.fechaEntrada.getTime());
+        datePickerDialog.getDatePicker().setMinDate(fechaEntrada.getTime());
         datePickerDialog.getDatePicker().setMaxDate(datemax6months.getTime());
         datePickerDialog.show();
     }
@@ -250,14 +251,14 @@ public class Base extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == 0) {
-            DatosApp.itemSeleccionado = ((ObjetoGenerico) data.getSerializableExtra("item")).getObject();
+            itemSeleccionado = ((ObjetoGenerico) data.getSerializableExtra("item")).getObject();
 
-            if (DatosApp.itemSeleccionado instanceof Alojamiento) {
-                Alojamiento aloj = (Alojamiento) DatosApp.itemSeleccionado;
-                buscador.setText(aloj.getNombre());
-            } else if (DatosApp.itemSeleccionado instanceof Municipio) {
-                Municipio muni = (Municipio) DatosApp.itemSeleccionado;
-                buscador.setText(muni.getNombre());
+            if (itemSeleccionado instanceof Alojamiento) {
+                Alojamiento aloj = (Alojamiento) itemSeleccionado;
+                textoBusqueda.setText(aloj.getNombre());
+            } else if (itemSeleccionado instanceof Municipio) {
+                Municipio muni = (Municipio) itemSeleccionado;
+                textoBusqueda.setText(muni.getNombre());
             }
 
 
@@ -277,23 +278,54 @@ public class Base extends AppCompatActivity {
     }
 
     public void btnBuscarPulsado(View view) {
-        cerrarBusqueda();
 
-        if(DatosApp.itemSeleccionado instanceof Alojamiento)
-        {
 
-        }else if(DatosApp.itemSeleccionado instanceof Municipio)
+        if(validarDatosBusqueda())
         {
-            buscarPorLocalizacion();
+            cerrarBusqueda();
+            if(itemSeleccionado instanceof Alojamiento)
+            {
+
+            }else if(itemSeleccionado instanceof Municipio)
+            {
+                buscarPorLocalizacion();
+            }
         }
 
+    }
+
+    private boolean validarDatosBusqueda() {
+
+        boolean valido=true;
+
+        if(textoBusqueda.getText().length()<1)
+        {
+            valido=false;
+            textoBusqueda.setError(getString(R.string.theSearchBarMustnBeNull));
+        }
+        else
+            textoBusqueda.setError(null);
+        if(campoFechaEntrada.getText().length()<1) {
+            valido = false;
+            campoFechaEntrada.setError(getString(R.string.checkInDate));
+        }
+        else
+            campoFechaEntrada.setError(null);
+        if(campoFechaSalida.getText().length()<1)
+        {
+            valido=false;
+            campoFechaSalida.setError(getString(R.string.checkOutDate));
+        }
+        else
+            campoFechaSalida.setError(null);
+        return valido;
 
     }
 
     public void buscarPorLocalizacion() {
         busquedaPorLocalizacion = true;
         llm = new LinearLayoutManager(contexto);
-        fragmentAlojPorCiudad = new FragmentAlojPorCiudad(contexto);
+        fragmentAlojPorCiudad = new FragmentAlojPorCiudad(contexto, (Municipio) itemSeleccionado, fechaEntrada, fechaSalida);
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayoutbase, fragmentAlojPorCiudad).commit();
     }
 

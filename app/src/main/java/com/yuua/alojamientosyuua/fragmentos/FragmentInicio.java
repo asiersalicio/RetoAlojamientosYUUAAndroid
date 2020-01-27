@@ -3,22 +3,15 @@ package com.yuua.alojamientosyuua.fragmentos;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 import android.widget.ScrollView;
 
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.R;
-import com.yuua.alojamientosyuua.activitys.Base;
-import com.yuua.alojamientosyuua.adaptadores.ItemCardAlojAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;

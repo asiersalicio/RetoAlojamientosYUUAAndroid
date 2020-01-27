@@ -1,9 +1,5 @@
 package com.yuua.alojamientosyuua.activitys;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +10,11 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.squareup.picasso.Picasso;
-import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.ImageDownloader;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.adaptadores.ItemImageAdapter;
@@ -42,13 +41,13 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     private ImageView imagen;
     private ImageDownloader imageDownloader;
     private ArrayList<ImagenOnline> imagenes;
+    private Date fechaEntrada, fechaSalida;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_info);
-        DatosApp.currentContext = this;
         inizializar();
 
     }
@@ -58,13 +57,14 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
         btnReservar = findViewById(R.id.btnReservarInfoHotel);
         imagen=findViewById(R.id.ImagenInfoH);
         alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
+        fechaEntrada = (Date) getIntent().getSerializableExtra("fechaEntrada");
+        fechaSalida = (Date) getIntent().getSerializableExtra("fechaSalida");
 
-
-        if (DatosApp.fechaEntrada == null || DatosApp.fechaSalida == null) {
+        if (fechaEntrada == null || fechaSalida == null) {
             btnReservar.setText("Comprobar disponibilidad");
         } else {
 
-            btnReservar.setText("Reservar para: " + DatosApp.fechaEntrada.toLocaleString() + " " + DatosApp.fechaSalida.toLocaleString());
+            btnReservar.setText("Reservar para: " + fechaEntrada.toLocaleString() + " " + fechaSalida.toLocaleString());
         }
 
         nombreHotel = findViewById(R.id.NombreInfoH);
@@ -128,7 +128,7 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
                 newDate.set(year, monthOfYear, dayOfMonth);
                 SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
                 Date startDate = newDate.getTime();
-                DatosApp.fechaEntrada = startDate;
+                fechaEntrada = startDate;
                 String fdate = sd.format(startDate);
 
             }
@@ -157,7 +157,7 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
                 newDate.set(year, monthOfYear, dayOfMonth);
                 SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
                 Date startDate = newDate.getTime();
-                DatosApp.fechaSalida = startDate;
+                fechaSalida = startDate;
                 String fdate = sd.format(startDate);
 
             }
@@ -169,7 +169,7 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
         max6months.add(Calendar.MONTH, 6);
         Date datemax6months = max6months.getTime();
 
-        datePickerDialog.getDatePicker().setMinDate(DatosApp.fechaEntrada.getTime());
+        datePickerDialog.getDatePicker().setMinDate(fechaEntrada.getTime());
         datePickerDialog.getDatePicker().setMaxDate(datemax6months.getTime());
         datePickerDialog.show();
 

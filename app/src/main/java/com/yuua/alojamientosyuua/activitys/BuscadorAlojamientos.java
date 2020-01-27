@@ -1,9 +1,5 @@
 package com.yuua.alojamientosyuua.activitys;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +7,10 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.yuua.alojamientosyuua.DatosApp;
 import com.yuua.alojamientosyuua.R;

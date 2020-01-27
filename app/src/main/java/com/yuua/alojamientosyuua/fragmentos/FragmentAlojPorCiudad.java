@@ -2,15 +2,14 @@ package com.yuua.alojamientosyuua.fragmentos;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.yuua.alojamientosyuua.DatosApp;
@@ -36,9 +35,13 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
     private Context contextoPadre;
     private ImageView imagenCiudad;
     private Municipio municipio;
+    private Date fechaEntrada, fechaSalida;
 
-    public FragmentAlojPorCiudad(Context context) {
+    public FragmentAlojPorCiudad(Context context, Municipio municipio, Date fechaEntrada, Date fechaSalida) {
+        this.municipio=municipio;
         this.contextoPadre=context;
+        this.fechaEntrada=fechaEntrada;
+        this.fechaSalida=fechaSalida;
     }
 
 
@@ -52,14 +55,13 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
         imagenCiudad=view.findViewById(R.id.ImagenAlojPorLoc);
         alojamientos=new ArrayList<Alojamiento>();
 
-        municipio = (Municipio) DatosApp.itemSeleccionado;
 
         if(!DatosApp.DATOSDEBUG)
         {
             nombreCiudad.setText(municipio.getNombre());
 
             Consultas consultar=new Consultas();
-            Request consulta=consultar.alojamientosDisponiblesEntreFechasEnMunicipio(new Date(),new Date(),municipio);
+            Request consulta=consultar.alojamientosDisponiblesEntreFechasEnMunicipio(fechaEntrada,fechaSalida,municipio);
             Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
             alojamientos= (ArrayList<Alojamiento>) resultado;
 
@@ -75,7 +77,7 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
         descargarImagen.start();
 
         rv.setLayoutManager(Base.llm);
-        ItemCardAlojAdapter adapter = new ItemCardAlojAdapter(contextoPadre, alojamientos);
+        ItemCardAlojAdapter adapter = new ItemCardAlojAdapter(contextoPadre, alojamientos, fechaEntrada, fechaSalida);
         rv.setAdapter(adapter);
 
 

@@ -41,6 +41,9 @@
     <string name="usernameIsNotValid">Username is taken and needs to have 4 characters</string>
     <string name="imagesNotAvailable">There aren\'t images available</string>
     <string name="yourBookings">Your bookings</string>
+    <string name="theSearchBarMustnBeNull">The searchbar canno\'t be null</string>
+    <string name="theCheckInDateCannotBeNull">The Check-In date canno\'t be null</string>
+    <string name="theCheckOutDateCannotBeNull">The Check-Out date canno\'t be null</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

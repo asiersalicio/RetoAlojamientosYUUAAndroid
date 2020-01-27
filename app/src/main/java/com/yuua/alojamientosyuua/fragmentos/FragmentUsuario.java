@@ -3,17 +3,16 @@ package com.yuua.alojamientosyuua.fragmentos;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.fragment.app.Fragment;
+
+import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.activitys.Base;
 import com.yuua.alojamientosyuua.activitys.Login;
-import com.yuua.alojamientosyuua.R;
 
 
 /**

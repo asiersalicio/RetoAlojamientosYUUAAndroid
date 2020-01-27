@@ -13,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.yuua.alojamientosyuua.activitys.HotelInfo;
 import com.yuua.alojamientosyuua.R;
+import com.yuua.alojamientosyuua.activitys.HotelInfo;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ public class ItemCardAlojAdapter extends RecyclerView.Adapter<ItemCardAlojAdapte
 
     public ArrayList<Alojamiento> alojamientos;
     private Context contextoBase;
+    private Date fechaEntrada, fechaSalida;
 
     @NonNull
     @Override
@@ -45,6 +46,8 @@ public class ItemCardAlojAdapter extends RecyclerView.Adapter<ItemCardAlojAdapte
                 Intent intento = new Intent(contextoBase, HotelInfo.class);
                 Alojamiento aloj = alojamientos.get(cardAloj.getAdapterPosition());
                 intento.putExtra("alojamiento", aloj);
+                intento.putExtra("fechaEntrada", fechaEntrada);
+                intento.putExtra("fechaSalida", fechaSalida);
                 contextoBase.startActivity(intento);
             }
         });
@@ -61,9 +64,11 @@ public class ItemCardAlojAdapter extends RecyclerView.Adapter<ItemCardAlojAdapte
     }
 
 
-    public ItemCardAlojAdapter(Context contextoBase, ArrayList<Alojamiento> alojamientos){
+    public ItemCardAlojAdapter(Context contextoBase, ArrayList<Alojamiento> alojamientos, Date fechaEntrada, Date fechaSalida){
         this.alojamientos = alojamientos;
         this.contextoBase = contextoBase;
+        this.fechaEntrada = fechaEntrada;
+        this.fechaSalida = fechaSalida;
     }
 
     public static class CardAloj extends RecyclerView.ViewHolder {
