@@ -9,8 +9,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -43,6 +45,7 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     private ImageDownloader imageDownloader;
     private ArrayList<ImagenOnline> imagenes;
     private Date fechaEntrada, fechaSalida;
+    private boolean mostrarBoton;
 
 
     @Override
@@ -61,18 +64,25 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
         fechaEntrada = (Date) getIntent().getSerializableExtra("fechaEntrada");
         fechaSalida = (Date) getIntent().getSerializableExtra("fechaSalida");
 
+
         if (fechaEntrada == null || fechaSalida == null) {
             btnReservar.setText("Comprobar disponibilidad");
         } else {
 
             btnReservar.setText("Reservar para: " + fechaEntrada.toLocaleString() + " " + fechaSalida.toLocaleString());
         }
+        mostrarBoton=getIntent().getBooleanExtra("mostrarBoton", true);
 
         nombreHotel = findViewById(R.id.NombreInfoH);
         descHotel = findViewById(R.id.descInfoH);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
 
+        if(!mostrarBoton)
+        {
+            ConstraintLayout constraintLayout=findViewById(R.id.constraintBtnReservarAhora);
+            constraintLayout.getLayoutParams().height=0;
+        }
 
         if (alojamiento.getLocalizacion() != null) {
             ft.replace(R.id.map_info_frame_H, new FragmentMap(alojamiento.getLocalizacion(), alojamiento.getNombre(), R.drawable.hotel));
@@ -82,10 +92,7 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
         btnReservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Reserva res = new Reserva(-1, new Date(), new Date(), alojamiento, null);
-                Consultas consultar = new Consultas();
-                Request consulta = consultar.prepararInsertHibernate(Reserva.class,new Object[]{res});
-                consultar.devolverResultadoPeticionBoolean(consulta);
+                btnReservarPulsado();
             }
         });
 
@@ -195,10 +202,26 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     @Override
     protected void onResume() {
         super.onResume();
-        establecerDatosUsuario();
     }
 
-    private void establecerDatosUsuario() {
-
+    public void btnReservarPulsado()
+    {
+        if(Sistema.user!=null)
+        {
+            if(!Sistema.SIMULACIONALOJAMIENTOS)
+            {
+                Reserva res = new Reserva(-1, fechaEntrada, fechaSalida, alojamiento, null);
+                Consultas consultar = new Consultas();
+                Request consulta = consultar.prepararInsertHibernate(Reserva.class,new Object[]{res});
+                consultar.devolverResultadoPeticionBoolean(consulta);
+            }
+            Toast.makeText(this, getString(R.string.theAccommodationHasBeenBooked), Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            Intent intentlogin = new Intent(this,Login.class);
+            startActivity(intentlogin);
+            if(Sistema.user!=null){btnReservarPulsado();}
+        }
     }
 }

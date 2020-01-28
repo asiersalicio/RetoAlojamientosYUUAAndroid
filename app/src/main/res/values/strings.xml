@@ -47,6 +47,8 @@
     <string name="anonymous">Anonymous</string>
     <string name="welcomeAgain">Welcome again!</string>
     <string name="incorrectUserAndPassword">Incorrect user or password</string>
+    <string name="theAccommodationHasBeenBooked">The accommodation has been booked!</string>
+    <string name="bookingNumber">Booking number:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

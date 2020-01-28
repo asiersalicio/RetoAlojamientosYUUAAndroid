@@ -152,8 +152,18 @@ public class Base extends AppCompatActivity {
                         selectedFragment = fragmentInicio;
                         break;
                     case R.id.bottomnavbookings:
-                        fragment_reservas = new FragmentReservas();
-                        selectedFragment = fragment_reservas;
+                        if(Sistema.user!=null)
+                        {
+                            fragment_reservas = new FragmentReservas();
+                            selectedFragment = fragment_reservas;
+                        }
+                        else
+                        {
+                            fragmentInicio = new FragmentInicio(contexto);
+                            selectedFragment = fragmentInicio;
+                            Intent intentUsuario=new Intent(contexto, Login.class);
+                            contexto.startActivity(intentUsuario);
+                        }
                         break;
                     case R.id.bottomnavuser:
                         if(Sistema.user!=null)

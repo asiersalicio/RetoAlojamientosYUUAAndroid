@@ -56,7 +56,7 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
         alojamientos=new ArrayList<Alojamiento>();
 
 
-        if(!Sistema.DATOSDEBUG)
+        if(!Sistema.SIMULACIONALOJAMIENTOS)
         {
             nombreCiudad.setText(municipio.getNombre());
 
@@ -77,7 +77,7 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
         descargarImagen.start();
 
         rv.setLayoutManager(Base.llm);
-        ItemCardAlojAdapter adapter = new ItemCardAlojAdapter(contextoPadre, alojamientos, fechaEntrada, fechaSalida);
+        ItemCardAlojAdapter adapter = new ItemCardAlojAdapter(contextoPadre, alojamientos, fechaEntrada, fechaSalida,true);
         rv.setAdapter(adapter);
 
 

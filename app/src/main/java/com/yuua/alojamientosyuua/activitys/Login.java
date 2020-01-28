@@ -107,11 +107,21 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
 
     public void login(View view){
+        ArrayList<Object> resultadosBusqueda;
         String loginPassEncrypted = Register.md5(etLoginPass.getText().toString());
+        if(!Sistema.SIMULACIONUSUARIO)
+        {
+            Consultas consultar = new Consultas();
+            Request peticionUsuario = consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES, Usuario.class, new String[]{"nombreUsuario","contrasena"}, new String[]{etLoginUser.getText().toString(),loginPassEncrypted});
+            resultadosBusqueda = (ArrayList<Object>)consultar.devolverResultadoPeticion(peticionUsuario,Usuario.class);
+        }
+        else
+        {
+            resultadosBusqueda=Sistema.getDebugUsers();
+        }
 
-        Consultas consultar = new Consultas();
-        Request peticionUsuario = consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES, Usuario.class, new String[]{"nombreUsuario","contrasena"}, new String[]{etLoginUser.getText().toString(),loginPassEncrypted});
-        ArrayList<Object> resultadosBusqueda = (ArrayList<Object>)consultar.devolverResultadoPeticion(peticionUsuario,Usuario.class);
+
+
         if(resultadosBusqueda.size()>0)
         {
             if(resultadosBusqueda != null) {

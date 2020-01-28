@@ -41,4 +41,6 @@
     <string name="anonymous">Anonimo</string>
     <string name="welcomeAgain">¡Bienvenido de nuevo!</string>
     <string name="incorrectUserAndPassword">Usuario o contraseña incorrecta</string>
+    <string name="theAccommodationHasBeenBooked">¡El alojamiento ha sido reservado!</string>
+    <string name="bookingNumber">Reserva Nº:</string>
 </resources>

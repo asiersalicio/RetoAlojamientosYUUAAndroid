@@ -68,7 +68,7 @@ public class BuscadorAlojamientos extends AppCompatActivity {
             }
         });
 
-        if (!Sistema.DATOSDEBUG) {
+        if (!Sistema.SIMULACIONALOJAMIENTOS) {
             iniciarBuscador();
         } else {
             final ArrayList<Object> arrayPruebas = new ArrayList<Object>();

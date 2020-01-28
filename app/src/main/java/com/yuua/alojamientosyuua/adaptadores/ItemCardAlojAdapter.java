@@ -25,6 +25,7 @@ public class ItemCardAlojAdapter extends RecyclerView.Adapter<ItemCardAlojAdapte
     public ArrayList<Alojamiento> alojamientos;
     private Context contextoBase;
     private Date fechaEntrada, fechaSalida;
+    private boolean mostrarBoton;
 
     @NonNull
     @Override
@@ -48,6 +49,7 @@ public class ItemCardAlojAdapter extends RecyclerView.Adapter<ItemCardAlojAdapte
                 intento.putExtra("alojamiento", aloj);
                 intento.putExtra("fechaEntrada", fechaEntrada);
                 intento.putExtra("fechaSalida", fechaSalida);
+                intento.putExtra("mostrarBoton",mostrarBoton);
                 contextoBase.startActivity(intento);
             }
         });
@@ -64,11 +66,12 @@ public class ItemCardAlojAdapter extends RecyclerView.Adapter<ItemCardAlojAdapte
     }
 
 
-    public ItemCardAlojAdapter(Context contextoBase, ArrayList<Alojamiento> alojamientos, Date fechaEntrada, Date fechaSalida){
+    public ItemCardAlojAdapter(Context contextoBase, ArrayList<Alojamiento> alojamientos, Date fechaEntrada, Date fechaSalida, boolean mostrarBoton){
         this.alojamientos = alojamientos;
         this.contextoBase = contextoBase;
         this.fechaEntrada = fechaEntrada;
         this.fechaSalida = fechaSalida;
+        this.mostrarBoton = mostrarBoton;
     }
 
     public static class CardAloj extends RecyclerView.ViewHolder {
