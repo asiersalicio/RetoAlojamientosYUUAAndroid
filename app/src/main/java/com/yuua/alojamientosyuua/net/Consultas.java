@@ -4,9 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.entidades.Localizacion;
-import com.yuua.alojamientosyuua.entidades.Municipio;
-import com.yuua.alojamientosyuua.entidades.Pais;
-import com.yuua.alojamientosyuua.entidades.Territorio;
 import com.yuua.alojamientosyuua.entidades.Usuario;
 import com.yuua.reto.net.Request;
 
@@ -18,6 +15,7 @@ public class Consultas {
 
     public static final int QUERY_CON_CONDICIONES=60;
     public static final int QUERY_CON_CONDICIONES_LIKE=65;
+    public static final int QUERY_DISTINCT_MUNICIPIOS=80;
     public static final int QUERY_ALOJAMIENTOS_ENTRE_FECHAS_CIUDAD=20;
 
     public Request prepararInsertHibernate(Class clase ,Object[] objeto) {
@@ -29,11 +27,14 @@ public class Consultas {
         return peticion;
     }
 
-    public Request alojamientosDisponiblesEntreFechasEnMunicipio(Municipio municipio,Date fecha1,Date fecha2){
-        Gson parser =new Gson();
-        String json=parser.toJson(municipio);
-        Request peticion = new Request(20, new Object[]{json,fecha1,fecha2});
+    public Request alojamientosDisponiblesEntreFechasEnMunicipio(String municipio,Date fecha1,Date fecha2){
+        Request peticion = new Request(20, new Object[]{municipio,fecha1,fecha2});
         return  peticion;
+    }
+
+    public Request municipiosDistinctParaBuscador(String municipio){
+        Request peticion = new Request(QUERY_DISTINCT_MUNICIPIOS, new Object[]{municipio});
+        return peticion;
     }
 
     public Request prepararQueryHibernate(int codigo, Class claseObjeto, String[] campos, String[] condiciones) {
@@ -50,18 +51,6 @@ public class Consultas {
                 list = gson.fromJson(jsonResultado, new TypeToken<List<Alojamiento>>() {
                 }.getType());
                 break;
-            case "Pais":
-                list = gson.fromJson(jsonResultado, new TypeToken<List<Pais>>() {
-                }.getType());
-                break;
-            case "Territorio":
-                list = gson.fromJson(jsonResultado, new TypeToken<List<Territorio>>() {
-                }.getType());
-                break;
-            case "Municipio":
-                list = gson.fromJson(jsonResultado, new TypeToken<List<Municipio>>() {
-                }.getType());
-                break;
             case "Localizacion":
                 list = gson.fromJson(jsonResultado, new TypeToken<List<Localizacion>>() {
                 }.getType());
@@ -70,6 +59,9 @@ public class Consultas {
                 list = gson.fromJson(jsonResultado, new TypeToken<List<Usuario>>() {
                 }.getType());
                 break;
+            case "String":
+                list = gson.fromJson(jsonResultado, new TypeToken<List<String>>() {
+                }.getType());
         }
         return list;
     }
@@ -86,12 +78,10 @@ public class Consultas {
         return resultadoboolean;
     }
 
-
     private Cliente getCliente(Request peticion) {
         Cliente cliente = new Cliente(peticion);
         Thread hiloCliente = new Thread(cliente);
         hiloCliente.start();
         return cliente;
     }
-
 }

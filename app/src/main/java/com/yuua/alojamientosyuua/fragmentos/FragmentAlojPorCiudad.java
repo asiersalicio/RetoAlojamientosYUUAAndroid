@@ -19,7 +19,6 @@ import com.yuua.alojamientosyuua.activitys.Base;
 import com.yuua.alojamientosyuua.adaptadores.ItemCardAlojAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.entidades.ImagenOnline;
-import com.yuua.alojamientosyuua.entidades.Municipio;
 import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;
 
@@ -34,10 +33,10 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
     private TextView nombreCiudad;
     private Context contextoPadre;
     private ImageView imagenCiudad;
-    private Municipio municipio;
+    private String municipio;
     private Date fechaEntrada, fechaSalida;
 
-    public FragmentAlojPorCiudad(Context context, Municipio municipio, Date fechaEntrada, Date fechaSalida) {
+    public FragmentAlojPorCiudad(Context context, String municipio, Date fechaEntrada, Date fechaSalida) {
         this.municipio=municipio;
         this.contextoPadre=context;
         this.fechaEntrada=fechaEntrada;
@@ -46,8 +45,7 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_aloj_por_ciudad, container, false);
         view.findViewById(R.id.recyclerViewAlojPorLoc);
         rv=view.findViewById(R.id.recyclerViewAlojPorLoc);
@@ -56,22 +54,14 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
         alojamientos=new ArrayList<Alojamiento>();
 
 
-        if(!Sistema.SIMULACIONALOJAMIENTOS)
-        {
-            nombreCiudad.setText(municipio.getNombre());
 
-            Consultas consultar=new Consultas();
-            Request consulta=consultar.alojamientosDisponiblesEntreFechasEnMunicipio(municipio,fechaEntrada,fechaSalida);
-            Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
-            alojamientos= (ArrayList<Alojamiento>) resultado;
+        nombreCiudad.setText(municipio);
+        Consultas consultar=new Consultas();
+        Request consulta=consultar.alojamientosDisponiblesEntreFechasEnMunicipio(municipio,fechaEntrada,fechaSalida);
+        Object resultado=consultar.devolverResultadoPeticion(consulta,Alojamiento.class);
+        alojamientos= (ArrayList<Alojamiento>) resultado;
 
-        }
-        else
-        {
-            nombreCiudad.setText(municipio.getNombre());
-            alojamientos= Sistema.getDebugAlojamientos();
 
-        }
 
         Thread descargarImagen = new Thread(this);
         descargarImagen.start();
@@ -87,7 +77,7 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
     @Override
     public void run() {
         final ArrayList<ImagenOnline> imagenes;
-        ImageDownloader imageDownloader = new ImageDownloader(municipio.getNombre(),1);
+        ImageDownloader imageDownloader = new ImageDownloader(municipio,1);
         imagenes= imageDownloader.obtenerImagenes();
         getActivity().runOnUiThread(new Runnable() {
             @Override

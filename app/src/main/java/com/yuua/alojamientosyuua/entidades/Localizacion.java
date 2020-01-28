@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class Localizacion implements Serializable {
 	
 	int id;
-	Pais tpais;
-	Municipio tmunicipio;
-	Territorio tterritorio;
+	String tpais;
+	String tmunicipio;
+	String tterritorio;
 
 	String codigoPostal;
 	String direccion;
@@ -18,7 +18,7 @@ public class Localizacion implements Serializable {
 
 	}
 
-	public Localizacion(Pais tpais, Municipio tmunicipio, Territorio tterritorio, String codigoPostal, String direccion, Double latitud, Double longitud) {
+	public Localizacion(String tpais, String tmunicipio, String tterritorio, String codigoPostal, String direccion, Double latitud, Double longitud) {
 		this.tpais = tpais;
 		this.tmunicipio = tmunicipio;
 		this.tterritorio = tterritorio;
@@ -37,27 +37,27 @@ public class Localizacion implements Serializable {
 		this.id = id;
 	}
 
-	public Pais getTpais() {
+	public String getTpais() {
 		return tpais;
 	}
 
-	public void setTpais(Pais tpais) {
+	public void setTpais(String tpais) {
 		this.tpais = tpais;
 	}
 
-	public Municipio getTmunicipio() {
+	public String getTmunicipio() {
 		return tmunicipio;
 	}
 
-	public void setTmunicipio(Municipio tmunicipio) {
+	public void setTmunicipio(String tmunicipio) {
 		this.tmunicipio = tmunicipio;
 	}
 
-	public Territorio getTterritorio() {
+	public String getTterritorio() {
 		return tterritorio;
 	}
 
-	public void setTterritorio(Territorio tterritorio) {
+	public void setTterritorio(String tterritorio) {
 		this.tterritorio = tterritorio;
 	}
 
