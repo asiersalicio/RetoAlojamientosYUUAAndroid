@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.R;
+import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.adaptadores.ItemSearchResultAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.net.Consultas;
@@ -67,9 +67,7 @@ public class BuscadorAlojamientos extends AppCompatActivity {
             }
         });
 
-        if (!Sistema.SIMULACIONALOJAMIENTOS) {
-            iniciarBuscador();
-        }
+        iniciarBuscador();
         /*else {
             final ArrayList<Object> arrayPruebas = new ArrayList<Object>();
             arrayPruebas.addAll(Sistema.getDebugMunicipios());

@@ -10,11 +10,8 @@ import android.widget.ScrollView;
 
 import androidx.fragment.app.Fragment;
 
-import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
-import com.yuua.alojamientosyuua.net.Consultas;
-import com.yuua.reto.net.Request;
 
 import java.util.ArrayList;
 

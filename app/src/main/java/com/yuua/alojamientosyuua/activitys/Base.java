@@ -25,9 +25,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.ObjetoGenerico;
 import com.yuua.alojamientosyuua.R;
+import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.entidades.Localizacion;
 import com.yuua.alojamientosyuua.entidades.Usuario;
@@ -285,7 +285,7 @@ public class Base extends AppCompatActivity {
             if (itemSeleccionado instanceof Alojamiento) {
                 Alojamiento aloj = (Alojamiento) itemSeleccionado;
                 textoBusqueda.setText(aloj.getNombre());
-            } else if (itemSeleccionado instanceof Alojamiento) {
+            } else if (itemSeleccionado instanceof String) {
                 String muni = (String) itemSeleccionado;
                 textoBusqueda.setText(muni);
             }
@@ -312,7 +312,7 @@ public class Base extends AppCompatActivity {
             cerrarBusqueda();
             if(itemSeleccionado instanceof Alojamiento) {
                 //TO-DO
-            }else if(itemSeleccionado instanceof Localizacion) {
+            }else if(itemSeleccionado instanceof String) {
                 buscarPorLocalizacion();
             }
         }
@@ -352,7 +352,6 @@ public class Base extends AppCompatActivity {
     }
 
     private void abrirBusqueda() {
-        Log.println(Log.INFO, "Toolbar", "Barra de busqueda pulsada");
         ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 600);
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

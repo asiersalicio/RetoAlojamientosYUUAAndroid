@@ -1,21 +1,15 @@
 package com.yuua.alojamientosyuua;
 
-import android.net.Uri;
-
-import com.yuua.alojamientosyuua.entidades.Alojamiento;
-import com.yuua.alojamientosyuua.entidades.Localizacion;
 import com.yuua.alojamientosyuua.entidades.Usuario;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Sistema {
 
     public static Usuario user;
-    public static boolean SIMULACIONALOJAMIENTOS=true;
-    public static boolean SIMULACIONUSUARIO=true;
+    //public static boolean SIMULACIONALOJAMIENTOS=true;
+    //public static boolean SIMULACIONUSUARIO=true;
 
     /*
     public static ArrayList<Alojamiento> getDebugAlojamientos(){

@@ -1,10 +1,10 @@
 package com.yuua.alojamientosyuua.activitys;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.Sistema;
@@ -27,7 +27,6 @@ public class InfoReservas extends AppCompatActivity {
 
 
         ArrayList<Alojamiento> alojamientos=new ArrayList<Alojamiento>();
-        alojamientos.add(Sistema.getDebugAlojamientos().get(0));
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
 

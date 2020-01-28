@@ -17,9 +17,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.squareup.picasso.Picasso;
-import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.ImageDownloader;
 import com.yuua.alojamientosyuua.R;
+import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.adaptadores.ItemImageAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.entidades.ImagenOnline;
@@ -208,13 +208,10 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     {
         if(Sistema.user!=null)
         {
-            if(!Sistema.SIMULACIONALOJAMIENTOS)
-            {
-                Reserva res = new Reserva(-1, fechaEntrada, fechaSalida, alojamiento, null);
-                Consultas consultar = new Consultas();
-                Request consulta = consultar.prepararInsertHibernate(Reserva.class,new Object[]{res});
-                consultar.devolverResultadoPeticionBoolean(consulta);
-            }
+            Reserva res = new Reserva(-1, fechaEntrada, fechaSalida, alojamiento, null);
+            Consultas consultar = new Consultas();
+            Request consulta = consultar.prepararInsertHibernate(Reserva.class,new Object[]{res});
+            consultar.devolverResultadoPeticionBoolean(consulta);
             Toast.makeText(this, getString(R.string.theAccommodationHasBeenBooked), Toast.LENGTH_LONG).show();
         }
         else

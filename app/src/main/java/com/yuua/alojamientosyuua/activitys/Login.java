@@ -16,8 +16,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.R;
+import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.entidades.Usuario;
 import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;
@@ -109,16 +109,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     public void login(View view){
         ArrayList<Object> resultadosBusqueda;
         String loginPassEncrypted = Register.md5(etLoginPass.getText().toString());
-        if(!Sistema.SIMULACIONUSUARIO)
-        {
-            Consultas consultar = new Consultas();
-            Request peticionUsuario = consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES, Usuario.class, new String[]{"nombreUsuario","contrasena"}, new String[]{etLoginUser.getText().toString(),loginPassEncrypted});
-            resultadosBusqueda = (ArrayList<Object>)consultar.devolverResultadoPeticion(peticionUsuario,Usuario.class);
-        }
-        else
-        {
-            resultadosBusqueda=Sistema.getDebugUsers();
-        }
+        Consultas consultar = new Consultas();
+        Request peticionUsuario = consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES, Usuario.class, new String[]{"nombreUsuario","contrasena"}, new String[]{etLoginUser.getText().toString(),loginPassEncrypted});
+        resultadosBusqueda = (ArrayList<Object>)consultar.devolverResultadoPeticion(peticionUsuario,Usuario.class);
 
 
 
