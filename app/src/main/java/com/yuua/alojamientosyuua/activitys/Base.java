@@ -143,6 +143,7 @@ public class Base extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                cerrarBusqueda();
                 Fragment selectedFragment = null;
                 llm = new LinearLayoutManager(contexto);
                 switch (menuItem.getItemId()) {

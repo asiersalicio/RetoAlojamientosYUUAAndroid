@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.entidades.Localizacion;
+import com.yuua.alojamientosyuua.entidades.Reserva;
 import com.yuua.alojamientosyuua.entidades.Usuario;
 import com.yuua.reto.net.Request;
 
@@ -32,6 +33,11 @@ public class Consultas {
         return  peticion;
     }
 
+    public Request buscarAlojamientosReservadosPorDni(String dni){
+        Request peticion = new Request(90, new Object[]{dni});
+        return  peticion;
+    }
+
     public Request municipiosDistinctParaBuscador(String municipio){
         Request peticion = new Request(QUERY_DISTINCT_MUNICIPIOS, new Object[]{municipio});
         return peticion;
@@ -46,6 +52,7 @@ public class Consultas {
         Gson gson = new Gson();
         List<?> list = new ArrayList<>();
         String jsonResultado = ejecutarPeticion(peticion);
+        System.out.println(jsonResultado);
         switch (tipo.getSimpleName()) {
             case "Alojamiento":
                 list = gson.fromJson(jsonResultado, new TypeToken<List<Alojamiento>>() {
@@ -62,6 +69,11 @@ public class Consultas {
             case "String":
                 list = gson.fromJson(jsonResultado, new TypeToken<List<String>>() {
                 }.getType());
+                break;
+            case "Reserva":
+                list = gson.fromJson(jsonResultado, new TypeToken<List<Reserva>>() {
+                }.getType());
+                break;
         }
         return list;
     }

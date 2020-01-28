@@ -56,6 +56,9 @@ public class Cliente implements Runnable {
                 case 81:
                     jsonResultado = (String) peticion.getObjetoEnviado();
                     break;
+                case 91:
+                    jsonResultado = (String) peticion.getObjetoEnviado();
+                    break;
                 default:
                     break;
             }

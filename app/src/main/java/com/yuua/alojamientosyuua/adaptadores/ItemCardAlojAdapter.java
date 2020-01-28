@@ -43,7 +43,6 @@ public class ItemCardAlojAdapter extends RecyclerView.Adapter<ItemCardAlojAdapte
         cardAloj.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.println(Log.INFO,"A",alojamientos.get(cardAloj.getAdapterPosition()).getNombre());
                 Intent intento = new Intent(contextoBase, HotelInfo.class);
                 Alojamiento aloj = alojamientos.get(cardAloj.getAdapterPosition());
                 intento.putExtra("alojamiento", aloj);
