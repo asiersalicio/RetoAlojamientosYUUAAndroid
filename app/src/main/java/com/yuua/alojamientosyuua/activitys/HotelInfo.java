@@ -46,7 +46,7 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     private ImageDownloader imageDownloader;
     private ArrayList<ImagenOnline> imagenes;
     private Date fechaEntrada, fechaSalida;
-    private TextView telefono, email, localizacion;
+    private TextView telefono, email, localizacion, web;
     private boolean mostrarBoton;
 
 
@@ -81,6 +81,7 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
         telefono = findViewById(R.id.telefonoInfoH);
         email = findViewById(R.id.correoInfoH);
         localizacion = findViewById(R.id.localizacionInfoH);
+        web = findViewById(R.id.webInfoH);
 
         if(!mostrarBoton)
         {
@@ -132,6 +133,14 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
         else
         {
             email.setText(getString(R.string.emailNotAvailable));
+        }
+        if(alojamiento.getWeb()!=null)
+        {
+            web.setText(alojamiento.getWeb());
+        }
+        else
+        {
+            email.setText(getString(R.string.webNotAvailable));
         }
 
         FragmentManager manager = getSupportFragmentManager();
@@ -273,6 +282,20 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
             emailIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.emailIntro));
             startActivity(emailIntent);
         }
+    }
 
+    public void btnAbrirWeb(View view)
+    {
+        Intent browserIntent;
+        if(alojamiento.getWeb().indexOf("http")>=0)
+        {
+            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(alojamiento.getWeb()));
+        }
+        else
+        {
+            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + alojamiento.getWeb()));
+        }
+
+        startActivity(browserIntent);
     }
 }

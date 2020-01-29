@@ -306,7 +306,9 @@ public class Base extends AppCompatActivity {
             Usuario user = Sistema.user;
             BottomNavigationView bottomNavigationView = findViewById(R.id.bottomnavigationview);
             bottomNavigationView.getMenu().getItem(2).setTitle(user.getNombreUsuario());
-            findViewById(R.id.btnCerrarSesionToolbar);
+            try{
+                btnCerrarSesion.setVisible(true);
+            }catch (Exception ex){}
         }
     }
 

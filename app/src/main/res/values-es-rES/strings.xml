@@ -56,4 +56,5 @@
     <string name="emailIntro">Hola, me gustaria contactar con usted para saber si podria ser posible</string>
     <string name="accomodationInfo">Informacion del alojamiento</string>
     <string name="bookingInformation">Informacion de la reserva</string>
+    <string name="webNotAvailable">Web no disponible</string>
 </resources>

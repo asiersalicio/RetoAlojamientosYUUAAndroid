@@ -128,7 +128,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 LoginLogOut.guardarLogin(this, Sistema.user.getIdDni(),Sistema.user.getContrasena());
             }
             finish();
-
         }
         else
         {

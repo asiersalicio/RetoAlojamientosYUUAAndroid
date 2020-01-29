@@ -62,6 +62,7 @@
     <string name="emailIntro">Hello, I would like to contact you to know if it could be possible to</string>
     <string name="accomodationInfo">Accomodation information</string>
     <string name="bookingInformation">Booking information</string>
+    <string name="webNotAvailable">Web not available</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
