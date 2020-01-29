@@ -84,6 +84,7 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
                 try{
                     Picasso.get().load(imagenes.get(0).media).into(imagenCiudad);
                 }catch (IllegalArgumentException ex){}
+                catch (IndexOutOfBoundsException ex2){}
             }
         });
     }

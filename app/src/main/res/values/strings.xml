@@ -50,6 +50,18 @@
     <string name="theAccommodationHasBeenBooked">The accommodation has been booked!</string>
     <string name="bookingNumber">Booking number:</string>
     <string name="youHaveBeenLogged">You have been logged</string>
+    <string name="deleteReservation">Delete reservation</string>
+    <string name="bookedAccomodation">Booked accomodation:</string>
+    <string name="description">Description:</string>
+    <string name="contactInfo">Contact info:</string>
+    <string name="location">Location:</string>
+    <string name="locationNotAvailable">Location not available</string>
+    <string name="phoneNotAvailable">Phone not available</string>
+    <string name="emailNotAvailable">Email not available</string>
+    <string name="queryAbout">Query about</string>
+    <string name="emailIntro">Hello, I would like to contact you to know if it could be possible to</string>
+    <string name="accomodationInfo">Accomodation information</string>
+    <string name="bookingInformation">Booking information</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

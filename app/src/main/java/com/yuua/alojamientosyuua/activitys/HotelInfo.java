@@ -3,6 +3,7 @@ package com.yuua.alojamientosyuua.activitys;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +46,7 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     private ImageDownloader imageDownloader;
     private ArrayList<ImagenOnline> imagenes;
     private Date fechaEntrada, fechaSalida;
+    private TextView telefono, email, localizacion;
     private boolean mostrarBoton;
 
 
@@ -52,11 +54,12 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_info);
-        inizializar();
+        getSupportActionBar().setTitle(getString(R.string.accomodationInfo));
+        inicializar();
 
     }
 
-    public void inizializar() {
+    public void inicializar() {
         contexto = this;
         btnReservar = findViewById(R.id.btnReservarInfoHotel);
         imagen=findViewById(R.id.ImagenInfoH);
@@ -75,18 +78,14 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
 
         nombreHotel = findViewById(R.id.NombreInfoH);
         descHotel = findViewById(R.id.descInfoH);
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction ft = manager.beginTransaction();
+        telefono = findViewById(R.id.telefonoInfoH);
+        email = findViewById(R.id.correoInfoH);
+        localizacion = findViewById(R.id.localizacionInfoH);
 
         if(!mostrarBoton)
         {
             ConstraintLayout constraintLayout=findViewById(R.id.constraintBtnReservarAhora);
             constraintLayout.getLayoutParams().height=0;
-        }
-
-        if (alojamiento.getLocalizacion() != null) {
-            ft.replace(R.id.map_info_frame_H, new FragmentMap(alojamiento.getLocalizacion(), alojamiento.getNombre(), R.drawable.hotel));
-            ft.commitAllowingStateLoss();
         }
 
         btnReservar.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +117,37 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     public void RellenarDatos() {
         nombreHotel.setText(alojamiento.getNombre());
         descHotel.setText(alojamiento.getDescripcion());
+        if(alojamiento.getTelefono()>0)
+        {
+            telefono.setText(Integer.toString(alojamiento.getTelefono()));
+        }
+        else
+        {
+            telefono.setText(getString(R.string.phoneNotAvailable));
+        }
+        if(alojamiento.getEmail()!=null)
+        {
+            email.setText(alojamiento.getEmail());
+        }
+        else
+        {
+            email.setText(getString(R.string.emailNotAvailable));
+        }
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+
+        if (alojamiento.getLocalizacion() != null) {
+            ft.replace(R.id.map_info_frame_H, new FragmentMap(alojamiento.getLocalizacion(), alojamiento.getNombre(), R.drawable.hotel));
+            ft.commitAllowingStateLoss();
+            localizacion.setText(alojamiento.getLocalizacion().getDireccion() + ", " + alojamiento.getLocalizacion().getCodigoPostal() + ", " + alojamiento.getLocalizacion().getTmunicipio());
+        }
+        else {
+            localizacion.setText(getString(R.string.locationNotAvailable));
+        }
+
+
+
 
         Thread hiloDescargarImagen = new Thread(this);
         hiloDescargarImagen.start();
@@ -208,7 +238,7 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
     {
         if(Sistema.user!=null)
         {
-            Reserva res = new Reserva(-1, fechaEntrada, fechaSalida, alojamiento, null);
+            Reserva res = new Reserva(-1, fechaEntrada, fechaSalida, alojamiento, Sistema.user);
             Consultas consultar = new Consultas();
             Request consulta = consultar.prepararInsertHibernate(Reserva.class,new Object[]{res});
             consultar.devolverResultadoPeticionBoolean(consulta);
@@ -220,5 +250,29 @@ public class HotelInfo extends AppCompatActivity implements Runnable{
             startActivity(intentlogin);
             if(Sistema.user!=null){btnReservarPulsado();}
         }
+    }
+
+    public void btnAbrirTelefono(View view)
+    {
+        if(alojamiento.getTelefono()>0)
+        {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + alojamiento.getTelefono()));
+            startActivity(intent);
+        }
+    }
+
+    public void btnAbrirEmail(View view)
+    {
+        if(alojamiento.getEmail()!=null)
+        {
+            Intent emailIntent;
+            emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(Uri.parse("mailto:" + alojamiento.getEmail()));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.queryAbout) + ": " + alojamiento.getNombre());
+            emailIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.emailIntro));
+            startActivity(emailIntent);
+        }
+
     }
 }

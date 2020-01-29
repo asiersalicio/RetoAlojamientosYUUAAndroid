@@ -44,4 +44,16 @@
     <string name="theAccommodationHasBeenBooked">¡El alojamiento ha sido reservado!</string>
     <string name="bookingNumber">Reserva Nº:</string>
     <string name="youHaveBeenLogged">Te has logeado</string>
+    <string name="deleteReservation">Cancelar reserva</string>
+    <string name="bookedAccomodation">Alojamiento reservado:</string>
+    <string name="description">Descripcion</string>
+    <string name="contactInfo">Información de contacto:</string>
+    <string name="location">Localizacion:</string>
+    <string name="locationNotAvailable">Localizacion no disponible</string>
+    <string name="phoneNotAvailable">Telefono no disponible</string>
+    <string name="emailNotAvailable">Correo no disponible</string>
+    <string name="queryAbout">Consulta de</string>
+    <string name="emailIntro">Hola, me gustaria contactar con usted para saber si podria ser posible</string>
+    <string name="accomodationInfo">Informacion del alojamiento</string>
+    <string name="bookingInformation">Informacion de la reserva</string>
 </resources>
