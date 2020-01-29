@@ -318,11 +318,19 @@ public class Base extends AppCompatActivity {
         if(validarDatosBusqueda()) {
             cerrarBusqueda();
             if(itemSeleccionado instanceof Alojamiento) {
-                //TO-DO
+                abrirAlojamiento();
             }else if(itemSeleccionado instanceof String) {
                 buscarPorLocalizacion();
             }
         }
+    }
+
+    private void abrirAlojamiento() {
+        Intent intent = new Intent(this, HotelInfo.class);
+        intent.putExtra("alojamiento",(Alojamiento)itemSeleccionado);
+        intent.putExtra("fechaEntrada",fechaEntrada);
+        intent.putExtra("fechaSalida",fechaSalida);
+        startActivity(intent);
     }
 
     private boolean validarDatosBusqueda() {
