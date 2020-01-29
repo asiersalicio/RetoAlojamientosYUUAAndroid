@@ -99,6 +99,7 @@ public class Register extends AppCompatActivity {
             Consultas consultas = new Consultas();
             Request peticion= consultas.prepararInsertHibernate(Usuario.class, new Object[]{usuario});
             consultas.devolverResultadoPeticionBoolean(peticion);
+            finish();
         }
         else
         {

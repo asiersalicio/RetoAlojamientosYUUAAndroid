@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.yuua.alojamientosyuua.LoginLogOut;
 import com.yuua.alojamientosyuua.ObjetoGenerico;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.Sistema;
@@ -81,7 +82,12 @@ public class Base extends AppCompatActivity {
         inflater.inflate(R.menu.toolbar_base, menu);
 
         btnCerrarSesion=menu.findItem(R.id.btnCerrarSesionToolbar);
-        if(Sistema.user==null)
+        if(Sistema.user!=null)
+        {
+            btnCerrarSesion.setVisible(true);
+            establecerDatosUsuario();
+        }
+        else
         {
             btnCerrarSesion.setVisible(false);
         }
@@ -104,7 +110,7 @@ public class Base extends AppCompatActivity {
     }
 
     private void cerrarSesion() {
-        Sistema.user=null;
+        LoginLogOut.cerrarSesion(this);
         Intent intentMain = new Intent(this, MainActivity.class);
         startActivity(intentMain);
         finish();
@@ -300,7 +306,7 @@ public class Base extends AppCompatActivity {
             Usuario user = Sistema.user;
             BottomNavigationView bottomNavigationView = findViewById(R.id.bottomnavigationview);
             bottomNavigationView.getMenu().getItem(2).setTitle(user.getNombreUsuario());
-            btnCerrarSesion.setVisible(true);
+            findViewById(R.id.btnCerrarSesionToolbar);
         }
     }
 

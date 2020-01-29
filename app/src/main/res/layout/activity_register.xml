@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView7">
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/keepLoggedRegister"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -74,7 +74,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox"
+            app:layout_constraintTop_toBottomOf="@+id/keepLoggedRegister"
             app:layout_constraintVertical_bias="0.64" />
 
         <EditText

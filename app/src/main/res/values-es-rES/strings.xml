@@ -43,4 +43,5 @@
     <string name="incorrectUserAndPassword">Usuario o contraseña incorrecta</string>
     <string name="theAccommodationHasBeenBooked">¡El alojamiento ha sido reservado!</string>
     <string name="bookingNumber">Reserva Nº:</string>
+    <string name="youHaveBeenLogged">Te has logeado</string>
 </resources>

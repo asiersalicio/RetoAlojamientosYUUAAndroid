@@ -49,6 +49,7 @@
     <string name="incorrectUserAndPassword">Incorrect user or password</string>
     <string name="theAccommodationHasBeenBooked">The accommodation has been booked!</string>
     <string name="bookingNumber">Booking number:</string>
+    <string name="youHaveBeenLogged">You have been logged</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

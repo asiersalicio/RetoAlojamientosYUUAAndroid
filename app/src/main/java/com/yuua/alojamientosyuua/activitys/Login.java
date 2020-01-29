@@ -1,9 +1,11 @@
 package com.yuua.alojamientosyuua.activitys;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.yuua.alojamientosyuua.LoginLogOut;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.entidades.Usuario;
@@ -29,6 +32,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     private GoogleApiClient apiClient;
     private SignInButton signInButton;
     private static int RC_SIGN_IN = 1;
+    private CheckBox keekLoged;
 
     private EditText etLoginUser, etLoginPass;
 
@@ -59,6 +63,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         etLoginUser=findViewById(R.id.loginUser);
         etLoginPass=findViewById(R.id.loginPass);
+        keekLoged=findViewById(R.id.keepLoggedLogin);
 
 
     }
@@ -113,15 +118,17 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         Request peticionUsuario = consultar.prepararQueryHibernate(Consultas.QUERY_CON_CONDICIONES, Usuario.class, new String[]{"nombreUsuario","contrasena"}, new String[]{etLoginUser.getText().toString(),loginPassEncrypted});
         resultadosBusqueda = (ArrayList<Object>)consultar.devolverResultadoPeticion(peticionUsuario,Usuario.class);
 
-
-
-        if(resultadosBusqueda.size()>0)
+        if(resultadosBusqueda.size()==1)
         {
-            if(resultadosBusqueda != null) {
-                Sistema.user = (Usuario) resultadosBusqueda.get(0);
-                Toast.makeText(this, "Te has logeado", Toast.LENGTH_LONG).show();
-                finish();
+            Sistema.user = (Usuario) resultadosBusqueda.get(0);
+            Toast.makeText(this, getString(R.string.youHaveBeenLogged), Toast.LENGTH_LONG).show();
+            if(keekLoged.isChecked())
+            {
+                System.out.println("Guardando usuario persistente");
+                LoginLogOut.guardarLogin(this, Sistema.user.getIdDni(),Sistema.user.getContrasena());
             }
+            finish();
+
         }
         else
         {
@@ -129,6 +136,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         }
 
     }
+
 
 
 }
