@@ -70,6 +70,8 @@
     <string name="all">All</string>
     <string name="deleteBookingError">Delete booking error</string>
     <string name="bookingDeleted">Booking deleted</string>
+    <string name="hello">Hello</string>
+    <string name="yourData">Your data</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

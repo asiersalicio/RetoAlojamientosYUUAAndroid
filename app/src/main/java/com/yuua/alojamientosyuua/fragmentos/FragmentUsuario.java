@@ -38,7 +38,6 @@ public class FragmentUsuario extends Fragment {
     }
 
     private void inicializar() {
-        boton=view.findViewById(R.id.botonPrueba);
     }
 
     private void anadirListeners() {

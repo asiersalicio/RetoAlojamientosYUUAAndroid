@@ -64,4 +64,6 @@
     <string name="all">Todos</string>
     <string name="deleteBookingError">Error al borrar la reserva</string>
     <string name="bookingDeleted">Reserva borrada</string>
+    <string name="hello">Hola</string>
+    <string name="yourData">Tus datos</string>
 </resources>
