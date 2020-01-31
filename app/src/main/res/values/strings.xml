@@ -63,6 +63,13 @@
     <string name="accomodationInfo">Accomodation information</string>
     <string name="bookingInformation">Booking information</string>
     <string name="webNotAvailable">Web not available</string>
+    <string name="price">Price</string>
+    <string name="capacity">Capacity</string>
+    <string name="upward">Upward</string>
+    <string name="falling">Falling</string>
+    <string name="all">All</string>
+    <string name="deleteBookingError">Delete booking error</string>
+    <string name="bookingDeleted">Booking deleted</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

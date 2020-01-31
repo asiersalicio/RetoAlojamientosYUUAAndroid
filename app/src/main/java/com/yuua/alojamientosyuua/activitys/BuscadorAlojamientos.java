@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yuua.alojamientosyuua.R;
-import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.adaptadores.ItemSearchResultAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.net.Consultas;

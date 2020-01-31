@@ -18,6 +18,7 @@ public class Consultas {
     public static final int QUERY_CON_CONDICIONES_LIKE=65;
     public static final int QUERY_DISTINCT_MUNICIPIOS=80;
     public static final int QUERY_ALOJAMIENTOS_ENTRE_FECHAS_CIUDAD=20;
+    public static final int QUERY_DELETE=120;
 
     public Request prepararInsertHibernate(Class clase ,Object[] objeto) {
         String nombreSimple = clase.getSimpleName();
@@ -35,6 +36,11 @@ public class Consultas {
 
     public Request buscarAlojamientosReservadosPorDni(String dni){
         Request peticion = new Request(90, new Object[]{dni});
+        return  peticion;
+    }
+
+    public Request queryCampoDistinct(Class clase,String campo){
+        Request peticion = new Request(70, new Object[]{clase.getSimpleName(),campo});
         return  peticion;
     }
 

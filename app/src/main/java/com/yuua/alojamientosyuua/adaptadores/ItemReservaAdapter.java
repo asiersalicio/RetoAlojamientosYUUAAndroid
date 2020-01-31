@@ -1,6 +1,5 @@
 package com.yuua.alojamientosyuua.adaptadores;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,10 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.yuua.alojamientosyuua.ObjetoGenerico;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.activitys.InfoReservas;
-import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.entidades.Reserva;
 
 import java.util.ArrayList;

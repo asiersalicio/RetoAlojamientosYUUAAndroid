@@ -57,4 +57,11 @@
     <string name="accomodationInfo">Informacion del alojamiento</string>
     <string name="bookingInformation">Informacion de la reserva</string>
     <string name="webNotAvailable">Web no disponible</string>
+    <string name="capacity">Capacidad</string>
+    <string name="price">Precio</string>
+    <string name="falling">Descendente</string>
+    <string name="upward">Ascendente</string>
+    <string name="all">Todos</string>
+    <string name="deleteBookingError">Error al borrar la reserva</string>
+    <string name="bookingDeleted">Reserva borrada</string>
 </resources>

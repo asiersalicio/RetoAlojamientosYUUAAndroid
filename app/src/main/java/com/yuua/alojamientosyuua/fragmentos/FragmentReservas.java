@@ -1,7 +1,6 @@
 package com.yuua.alojamientosyuua.fragmentos;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.activitys.Base;
-import com.yuua.alojamientosyuua.adaptadores.ItemCardAlojAdapter;
 import com.yuua.alojamientosyuua.adaptadores.ItemReservaAdapter;
-import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.entidades.Reserva;
-import com.yuua.alojamientosyuua.entidades.Usuario;
 import com.yuua.alojamientosyuua.net.Consultas;
 import com.yuua.reto.net.Request;
 
@@ -45,24 +41,24 @@ public class FragmentReservas extends Fragment {
         return view;
     }
 
-    private void inicializar() {
-
-        recyclerView=view.findViewById(R.id.recyclerViewReservas);
-
+    @Override
+    public void onResume(){
+        super.onResume();
         Consultas consultas = new Consultas();
         Request peticionReservas = consultas.buscarAlojamientosReservadosPorDni(Sistema.user.getIdDni());
-
         ArrayList<Reserva> reservas=new ArrayList<Reserva>();
         reservas=(ArrayList<Reserva>) consultas.devolverResultadoPeticion(peticionReservas, Reserva.class);
-
-
 
         LinearLayoutManager llm = new LinearLayoutManager(Base.contexto);
 
         recyclerView.setLayoutManager(Base.llm);
         ItemReservaAdapter adapter = new ItemReservaAdapter(Base.contexto, reservas);
         recyclerView.setAdapter(adapter);
+    }
 
+    private void inicializar() {
+
+        recyclerView=view.findViewById(R.id.recyclerViewReservas);
     }
 
 

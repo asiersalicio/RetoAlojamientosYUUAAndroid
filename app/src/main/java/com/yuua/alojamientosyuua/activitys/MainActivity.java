@@ -3,7 +3,6 @@ package com.yuua.alojamientosyuua.activitys;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -11,14 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.yuua.alojamientosyuua.LoginLogOut;
 import com.yuua.alojamientosyuua.R;
-import com.yuua.alojamientosyuua.Sistema;
-import com.yuua.alojamientosyuua.entidades.Reserva;
-import com.yuua.alojamientosyuua.entidades.Usuario;
-import com.yuua.alojamientosyuua.net.Consultas;
-import com.yuua.reto.net.Request;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -3,18 +3,22 @@ package com.yuua.alojamientosyuua.activitys;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yuua.alojamientosyuua.R;
-import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.adaptadores.ItemCardAlojAdapter;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
 import com.yuua.alojamientosyuua.entidades.Reserva;
+import com.yuua.alojamientosyuua.net.Consultas;
+import com.yuua.reto.net.Request;
 
 import java.util.ArrayList;
+
+import javax.xml.datatype.Duration;
 
 public class InfoReservas extends AppCompatActivity {
 
@@ -55,6 +59,16 @@ public class InfoReservas extends AppCompatActivity {
 
     public void btnCancelarReserva(View view)
     {
-
+        Consultas consultas = new Consultas();
+        Request peticion = consultas.prepararQueryHibernate(Consultas.QUERY_DELETE,Reserva.class,new String[]{"id"},new String[]{String.valueOf(reserva.getId())});
+        if(consultas.devolverResultadoPeticionBoolean(peticion))
+        {
+            Toast.makeText(this,getString(R.string.bookingDeleted), Toast.LENGTH_LONG).show();
+            finish();
+        }
+        else
+        {
+            Toast.makeText(this, getString(R.string.deleteBookingError), Toast.LENGTH_LONG).show();
+        }
     }
 }

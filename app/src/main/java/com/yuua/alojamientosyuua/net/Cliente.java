@@ -39,9 +39,11 @@ public class Cliente implements Runnable {
                 //Buscar alojamientos disponibles por fechas
                 case 31:
                     jsonResultado = (String) peticion.getObjetoEnviado();
+                    break;
                 //Respuesta consulta fechas aloj
                 case 41:
                     booleanResultado=(boolean) peticion.getObjetoEnviado();
+                    break;
                 //Respuesta insert - boolean
                 case 51:
                     booleanResultado = (boolean) peticion.getObjetoEnviado();
@@ -51,6 +53,7 @@ public class Cliente implements Runnable {
                     jsonResultado = (String) peticion.getObjetoEnviado();
                     break;
                 case 71:
+                    jsonResultado = (String) peticion.getObjetoEnviado();
                     break;
                 //Respuesta distinct - strings
                 case 81:
@@ -58,6 +61,9 @@ public class Cliente implements Runnable {
                     break;
                 case 91:
                     jsonResultado = (String) peticion.getObjetoEnviado();
+                    break;
+                case 121:
+                    booleanResultado=(boolean) peticion.getObjetoEnviado();
                     break;
                 default:
                     break;

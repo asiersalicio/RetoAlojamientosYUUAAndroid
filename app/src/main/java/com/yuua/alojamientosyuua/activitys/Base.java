@@ -30,7 +30,6 @@ import com.yuua.alojamientosyuua.ObjetoGenerico;
 import com.yuua.alojamientosyuua.R;
 import com.yuua.alojamientosyuua.Sistema;
 import com.yuua.alojamientosyuua.entidades.Alojamiento;
-import com.yuua.alojamientosyuua.entidades.Localizacion;
 import com.yuua.alojamientosyuua.entidades.Usuario;
 import com.yuua.alojamientosyuua.fragmentos.FragmentAlojPorCiudad;
 import com.yuua.alojamientosyuua.fragmentos.FragmentInicio;
