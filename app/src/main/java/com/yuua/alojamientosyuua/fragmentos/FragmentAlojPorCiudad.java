@@ -105,14 +105,13 @@ public class FragmentAlojPorCiudad extends Fragment implements Runnable{
                         if(ordenAlocPorLoc.getSelectedItemPosition()==0)
                         {
                             System.out.println("ASCENDENTE");
-                            FiltrosArrayList.ordenarArrayAlojamiento(alojamientos,FiltrosArrayList.NOMBRE,FiltrosArrayList.ASCENDETE);
+                            FiltrosArrayList.ordenarAlojamientosPorNombre(alojamientos,FiltrosArrayList.ASCENDENTE);
                         }
                         else
                         {
                             System.out.println("DESCENDENTE");
-                            FiltrosArrayList.ordenarArrayAlojamiento(alojamientos,FiltrosArrayList.NOMBRE,FiltrosArrayList.DESCENDENTE);
+                            FiltrosArrayList.ordenarAlojamientosPorNombre(alojamientos,FiltrosArrayList.DESCENDENTE);
                         }
-
 
 
                         break;

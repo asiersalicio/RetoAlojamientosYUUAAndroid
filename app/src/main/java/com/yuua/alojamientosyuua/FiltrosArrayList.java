@@ -9,7 +9,7 @@ import java.util.Comparator;
 
 public class FiltrosArrayList {
 
-    public static final int ASCENDETE=0,DESCENDENTE=1;
+    public static final int ASCENDENTE=0,DESCENDENTE=1;
     public static final int TIPO=0;
     public static final int NOMBRE=0, PRECIO=1, CAPACIDAD=2;
 
@@ -63,6 +63,44 @@ public class FiltrosArrayList {
         }
 
         return alojamientos;
+    }
+
+
+
+    public static void ordenarAlojamientosPorNombre(ArrayList<Alojamiento> alojs, int forma) {
+        for (int i = 0; i < alojs.size() - 1; i++) {
+            for (int j = 0; j < alojs.size() - i - 1; j++) {
+                if (alojs.get(j+1).equals(compararStringsRec(alojs.get(j).getNombre(), alojs.get(j+1).getNombre(), 0))) {
+                    Alojamiento temp = alojs.get(j+1);
+                    alojs.set(j+1,alojs.get(j));
+                    alojs.set(j, temp);
+                }
+            }
+        }
+        if(forma==ASCENDENTE) {
+            Collections.reverse(alojs);
+        }
+    }
+
+    public static String compararStringsRec(String cadena1, String cadena2, int indice) {
+        if (cadena1.length() <= indice) {
+            if (cadena2.length() <= indice) {
+                return cadena1;
+            } else {
+                return cadena2;
+            }
+        } else if (cadena2.length() <= indice) {
+            return null;
+        } else {
+            if (cadena1.charAt(indice) > cadena2.charAt(indice)) {
+                return cadena1;
+            } else if (cadena1.charAt(indice) < cadena2.charAt(indice)) {
+                return cadena2;
+            }else if (cadena1.charAt(indice) == cadena2.charAt(indice)){
+                return compararStringsRec(cadena1, cadena2, indice+1);
+            }
+        }
+        return cadena1;
     }
 
 
