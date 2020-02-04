@@ -41,12 +41,6 @@ public class FragmentUsuario extends Fragment {
     }
 
     private void anadirListeners() {
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iniciarSesion();
-            }
-        });
     }
 
 
